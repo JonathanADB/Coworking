@@ -5,9 +5,6 @@
 /dist
 /build
 
-# Archivos de entorno
-.env
-
 # Archivos de configuración local
 /config/local.js
 
