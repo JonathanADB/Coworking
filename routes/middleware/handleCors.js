@@ -16,7 +16,6 @@ const handleCors = (req, res, next) => {
     corsOptions.methods = ['GET', 'POST'];
   }
 
-  // Configurar middleware de CORS con las opciones determinadas
   cors(corsOptions)(req, res, next);
 };
 
