@@ -27,3 +27,6 @@
 # Archivos generados por el sistema operativo
 .DS_Store
 Thumbs.db
+
+# Archivos de entorno
+.env
