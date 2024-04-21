@@ -5,14 +5,14 @@ import handleCors from './routes/middleware/handleCors';
 import handleFileUpload from './routes/middleware/handleFileUpload';
 import notFoundHandler from './routes/middleware/notFoundHandler';
 import serveStatic from './routes/middleware/serveStatic';
-// Middleware Daniela
+import authenticate from './routes/middleware/authenticateTokenUser';
 import routes from './routes/routes';
 
 const app = express();
 
 app.use(handleCors);
 app.use(bodyParser);
-// Middleware Daniela
+app.use(authenticate);
 app.use(handleFileUpload);
 app.use(serveStatic);
 
