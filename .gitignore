@@ -1,5 +1,6 @@
 # Dependencias
 /node_modules
+.env
 
 # Archivos de compilación
 /dist
@@ -27,8 +28,3 @@
 # Archivos generados por el sistema operativo
 .DS_Store
 Thumbs.db
-
-# Archivos de entorno
-.env
-
-# Prueba
