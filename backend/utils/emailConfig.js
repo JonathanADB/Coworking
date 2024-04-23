@@ -1,4 +1,4 @@
-// emailConfig.js jhonny
+
 
 const nodemailer = require('nodemailer');
 
@@ -11,4 +11,4 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-module.exports = transporter;
+export default transporter;

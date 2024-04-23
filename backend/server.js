@@ -1,12 +1,12 @@
-import express from 'express';
-import bodyParser from './routes/middleware/bodyParser';
-import errorHandler from './routes/middleware/errorHandler';
-import handleCors from './routes/middleware/handleCors';
-import handleFileUpload from './routes/middleware/handleFileUpload';
-import notFoundHandler from './routes/middleware/notFoundHandler';
-import serveStatic from './routes/middleware/serveStatic';
-import authenticate from './routes/middleware/authenticateTokenUser';
-import routes from './routes/routes';
+import express, { Router } from "express";
+import bodyParser from "./routes/middleware/bodyParser.js";
+import errorHandler from "./routes/middleware/errorHandler.js";
+import handleCors from "./routes/middleware/handleCors.js";
+import handleFileUpload from "./routes/middleware/handleFileUpload.js";
+import notFoundHandler from "./routes/middleware/notFoundHandler.js";
+import serveStatic from "./routes/middleware/serveStatic.js";
+import authenticate from "./routes/middleware/authenticateTokenUser.js";
+
 
 const app = express();
 
@@ -16,7 +16,11 @@ app.use(authenticate);
 app.use(handleFileUpload);
 app.use(serveStatic);
 
-app.use('/api', routes);
+app.get("/", (req, res) => {
+  res.send("¡Hola, mundo desde Express!");
+});
+
+app.use(Router);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

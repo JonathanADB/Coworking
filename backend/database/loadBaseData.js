@@ -33,6 +33,7 @@ export async function loadBaseData(db) {
       description:
         "Espacio dedicado a reuniones y trabajos en grupo de hasta un máximo de 10 personas cuenta con el equipamiento necesario para el correcto desarrollo de las mismas",
       capacity: 10,
+      typeOf: "Privada",
     },
     {
       id: crypto.randomUUID(),
@@ -40,6 +41,7 @@ export async function loadBaseData(db) {
       description:
         "Espacio dedicado a reuniones y trabajos en grupo de hasta un máximo de 6 personas cuenta con el equipamiento necesario para el correcto desarrollo de las mismas",
       capacity: 6,
+      typeOf: "Privada",
     },
     {
       id: crypto.randomUUID(),
@@ -47,14 +49,15 @@ export async function loadBaseData(db) {
       description:
         "Espacio común dedicado a trabajos en grupo con un aforo para 20 personas",
       capacity: 20,
+      typeOf: "Pública",
     },
   ];
 
   for (const room of rooms) {
     console.log(`Insertando información de ${chalk.bgCyan(`${room.name}`)}`);
     await db.query(
-      `INSERT INTO rooms (id, name, description, capacity) VALUES (?, ?, ?, ?)`,
-      [room.id, room.name, room.description, room.capacity]
+      `INSERT INTO rooms (id, name, description, capacity, typeOf) VALUES (?, ?, ?, ?, ?)`,
+      [room.id, room.name, room.description, room.capacity, room.typeOf]
     );
   }
   console.log(chalk.bgGreen("Salas iniciales cargados!"));

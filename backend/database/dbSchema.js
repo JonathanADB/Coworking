@@ -17,6 +17,12 @@ export async function dbSchema(db) {
 
   // BORRO LAS TABLAS SI EXISTEN
   console.log(chalk.blue("Borrando las tablas"));
+  await db.query(`DROP TABLE IF EXISTS incidents`);
+  console.log(chalk.red(`Tabla ${chalk.bgRed(`incidents`)} borrada!`));
+  await db.query(`DROP TABLE IF EXISTS reviews`);
+  console.log(chalk.red(`Tabla ${chalk.bgRed(`reviews`)} borrada!`));
+  await db.query(`DROP TABLE IF EXISTS equipmentRooms`);
+  console.log(chalk.red(`Tabla ${chalk.bgRed(`equipmentRooms`)} borrada!`));
   await db.query(`DROP TABLE IF EXISTS equipment`);
   console.log(chalk.red(`Tabla ${chalk.bgRed(`equipment`)} borrada!`));
   await db.query(`DROP TABLE IF EXISTS media`);
@@ -49,7 +55,7 @@ export async function dbSchema(db) {
     name VARCHAR(16) UNIQUE NOT NULL,
     description TEXT NOT NULL,
     capacity TINYINT UNSIGNED NOT NULL,
-    rating TINYINT UNSIGNED,
+    typeOf CHAR(7) NOT NULL,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME,
     deletedAt DATETIME
@@ -92,14 +98,56 @@ export async function dbSchema(db) {
     name VARCHAR(16) UNIQUE NOT NULL,
 	  description TEXT NOT NULL,
     inventory TINYINT UNSIGNED NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME,
+    deletedAt DATETIME
+  )`);
+  console.log(chalk.green(`Tabla ${chalk.bgGreen(`equipment`)} creada!`));
+
+  // CREO LA TABLA EQUIPMENTROOMS
+  await db.query(`CREATE TABLE equipmentRooms(
+	  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
+    equipmentId CHAR(36) UNIQUE NOT NULL,
     roomId CHAR(36) UNIQUE NOT NULL,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME,
     deletedAt DATETIME,
     
+    FOREIGN KEY (equipmentId) REFERENCES equipment(id),
     FOREIGN KEY (roomId) REFERENCES rooms(id)
   )`);
-  console.log(chalk.green(`Tabla ${chalk.bgGreen(`equipment`)} creada!`));
+  console.log(chalk.green(`Tabla ${chalk.bgGreen(`equipmentRooms`)} creada!`));
+
+  // CREO LA TABLA REVIEWS
+  await db.query(`CREATE TABLE reviews(
+	  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
+    rate TINYINT UNSIGNED NOT NULL,
+    description TEXT,
+    reservationId CHAR(36) UNIQUE NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME,
+    deletedAt DATETIME,
+    
+    FOREIGN KEY (reservationId) REFERENCES reservations(id)
+  )`);
+  console.log(chalk.green(`Tabla ${chalk.bgGreen(`reviews`)} creada!`));
+
+  // CREO LA TABLA INCIDENTS
+  await db.query(`CREATE TABLE incidents(
+	  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
+    description TEXT NOT NULL,
+    userId CHAR(36) UNIQUE NOT NULL,
+    roomId CHAR(36) UNIQUE,
+    equipmentId CHAR(36) UNIQUE,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME,
+    deletedAt DATETIME,
+    
+    FOREIGN KEY (equipmentId) REFERENCES equipment(id),
+    FOREIGN KEY (userId) REFERENCES users(id),
+    FOREIGN KEY (roomId) REFERENCES rooms(id)
+  )`);
+  console.log(chalk.green(`Tabla ${chalk.bgGreen(`incidents`)} creada!`));
 
   console.log(
     chalk.bgGreen(`Proceso de creación de la base de datos terminada`)
