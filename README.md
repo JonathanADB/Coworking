@@ -72,5 +72,6 @@ Durante este sprint estamos llevando a cabo las siguientes competencias:
 
 Para arrancar el backend, deberemos realizar los siguientes pasos:
 
-    1.  Abrir una terminal de comandos y situarnos en la ruta, current directory, en la que se encuentra la carpeta "backend".
-    2.  Instalar las dependencias del proyecto haciendo uso del comando:
+1.  Abrir una terminal de comandos y situarnos en la ruta, current directory, en la que se encuentra la carpeta "backend".
+2.  Instalar las dependencias del proyecto haciendo uso del comando:
+    -  npm install    
