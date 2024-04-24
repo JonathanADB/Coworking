@@ -6,7 +6,7 @@ const pool = getPool();
 
 export const changePassword = Router();
 
-changePassword.patch('/change-password', async (req, res, next) => {
+changePassword.patch("/change-password", async (req, res, next) => {
   try {
     const { userId, currentPassword, newPassword } = req.body;
 

@@ -1,16 +1,14 @@
  // Endpoint para reservar y cancelar un espacio
 
-import express from 'express';
-import router from 'express-promise-router';
+import { Router } from 'express';
+//import router from 'express-promise-router';
 import joi from 'joi';
 import Reservation from '../../models/Reservation.js';
 
+const reservationRouter = Router();
 
-const app = express();
 
-app.use('/api', router);
-
-router.post('/reserve', async (req, res) => {
+reservationRouter.post('/reserve', async (req, res) => {
     const schema = joi.object().keys({
         spaceId: joi.string().required(),
         userId: joi.string().required(),
@@ -29,11 +27,11 @@ router.post('/reserve', async (req, res) => {
     return res.status(200).json(reservation);
 });
 
-router.post('/cancel', async (req, res) => {
+reservationRouter.post('/cancel', async (req, res) => {
     const schema = joi.object().keys({
         reservationId: joi.string().required()
     });
-
+    
     const { error, value } = joi.validate(req.body, schema);
 
     if (error) {
@@ -46,4 +44,4 @@ router.post('/cancel', async (req, res) => {
 });
 
 
-export default router;
+export default reservationRouter;
