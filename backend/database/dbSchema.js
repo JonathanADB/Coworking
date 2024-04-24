@@ -65,9 +65,11 @@ export async function dbSchema(db) {
   // CREO LA TABLA RESERVATIONS
   await db.query(`CREATE TABLE reservations(
 	  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
-    reservationDate DATETIME NOT NULL,
-    userId CHAR(36) UNIQUE NOT NULL,
-    roomId CHAR(36) UNIQUE NOT NULL,
+    reservationDateBeg DATETIME NOT NULL,
+    reservationDateEnd DATETIME NOT NULL,
+    reservationCheckin BOOLEAN DEFAULT false,
+    userId CHAR(36) NOT NULL,
+    roomId CHAR(36) NOT NULL,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME,
     deletedAt DATETIME,
