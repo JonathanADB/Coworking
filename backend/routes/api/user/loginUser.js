@@ -3,10 +3,10 @@ import jwt from "jsonwebtoken";
 import { Router } from "express";
 import { validateLoginRequest } from "../../../validations/validateLoginRequest.js";
 import { getPool } from "../../../database/getPool.js";
-import bcrypt from "bcrypt";
 
 const router = Router();
 const { JWT_SECRET } = process.env;
+
 let pool = getPool();
 
 router.post("/login", async (req, res, next) => {
@@ -15,17 +15,7 @@ router.post("/login", async (req, res, next) => {
     const query = " SELECT * FROM users WHERE email= ? OR username= ?";
     const [[user]] = await pool.execute(query, [email, username]);
 
-    
     if (!user) throw new Error("Usuario no encontrado");
-
-    const matchPassword = await bcrypt.compare(password, user.password);
-        if (!matchPassword) {
-            return res.status(401).json({
-                success: false,
-                message: "Contraseña incorrecta",
-            });
-        }
-
     const token = jwt.sign(
       {
         id: user.id,
