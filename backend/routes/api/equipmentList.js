@@ -3,6 +3,7 @@ import { getPool } from "../../database/getPool.js";
 import { validateEquipmentEditRequest } from "../../validations/validateEquipmentEdition.js";
 import { validateEquipmentId } from "../../validations/validateEquipmentId.js";
 import authenticate from "../middleware/authenticateTokenUser.js";
+import isAdmin from "../middleware/isAdmin.js";
 
 const dbPool = getPool();
 
@@ -54,7 +55,7 @@ equipmentRouter.get("equipment/:equipmentId", async (req, res, next) => {
   }
 });
 
-equipmentRouter.post("/equipment/add", authenticate, async (req, res, next) => {
+equipmentRouter.post("/equipment/add",authenticate, isAdmin, async (req, res, next) => {
   try {
     const { name, description, inventory } = req.body;
 
