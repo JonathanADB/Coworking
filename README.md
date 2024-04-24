@@ -62,11 +62,11 @@ Durante este sprint estamos llevando a cabo las siguientes competencias:
     - [ ] Endpoint listado de espacios con filtro/búsqueda y ordenación.
     - [ ] Endpoint visualización del espacio.
 
-  Varios
+  - Varios
 
-      -   [] Validar el body de la petición con Joi en todos los endpoints.
-      -   [] Colección de Postman con los endpoints implementados.
-      -   [] Creación de un fichero README.md
+    - [ ] Validar el body de la petición con Joi en todos los endpoints.
+    - [ ] Colección de Postman con los endpoints implementados.
+    - [ ] Creación de un fichero README.md
 
 ### Pasos para arrancar el backend
 
