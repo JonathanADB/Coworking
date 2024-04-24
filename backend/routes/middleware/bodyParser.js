@@ -1,6 +1,6 @@
 const bodyParser = (req, res, next) => {
 
-    if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH') {
+    if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH'|| req.method === 'GET') {
       let data = '';
   
       req.on('data', chunk => {
