@@ -1,22 +1,44 @@
-const express = require('express');
-const router = express.Router();
-const bcrypt = require('bcrypt');
+import { Router } from 'express';
+import { getPool } from '../../../database/getPool.js';
+import { hash } from 'bcrypt';
 
+const router = Router();
+const pool = getPool();
 
-
-// Ruta para manejar la solicitud de cambio de contraseña
-router.post('/change-password', async (req, res) => {
+router.post('/change-password', async (req, res, next) => {
   try {
-    const { email, token, newPassword } = req.body;
+    const { userId, currentPassword, newPassword } = req.body;
 
-   
+    const [user] = await pool.query('SELECT * FROM users WHERE id = ?', [
+      userId,
+    ]);
 
-    // Respondemos al cliente con un mensaje indicando que la contraseña ha sido cambiada exitosamente
-    res.status(200).json({ message: '¡Tu contraseña ha sido cambiada exitosamente!' });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'Usuario no encontrado' });
+    }
+
+    const passwordMatch = await bcrypt.compare(currentPassword, user.password);
+
+    if (!passwordMatch) {
+      return res.status(400).json({
+        success: false,
+        message: 'La contraseña actual es incorrecta',
+      });
+    }
+
+    const hashedNewPassword = await hash(newPassword, 12);
+
+    await pool.execute('UPDATE users SET password = ? WHERE id = ?', [
+      hashedNewPassword,
+      userId,
+    ]);
+
+    res.json({ success: true, message: 'Contraseña actualizada exitosamente' });
   } catch (error) {
-    console.error('Error al procesar la solicitud de cambio de contraseña:', error);
-    res.status(500).json({ error: 'Ha ocurrido un error al procesar la solicitud de cambio de contraseña.' });
+    next(error);
   }
 });
 
-module.exports = router;
+export default router;
