@@ -64,19 +64,19 @@ export async function dbSchema(db) {
 
   // CREO LA TABLA RESERVATIONS
   await db.query(`CREATE TABLE reservations(
-	  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
-    reservationDateBeg DATETIME NOT NULL,
-    reservationDateEnd DATETIME NOT NULL,
-    reservationCheckin BOOLEAN DEFAULT false,
-    userId CHAR(36) NOT NULL,
-    roomId CHAR(36) NOT NULL,
-    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updatedAt DATETIME,
-    deletedAt DATETIME,
-    
-    FOREIGN KEY (userId) REFERENCES users(id),
-    FOREIGN KEY (roomId) REFERENCES rooms(id)
-  )`);
+    id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
+  reservationDateBeg DATETIME NOT NULL,
+  reservationDateEnd DATETIME NOT NULL,
+  reservationCheckin BOOLEAN DEFAULT false,
+  userId CHAR(36) NOT NULL,
+  roomId CHAR(36) NOT NULL,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updatedAt DATETIME,
+  deletedAt DATETIME,
+  
+  FOREIGN KEY (userId) REFERENCES users(id),
+  FOREIGN KEY (roomId) REFERENCES rooms(id)
+)`);
   console.log(chalk.green(`Tabla ${chalk.bgGreen(`reservations`)} creada!`));
 
   // CREO LA TABLA MEDIA

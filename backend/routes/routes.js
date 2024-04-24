@@ -12,7 +12,7 @@ import { roomsTypesRouter } from "./api/roomsTypes.js";
 import { categoryIncidentsRouter } from "./api/categoryIncidents.js";
 import { reviewController } from "./api/reviewController.js";
 import { roomsController } from "./api/roomsController.js";
-import reservationRouter from "./api/reservationSpace.js";
+//import reservationRouter from "./api/reservationSpace.js";
 
 const router = express.Router();
 
@@ -23,7 +23,7 @@ router.use(forgotPassword);
 router.use(changePassword);
 //router.use(confirmationRejection);
 //router.use(createSpace);
-router.use(reservationRouter);
+//router.use(reservationRouter);
 router.use(equipmentRouter);
 router.use(roomsTypesRouter);
 router.use(categoryIncidentsRouter);
