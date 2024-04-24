@@ -15,7 +15,7 @@
 
 Actualmente nos encontramos en pleno desarrollo de la aplicación. Sprint 1.
 
-### Sprint 1
+### Sprint 1 (15/04 - 25/04)
 
 Durante este sprint estamos llevando a cabo las siguientes competencias:
 
@@ -37,30 +37,30 @@ Durante este sprint estamos llevando a cabo las siguientes competencias:
 
   - Middlewares
 
-    - [ ] Middleware 404 not found.
-    - [ ] Middleware gestión de errores.
-    - [ ] Middleware parseo del body de la petición.
-    - [ ] Middleware upload de files.
-    - [ ] Middleware definición directorio recursos estáticos (imágenes).
-    - [ ] Middleware: cors.
-    - [ ] Middleware verificación de autenticación de usuarios.
+    - [] Middleware 404 not found.
+    - [] Middleware gestión de errores.
+    - [] Middleware parseo del body de la petición.
+    - [] Middleware upload de files.
+    - [] Middleware definición directorio recursos estáticos (imágenes).
+    - [] Middleware: cors.
+    - [] Middleware verificación de autenticación de usuarios.
 
   - Endpoints
 
-    - [ ] Endpoint registro de usuarios.
-    - [ ] Endpoint validación de usuario.
-    - [ ] Endpoint login de usuarios.
-    - [ ] Endpoint recuperación de contraseña.
-    - [ ] Endpoint cambio de contraseña.
-    - [ ] Endpoint lista categorías de incidencias.
-    - [ ] Endpoint lista de equipamiento.
-    - [ ] Endpoint lista tipo de espacio.
-    - [ ] Endpoint creación de un espacio al completo (solo admin).
-    - [ ] Endpoint para reservar y cancelar la reserva de un espacio.
-    - [ ] Endpoint para confirmar o rechazar la reserva con envío de e-mail al cliente (solo admin).
-    - [ ] Endpoint rating del espacio después de su uso (de 1 a 5).
-    - [ ] Endpoint listado de espacios con filtro/búsqueda y ordenación.
-    - [ ] Endpoint visualización del espacio.
+    - [] Endpoint registro de usuarios.
+    - [] Endpoint validación de usuario.
+    - [] Endpoint login de usuarios.
+    - [] Endpoint recuperación de contraseña.
+    - [] Endpoint cambio de contraseña.
+    - [] Endpoint lista categorías de incidencias.
+    - [] Endpoint lista de equipamiento.
+    - [] Endpoint lista tipo de espacio.
+    - [] Endpoint creación de un espacio al completo (solo admin).
+    - [] Endpoint para reservar y cancelar la reserva de un espacio.
+    - [] Endpoint para confirmar o rechazar la reserva con envío de e-mail al cliente (solo admin).
+    - [] Endpoint rating del espacio después de su uso (de 1 a 5).
+    - [] Endpoint listado de espacios con filtro/búsqueda y ordenación.
+    - [] Endpoint visualización del espacio.
 
   - Varios
 
@@ -74,6 +74,22 @@ Para arrancar el backend, deberemos realizar los siguientes pasos:
 
 1.  Abrir una terminal de comandos y situarnos en la ruta, current directory, en la que se encuentra la carpeta "backend".
 2.  Instalar las dependencias del proyecto haciendo uso del comando:
+
 ```
     npm install
-```   
+```
+
+3.  Configurar el archivo de entorno .env.
+4.  Inicializar la base de datos del proyecto ejecutando el siguiente comando:
+
+```
+    npm run init-db
+```
+
+5. Arrancar el servidor ejecutando el siguiente comando:
+
+```
+    npm run start
+```
+
+A partir de este momento, ya será posible testear el servidor mediante POSTMAN.
