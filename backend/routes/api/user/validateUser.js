@@ -24,6 +24,7 @@ router.post("/validate",authenticate, async (req, res, next) => {
     // Verifica el token usando la clave secreta
     let decoded;
     try {
+      
       decoded = jwt.verify(token, JWT_SECRET);
     } catch (err) {
       throw new Error("Token de autenticación invalido o vencido");
