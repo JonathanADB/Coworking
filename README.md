@@ -21,15 +21,17 @@ Durante este sprint estamos llevando a cabo las siguientes competencias:
 
 - Análisis
 
-  - [x] Análisis Funcional (Consultar documento "ANÁLISIS FUNCIONAL GESTIÓN DE COWORKING 1.0")
-  - [x] Diseño del Wireframe ("Consultar documento "WIREFRAME COWORKING)
-  - [x] Diseño del mapa de sitio y flujo de control ("Consultar documento "MAPA DE SITIO Y FLUJO DE CONTROL")
+  - [x] Análisis Funcional (Consultar documento "ANÁLISIS FUNCIONAL GESTIÓN DE COWORKING 1.0").
+        Texto que permite conocer el funcionamiento y las funcionalidades que deberá tener nuestra aplicación.
+  - [x] Diseño del Wireframe ("Consultar documento "WIREFRAME COWORKING).
+  - [x] Diseño del mapa de sitio y flujo de control ("Consultar documento "MAPA DE SITIO Y FLUJO DE CONTROL").
+        Diagrama de muestra una visión global de las funcionalidades que deberá tener nuestra aplicación.
 
 - Implementación y desarrollo del Backend
 
   - Creación del proyecto
 
-    - [x] Creación de repositorio en gitHub y configuración
+    - [x] Creación de repositorio en gitHub y configuración.
     - [x] Creación de la base de datos con datos fijos (tipo de espacio, equipamiento, categoría incidencia y usuario admin).
     - [x] Creación de proyecto de Node y estructura inicial de carpetas.
     - [x] Creación del servidor con Express.
@@ -70,7 +72,7 @@ Durante este sprint estamos llevando a cabo las siguientes competencias:
 
 ### Pasos para arrancar el backend
 
-Para arrancar el backend, deberemos realizar los siguientes pasos:
+Para iniciar el backend deberemos realizar los siguientes pasos:
 
 1.  Abrir una terminal de comandos y situarnos en la ruta, current directory, en la que se encuentra la carpeta "backend".
 2.  Instalar las dependencias del proyecto haciendo uso del comando:
@@ -92,4 +94,4 @@ Para arrancar el backend, deberemos realizar los siguientes pasos:
     npm run start
 ```
 
-A partir de este momento, ya será posible testear el servidor mediante POSTMAN.
+A partir de este momento ya será posible testear el servidor mediante POSTMAN.
