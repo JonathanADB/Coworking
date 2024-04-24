@@ -22,10 +22,10 @@ Durante este sprint estamos llevando a cabo las siguientes competencias:
 - Análisis
 
   - [x] Análisis Funcional (Consultar documento "ANÁLISIS FUNCIONAL GESTIÓN DE COWORKING 1.0").
-        Texto que permite conocer el funcionamiento y las funcionalidades que deberá tener nuestra aplicación.
+    -  Texto que permite conocer el funcionamiento y las funcionalidades que deberá tener nuestra aplicación.
   - [x] Diseño del Wireframe ("Consultar documento "WIREFRAME COWORKING).
   - [x] Diseño del mapa de sitio y flujo de control ("Consultar documento "MAPA DE SITIO Y FLUJO DE CONTROL").
-        Diagrama de muestra una visión global de las funcionalidades que deberá tener nuestra aplicación.
+    -  Diagrama de muestra una visión global de las funcionalidades que deberá tener nuestra aplicación.
 
 - Implementación y desarrollo del Backend
 
