@@ -11,7 +11,8 @@ import transporter from '../utils/emailConfig.js';
 import { equipmentRouter } from "./api/equipmentList.js";
 import { roomsTypesRouter } from "./api/roomsTypes.js";
 import { categoryIncidentsRouter } from "./api/categoryIncidents.js";
-import { reservationReview } from "./api/reservationReview.js";
+import { reviewController } from "./api/reviewController.js";
+import { roomsController } from "./api/roomsController.js";
 
 
 const router = express.Router();
@@ -27,6 +28,7 @@ router.use(reservationSpace);
 router.use(equipmentRouter);
 router.use(roomsTypesRouter);
 router.use(categoryIncidentsRouter);
-router.use(reservationReview);
+router.use(reviewController);
+router.use(roomsController);
 
 export { router, transporter }; 
