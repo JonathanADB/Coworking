@@ -1,6 +1,5 @@
-const isAdmin = (req, res, next) => {
 
-  console.log(req.user);
+const isAdmin = (req, res, next) => {
 
     if (req.user.admin) {
       next();

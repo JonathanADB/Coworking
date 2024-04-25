@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { getPool } from "../../database/getPool.js";
+import authenticate from "../middleware/authenticateTokenUser.js";
 
 const dbPool = getPool();
 
@@ -49,3 +50,21 @@ categoryIncidentsRouter.get(
     }
   }
 );
+
+categoryIncidentsRouter.post("/incidents/add", authenticate, async (req, res, next) => {
+  try {
+    const { description, userId, roomId, equipmentId } = req.body;
+
+    await dbPool.execute(
+      `INSERT INTO incidents (id, description, userId, roomId, equipmentId) VALUE (?, ?, ?, ?, ?)`,
+      [crypto.randomUUID(), description, userId, roomId, equipmentId]
+    );
+
+    res.json({
+      success: true,
+      message: "Incidencia transmitida con éxito",
+    });
+  } catch (err) {
+    next(err);
+  }
+});

@@ -7,18 +7,18 @@ export const roomsTypesRouter = Router();
 
 roomsTypesRouter.get("/rooms/types", async (req, res, next) => {
   try {
-    const typeOf = req.body;
+    const {typeOf} = req.body;
 
     const [roomsListByType] = await dbPool.execute(
-      `SELECT rooms.name, rooms.description, rooms.capacity, rooms.typeOf, reviews.rate 
+      `SELECT rooms.name, rooms.description, rooms.capacity, rooms.typeOf
         FROM rooms 
-        JOIN reviews
-            ON rooms.id = reviews.roomId
         WHERE rooms.typeOf=?`,
       [typeOf]
     );
 
-    res.json(success(roomsListByType));
+    res.json({
+      roomsListByType
+    });
   } catch (err) {
     next(err);
   }

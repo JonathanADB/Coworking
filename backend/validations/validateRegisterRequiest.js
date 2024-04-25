@@ -16,13 +16,13 @@ export async function validateRegisterRequest({ username, email, password }) {
     );
 
     if (user) {
-        throw createError(400, "Username or email already in use");
+        throw createError(400, "Username o email ya existen");
     }
 
-    if (username.trim().length < 3) {
+    if (username.trim().length < 4) {
         throw createError(
             400,
-            "Field 'Username' should have at least 3 characters"
+            "Username debe contener al menos cuatro caracteres"
         );
     }
 
