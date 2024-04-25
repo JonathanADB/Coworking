@@ -8,12 +8,12 @@ dotenv.config();
 const handleCors = (req, res, next) => {
   let corsOptions = {};
 
-  if (process.env.MODE === 'DEVELOPMENT') {
+  if (process.env.MODE === 'PRODUCTION') {
+    corsOptions.origin = process.env.CORS_ORIGIN;
+    corsOptions.methods = ['GET', 'POST'];
+  } else {
     corsOptions.origin = '*';
     corsOptions.methods = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'];
-  } else {
-      corsOptions.origin = process.env.CORS_ORIGIN; // Creo que debería ser REACT_APP_CORS_ORIGIN
-    corsOptions.methods = ['GET', 'POST'];
   }
 
   cors(corsOptions)(req, res, next);

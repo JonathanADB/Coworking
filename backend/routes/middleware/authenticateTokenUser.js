@@ -2,17 +2,27 @@ import jwt from "jsonwebtoken";
 
 const { JWT_SECRET } = process.env;
 
-const authenticate = (req, res, next) => {
+const authenticate = async (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
     return res.status(401).json({ error: "No existe token" });
   }
 
   try {
-    // Verificar el token usando la clave secreta
     const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded;
-    next(); // Continuar con la siguiente función de middleware o ruta
+
+    const [rows] = await dbPool.execute(
+      `SELECT * FROM users WHERE id=?`,
+      [decoded.id]
+    ); 
+
+    if (rows.length === 0) {
+      return res.status(401).json({ error: "Usuario no encontrado" });
+    }
+
+    req.user = rows[0];
+
+    next();
   } catch (err) {
     return res.status(401).json({ error: "Token invalido" });
   }
