@@ -1,7 +1,5 @@
 import cors from 'cors';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import "dotenv/config.js";
 
 // Utilizamos el archivo .env para configurar el modo de la aplicación, en modo desarrollo permitirá acceso a todas las solicitudes de origen y todos los métodos, en modo producción solo permitirá acceso a las solicitudes de origen que coincidan con el dominio establecido en CORS_ORIGIN y los métodos GET y POST.
 
