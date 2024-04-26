@@ -10,8 +10,3 @@ router.post('/create', async (req, res) => {
     await newRoom.save();
     res.json({ message: 'Room created' });
 });
- 
-
-
-
-

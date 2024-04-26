@@ -1,5 +1,5 @@
 import express from 'express';
-import router from 'express-promise-router';
+import router from 'express';
 import joi from 'joi';
 import Space from '../../models/Space.js';
 

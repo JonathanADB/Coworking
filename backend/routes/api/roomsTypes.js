@@ -5,7 +5,7 @@ const dbPool = getPool();
 
 export const roomsTypesRouter = Router();
 
-roomsTypesRouter.get("/rooms/types", async (req, res, next) => {
+roomsTypesRouter.post("/rooms/types", async (req, res, next) => {
   try {
     const {typeOf} = req.body;
 

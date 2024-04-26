@@ -32,7 +32,7 @@ const Reservation = sequelize.define('Reservation', {
     },
     confirmed: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
+        allowNull: true
     }
 });
 
