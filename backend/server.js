@@ -14,8 +14,8 @@ const app = express();
 
 app.use(handleCors);
 app.use(bodyParser);
-//app.use(authenticate); // Se debe mover a la ruta que lo requiera
-//app.use(isAdmin); // Se debe mover a la ruta que lo requiera
+app.use(authenticate); // Se debe mover a la ruta que lo requiera
+app.use(isAdmin); // Se debe mover a la ruta que lo requiera
 //app.use(handleFileUpload); // No se necesita en este momento, se debe mover a la ruta que lo requiera
 app.use(serveStatic);
 
