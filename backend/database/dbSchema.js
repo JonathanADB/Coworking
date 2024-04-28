@@ -138,9 +138,9 @@ export async function dbSchema(db) {
   await db.query(`CREATE TABLE incidents(
 	  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
     description TEXT NOT NULL,
-    userId CHAR(36) UNIQUE NOT NULL,
-    roomId CHAR(36) UNIQUE,
-    equipmentId CHAR(36) UNIQUE,
+    userId CHAR(36) NOT NULL,
+    roomId CHAR(36) NOT NULL,
+    equipmentId CHAR(36) NOT NULL,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME,
     deletedAt DATETIME,

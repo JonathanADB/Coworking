@@ -9,6 +9,7 @@ import serveStatic from "./routes/middleware/serveStatic.js";
 import authenticate from "./routes/middleware/authenticateTokenUser.js";
 import isAdmin from "./routes/middleware/isAdmin.js";
 import router from "./routes/routes.js";
+//import isAdmin from "./routes/middleware/isAdmin.js";
 
 const app = express();
 
