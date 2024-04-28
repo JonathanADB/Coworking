@@ -7,8 +7,6 @@ import { categoryIncidentsRouter,listIncidentsRouter } from "./api/incidents/inc
 import { reviewController } from "./api/review/review.js";
 import { roomsController } from "./api/rooms/roomsController.js";
 
-
-
 const router = express.Router();
 
 router.use(userRouter);
@@ -21,7 +19,4 @@ router.use(listIncidentsRouter);
 router.use(reviewController);
 router.use(roomsController);
 
-
-
 export default router;
-

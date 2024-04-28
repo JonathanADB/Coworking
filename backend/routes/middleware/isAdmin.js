@@ -25,3 +25,5 @@ export async function isAdmin(userId) {
         return false;
     }
 };
+
+export default isAdmin;
