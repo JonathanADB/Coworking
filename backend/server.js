@@ -13,7 +13,6 @@ import router from "./routes/routes.js";
 const app = express();
 
 app.use(handleCors);
-app.use(handleCors);
 app.use(bodyParser);
 // app.use(authenticate); // Se debe mover a la ruta que lo requiera
 // app.use(isAdmin); // Se debe mover a la ruta que lo requiera
