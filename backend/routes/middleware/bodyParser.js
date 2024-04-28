@@ -1,9 +1,8 @@
 const bodyParser = (req, res, next) => {
 
-    if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH')  {
-      //|| req.method === 'GET'
+    if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH' )  {
       let data = '';
-  
+
       req.on('data', chunk => {
         data += chunk;
       });
