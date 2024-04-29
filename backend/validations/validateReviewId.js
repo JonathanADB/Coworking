@@ -8,7 +8,7 @@ export async function validateReviewId(reviewId) {
     reviewId,
   ]);
   if (!review) {
-    throw new Error("Review not found");
+    throw new Error("Review no encontrada");
   }
   return review;
 }

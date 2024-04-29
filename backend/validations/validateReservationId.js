@@ -9,7 +9,7 @@ export async function validateReservationId(reservationId) {
     [reservationId]
   );
   if (!reservation) {
-    throw new Error("Reservation not found");
+    throw new Error("Reserva no encontrada");
   }
   return reservation;
 }

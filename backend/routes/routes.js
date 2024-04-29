@@ -2,21 +2,20 @@ import express from "express";
 
 import { userRouter } from "./api/user/user.js";
 import { equipmentAdminRouter } from "./api/admin/equipmentAdmin.js";
-import { roomsRouter, roomsTypesRouter, reservationRouter } from "./api/rooms/rooms.js";
-import { categoryIncidentsRouter,listIncidentsRouter } from "./api/incidents/incidents.js";
-import { reviewController } from "./api/review/review.js";
-import { roomsController } from "./api/rooms/roomsController.js";
+import { roomRouter } from "./api/room/room.js";
+import { incidentRouter } from "./api/incident/incident.js";
+import { reservationRouter } from "./api/reservation/reservation.js";
+import { reviewRouter } from "./api/review/review.js";
+import { searchsRouter } from "./api/searchs/searchs.js";
 
 const router = express.Router();
 
 router.use(userRouter);
 router.use(equipmentAdminRouter);
-router.use(roomsRouter);
-router.use(roomsTypesRouter);
+router.use(roomRouter);
+router.use(incidentRouter);
 router.use(reservationRouter);
-router.use(categoryIncidentsRouter);
-router.use(listIncidentsRouter);
-router.use(reviewController);
-router.use(roomsController);
+router.use(reviewRouter);
+router.use(searchsRouter);
 
 export default router;
