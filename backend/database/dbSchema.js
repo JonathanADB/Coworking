@@ -42,9 +42,10 @@ export async function dbSchema(db) {
     username VARCHAR(16) UNIQUE NOT NULL,
     email VARCHAR(32) UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL,
+    avatar VARCHAR(200),
     admin BIT,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updatedAt DATETIME,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     deletedAt DATETIME
   )`);
   console.log(chalk.green(`Tabla ${chalk.bgGreen(`users`)} creada!`));
@@ -64,7 +65,7 @@ export async function dbSchema(db) {
 
   // CREO LA TABLA RESERVATIONS
   await db.query(`CREATE TABLE reservations(
-    id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
+  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
   reservationDateBeg DATETIME NOT NULL,
   reservationDateEnd DATETIME NOT NULL,
   reservationCheckin BOOLEAN DEFAULT false,
@@ -82,9 +83,9 @@ export async function dbSchema(db) {
   // CREO LA TABLA MEDIA
   await db.query(`CREATE TABLE media(
 	  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
-    url VARCHAR(50) UNIQUE NOT NULL,
-    userId CHAR(36) UNIQUE NOT NULL,
-    roomId CHAR(36) UNIQUE NOT NULL,
+    url VARCHAR(150) UNIQUE NOT NULL,
+    userId CHAR(36) UNIQUE, 
+    roomId CHAR(36) UNIQUE,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME,
     deletedAt DATETIME,

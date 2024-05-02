@@ -7,10 +7,20 @@ const pool = getPool();
 export const reservationRouter = Router();
 
 // Creación de reserva
-reservationRouter.post("/rooms/:roomId", async (req, res, next) => {
+reservationRouter.post("/:userId/room/:roomId",authenticate,  async (req, res, next) => {
+  
+  const userId = req.params.userId;
+  const roomId = req.params.roomId;
+
+  if (req.user.id !== userId) {
+    return res.status(401).json({
+      success: false,
+      message: "No tienes permisos para realizar esta acción",
+    });
+  }
+  
   try {
-    const roomId = req.params.roomId;
-    const { userId, reservationDateBeg, reservationDateEnd } = req.body;
+    const {reservationDateBeg, reservationDateEnd } = req.body;
     if (!userId || !reservationDateBeg || !reservationDateEnd || !roomId) {
       return res.status(400).json({
         error: "Falta información",

@@ -8,7 +8,8 @@ import crypto from "crypto";
 import nodemailer from "nodemailer";
 import { validateLoginRequest } from "../../../validations/validateLoginRequest.js";
 import authenticate from "../../middleware/authenticateTokenUser.js";
-
+import { validateUserId } from "../../../validations/validateUserId.js";
+import Joi from "joi";
 const pool = getPool();
 const { JWT_SECRET } = process.env;
 export const userRouter = Router();
@@ -111,6 +112,88 @@ userRouter.get("/validate", async (req, res, next) => {
         username: user.username,
         email: user.email,
       },
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+//Ver  el perfil de usuario 
+userRouter.get("/user/profile/:id", authenticate, validateUserId, async (req, res,next)=>{
+  try {
+      const userId = req.params.id;
+      const [[user]] = await pool.query(
+        `SELECT  firstName, lastName, username, email, avatar FROM users WHERE id=?`, 
+      [userId]
+    );
+      if (!user) { 
+        return res
+          .status(404)
+          .json({ success: false, message: "Usuario no encontrado" });
+      }
+      res.json({
+        success: true,
+        profile: {
+          firstName : user.firstName,
+          lastName : user.lastName,
+          username: user.username,
+          email: user.email,
+          avatar : user.avatar,
+        },
+      });
+    } catch (err) {
+        next(err);
+    }
+});
+
+// Editar perfil de usuario
+const schema = Joi.object({
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
+  username: Joi.string().required(),
+  email: Joi.string().email().required(),
+  avatar: Joi.optional() 
+});
+userRouter.put("/user/profile/:id", authenticate, validateUserId, async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const avatarFile = req.file?.avatar || null; // falta el uploadFile de Avatar 
+    const { firstName, lastName, username, email } = req.body;
+
+    const { error } = schema.validate({ firstName, lastName, username, email, avatar: avatarFile });
+    if (error) {
+      return res.status(400).json({ success: false, message: error.details[0].message });
+    }
+
+
+    const [[user]] = await pool.query("SELECT * FROM users WHERE id = ?", [userId]);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "Usuario no encontrado" });
+    }
+
+
+    const [[existingUser]] = await pool.query(
+      "SELECT * FROM users WHERE (email = ? OR username = ?) AND id <> ?",
+      [email, username, userId]
+    );
+    if (existingUser) {
+      const message = existingUser.email === email ? "El email ya existe" : "El username ya existe";
+      return res.status(400).json({ success: false, message });
+    }
+
+
+    const updateUserQuery = `UPDATE users SET firstName = ?, lastName = ?, username = ?, email = ?, avatar = ?,updatedAt=CURRENT_TIME()
+     WHERE id = ?`;
+    await pool.execute(updateUserQuery, [firstName, lastName, username, email, avatarFile, userId]);
+
+
+    const [[updatedUser]] = await pool.query("SELECT * FROM users WHERE id = ?", [userId]);
+
+
+    return res.json({
+      success: true,
+      message: "Usuario actualizado correctamente",
+      user: updatedUser,
     });
   } catch (err) {
     next(err);

@@ -2,36 +2,68 @@ import { Router } from "express";
 import authenticate from "../../middleware/authenticateTokenUser.js";
 import { getPool } from "../../../database/getPool.js";
 import Joi from "joi";
+import isAdmin from "../../middleware/isAdmin.js";
 const dbPool = getPool();
 
 export const categoryIncidentsRouter = Router();
 
-const querySchema = Joi.object({
-  offset: Joi.number().integer().min(0)
+ const querySchema = Joi.object({
+   offset: Joi.number().integer().min(0)
+ });
+
+ const incidentSchema = Joi.object({
+   description: Joi.string().required(),
+   equipmentId: Joi.string().required()
+ });
+
+ const paramsSchema = Joi.object({
+   incidentId: Joi.string().required()
 });
 
-const incidentSchema = Joi.object({
-  description: Joi.string().required(),
-  userId: Joi.string().required(),
-  roomId: Joi.string().required(),
-  equipmentId: Joi.string().required()
-});
-
-const paramsSchema = Joi.object({
-  incidentId: Joi.string().required()
-});
-
-//Agregar una incidencia
-categoryIncidentsRouter.post("/incidents/add", authenticate, async (req, res, next) => {
+//Agregar una incidencia como Admin
+categoryIncidentsRouter.post("/:userId/:roomId/incidents/add", authenticate,isAdmin,async (req, res, next) => {
   const { error } = incidentSchema.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   try {
-    const { description, userId, roomId, equipmentId } = req.body;
+    const { description,equipmentId } = req.body;
 
     await dbPool.execute(
       `INSERT INTO incidents (id, description, userId, roomId, equipmentId) VALUE (?, ?, ?, ?, ?)`,
-      [crypto.randomUUID(), description, userId, roomId, equipmentId]
+      [crypto.randomUUID(), description,  req.params.userId, req.params.roomId, equipmentId]
+    );
+
+    res.json({
+      success: true,
+      message: "Incidencia transmitida con éxito",
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+//Agregar una incidencia como usuario 
+categoryIncidentsRouter.post("/:userId/:roomId/incidents/add", authenticate, async (req, res, next) => {
+  
+  const userId = req.params.userId;
+  const roomId = req.params.roomId;
+
+  if (req.user.id !== userId) {
+    return res.status(401).json({
+      success: false,
+      message: "No tienes permisos para realizar esta acción",
+    });
+  }
+
+  const { error } = incidentSchema.validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  try {
+    const { description, equipmentId } = req.body;
+
+    await dbPool.execute(
+      `INSERT INTO incidents (id, description,userId, roomId, equipmentId) VALUE (?, ?, ?, ?, ?)`,
+      [crypto.randomUUID(),description, req.params.userId, req.params.roomId,equipmentId]
     );
 
     res.json({
@@ -46,7 +78,7 @@ categoryIncidentsRouter.post("/incidents/add", authenticate, async (req, res, ne
 export const listIncidentsRouter = Router();
 
 //Lista de incidencias (Admin)
-listIncidentsRouter.get("/incidents", async (req, res, next) => {
+listIncidentsRouter.get("/incidents", authenticate, isAdmin, async (req, res, next) => {
   const { error } = querySchema.validate(req.query);
   if (error) return res.status(400).send(error.details[0].message);
 

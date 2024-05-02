@@ -13,7 +13,6 @@ const authenticate =async (req, res, next) => {
     // Verificar el token usando la clave secreta
     const decoded = jwt.verify(token, JWT_SECRET);
     req.user = decoded;
-    console.log(req.user)
 
     next();
 

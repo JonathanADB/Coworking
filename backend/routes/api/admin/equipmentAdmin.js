@@ -3,13 +3,14 @@ import { getPool } from "../../../database/getPool.js";
 import authenticate from "../../middleware/authenticateTokenUser.js";
 import { validateEquipmentId } from "../../../validations/validateEquipmentId.js";
 import { validateEquipmentEditRequest } from "../../../validations/validateEquipmentEdition.js";
+import isAdmin from "../../middleware/isAdmin.js";
 
 const dbPool = getPool();
 
 export const equipmentAdminRouter = Router();
 
 // agregar equipos solo admin
-equipmentAdminRouter.post("/equipment/add", authenticate , async (req, res, next) => {
+equipmentAdminRouter.post("/equipment/add", authenticate ,isAdmin, async (req, res, next) => {
     try {
       const { name, description, inventory } = req.body;
 
