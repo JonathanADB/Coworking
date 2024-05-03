@@ -80,12 +80,16 @@ userRouter.get("/validate", async (req, res, next) => {
       throw new Error("Token de autenticación no proporcionado");
     }
 
+    /*const token = authorizationHeader;
+
+    if (!token) {
+      throw new Error("Token de autenticación invalido");
+    }*/
 
     // Verifica el token usando la clave secreta
     let decoded;
-    try {
-      decoded = jwt.verify(token, JWT_SECRET);
-    } catch (err) {
+    decoded = jwt.verify(authorizationHeader, JWT_SECRET);
+    if (!decoded) {
       throw new Error("Token de autenticación invalido o vencido");
     }
 
