@@ -80,11 +80,6 @@ userRouter.get("/validate", async (req, res, next) => {
       throw new Error("Token de autenticación no proporcionado");
     }
 
-    const token = authorizationHeader;
-
-    if (!token) {
-      throw new Error("Token de autenticación invalido");
-    }
 
     // Verifica el token usando la clave secreta
     let decoded;

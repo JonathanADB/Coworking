@@ -105,7 +105,7 @@ listIncidentsRouter.get("/incidents", authenticate, isAdmin, async (req, res, ne
   }
 });
 
-// PArecido a de lista de incidencias  ( MIRAR )
+//Lista de incidencias
 categoryIncidentsRouter.get("/incidents/:incidentId", async (req, res, next) => {
   const { error } = paramsSchema.validate(req.params);
   if (error) return res.status(400).send(error.details[0].message);

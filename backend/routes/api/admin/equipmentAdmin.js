@@ -1,4 +1,4 @@
-import e, { Router } from "express";
+import  { Router } from "express";
 import { getPool } from "../../../database/getPool.js";
 import authenticate from "../../middleware/authenticateTokenUser.js";
 import { validateEquipmentId } from "../../../validations/validateEquipmentId.js";
@@ -30,7 +30,7 @@ equipmentAdminRouter.post("/equipment/add", authenticate ,isAdmin, async (req, r
   });
 
 //Update de equipos
-equipmentAdminRouter.patch("/equipment/:equipmentId", authenticate, async (req, res, next) => {
+equipmentAdminRouter.patch("/equipment/:equipmentId", authenticate, isAdmin, async (req, res, next) => {
         try {
           const equipmentId = req.params.equipmentId;
     
@@ -62,7 +62,7 @@ equipmentAdminRouter.patch("/equipment/:equipmentId", authenticate, async (req, 
   });
 
   // Borrar equipos
-  equipmentAdminRouter.delete("/equipment/:equipmentId", authenticate , async (req, res, next) => {
+  equipmentAdminRouter.delete("/equipment/:equipmentId", authenticate , isAdmin,  async (req, res, next) => {
     try {
       const equipmentId = req.params.equipmentId;
   
