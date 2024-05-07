@@ -1,6 +1,7 @@
 import "dotenv/config.js";
 import bcrypt from "bcrypt";
 import chalk from "chalk";
+import { verify } from "crypto";
 
 export async function loadBaseData(db) {
   // Usuarios iniciales para la carga de la base de datos
@@ -11,15 +12,22 @@ export async function loadBaseData(db) {
       username: "Admin",
       email: "admin@coworking.com",
       password: await bcrypt.hash("Admin@1234", 12),
+      verify: true,
       role: "admin",
     },
   ];
 
   for (const user of users) {
-    console.log(`Insertando información de ${chalk.bgCyan(`${user.email}`)}`);
+    console.log(Insertando información de ${chalk.bgCyan(${user.email})});
     await db.query(
-      `INSERT INTO users (id, username, email, password, role) VALUES (?, ?, ?, ?, ?)`,
-      [user.id, user.username, user.email, user.password, user.role]
+      INSERT INTO users (id, username, email, password, verified, role) VALUES (?, ?, ?, ?, ?, ?),
+      [
+        user.id,
+        user.username,
+        user.email,
+        user.password,
+        user.verified,
+      user.role]
     );
   }
   console.log(chalk.bgGreen("Usuarios iniciales cargados!"));
