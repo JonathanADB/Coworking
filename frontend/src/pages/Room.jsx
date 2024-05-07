@@ -29,49 +29,53 @@ function CreateRoomForm({ onSubmit }) {
         onSubmit(formData);
     };
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="bg-red-500">
-                <label>
+        <div className="flex flex-col justify-center w-full ">
+        <form className="flex flex-col px-1 my-4 gap-y-4" onSubmit={handleSubmit}>
+
+
+                <label className="flex justify-between w-full ">
                     Nombre:
                     <input type="text" 
                     name="name" 
+                    className="rounded-md"
                     value={formData.name} 
                     onChange={handleChange}
                     required />
                 </label>
-            </div>
-            <div>
-                <label>
+
+                <label className="flex justify-between w-full ">
                     Descripción:
                     <input type="text" 
                     name="description" 
                     value={formData.description}
+                    className="rounded-md"
                     onChange={handleChange}
                     required />
                 </label>
-            </div>
-            <div>
-                <label>
+
+                <label className="flex justify-between w-full ">
                     Capacidad:
                     <input type="number" 
                     name="capacity" 
+                    className="rounded-md"
                     value={formData.capacity} 
                     onChange={handleChange} 
                     required/>
                 </label>
-            </div>
-            <div>
-                <label>
+
+                <label className="flex justify-between w-full ">
                     Tipo:
                     <input type="text" 
                     name="typeOf" 
+                    className="rounded-md"
                     value={formData.typeOf}
                     onChange={handleChange}
                     required />
                 </label>
-            </div>
-            <button type="submit">Crear habitación</button>
+      
         </form>
+            <button className="mx-auto w-fit" type="submit">Crear habitación</button>
+        </div>
     );
 }
 
@@ -86,10 +90,7 @@ export function CreateRoom() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                   'Authorization': localStorage.getItem("AUTH_TOKEN"),
-                   
-                   
-
+                    'Authorization': localStorage.getItem("AUTH_TOKEN"),
                 },
                 body: JSON.stringify(roomData),
             });
@@ -102,9 +103,6 @@ export function CreateRoom() {
     const contentType = response.headers.get('Content-Type');
     if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
-
-        // Maneja la respuesta del servidor
-        //console.log(data);
 
         if (data.success) {
         } else {
@@ -120,9 +118,11 @@ export function CreateRoom() {
 };
 
 return (
-<div>
-    <h2>Crear nueva habitación</h2>
+<div className="flex flex-col justify-center p-4 ">
+    <h2 className="text-xl text-center">Crear nueva habitación</h2>
     <CreateRoomForm onSubmit={handleCreateRoom} />
 </div>
 );
 }
+
+export default CreateRoom;
