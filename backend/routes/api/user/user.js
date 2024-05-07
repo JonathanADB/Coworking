@@ -109,7 +109,7 @@ userRouter.post("/login", async (req, res, next) => {
       },
       JWT_SECRET,
       {
-        expiresIn: "3d",
+        expiresIn: "30d",
       }
     );
     res.json({

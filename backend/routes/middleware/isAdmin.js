@@ -14,7 +14,7 @@ export async function isAdmin(req, res, next) {
       return res.status(404).json({ error: "Usuario no encontrado" }); // El usuario no existe en la base de datos
     }
 
-    if (Buffer.compare(rows[0].admin, Buffer.from([1])) === 0) {
+    if (rows[0].role === 'admin') {
       next(); // El usuario es admin, pasa al siguiente middleware
     } else {
       return res.status(403).json({ error: "El usuario no es administrador" }); // El usuario no es admin
