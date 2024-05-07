@@ -29,6 +29,7 @@ function CreateRoomForm({ onSubmit }) {
         onSubmit(formData);
     };
     return (
+        <div className="flex ">
         <form onSubmit={handleSubmit}>
             <div className="">
                 <label>
@@ -72,6 +73,7 @@ function CreateRoomForm({ onSubmit }) {
             </div>
             <button type="submit">Crear habitación</button>
         </form>
+        </div>
     );
 }
 
