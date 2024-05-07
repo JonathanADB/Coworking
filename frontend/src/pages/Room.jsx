@@ -30,7 +30,7 @@ function CreateRoomForm({ onSubmit }) {
     };
     return (
         <form onSubmit={handleSubmit}>
-            <div className="bg-red-500">
+            <div className="">
                 <label>
                     Nombre:
                     <input type="text" 
@@ -126,3 +126,5 @@ return (
 </div>
 );
 }
+
+export default CreateRoom;
