@@ -8,7 +8,6 @@ import {
   addEquipmentSchema,
   updateEquipmentSchema,
   deleteEquipmentSchema,
-  searchEquipmentSchema,
 } from "../../schemas/equipmentAdminSchemas.js";
 import { createError } from "../../../utils/error.js";
 
@@ -109,59 +108,3 @@ equipmentAdminRouter.delete(
   }
 );
 
-//Busqueda de inventario de equipos
-equipmentAdminRouter.get("/equipment/search", async (req, res, next) => {
-  try {
-    const search = req.query.search;
-    const offset = req.query.offset || 0;
-    const { error } = searchEquipmentSchema.validate({
-      search,
-      offset,
-    });
-    if (error) {
-      throw createError(400, "Datos de entrada no válidos");
-    }
-    const [equipmentSearch] = await dbPool.execute(
-      `SELECT * FROM equipment
-        WHERE name LIKE ? OR description LIKE ?
-        ORDER BY name DESC
-        LIMIT 10 OFFSET ${offset}`,
-      [`%${search}%`, `%${search}%`]
-    );
-    res.json({
-      success: true,
-      message: `${equipmentSearch.length} resultado`,
-      data: equipmentSearch,
-    });
-  } catch (err) {
-    next(err);
-  }
-});
-
-//Busqueda para enlistar equipos
-equipmentAdminRouter.get("/equipment/searchlist", async (req, res, next) => {
-  try {
-    const search = req.query.search || "";
-    const offset = req.query.offset || 0;
-    const { error } = searchEquipmentSchema.validate({
-      search,
-      offset,
-    });
-    if (error) {
-      throw createError(400, "Datos de entrada no válidos");
-    }
-    const [equipment] = await dbPool.execute(
-      `SELECT name FROM equipment
-        WHERE name LIKE ? OR description LIKE ?
-        ORDER BY name DESC
-        LIMIT 10 OFFSET ${offset}`,
-      [`%${search}%`, `%${search}%`]
-    );
-    res.json({
-      success: true,
-      message: equipment,
-    });
-  } catch (err) {
-    next(err);
-  }
-});

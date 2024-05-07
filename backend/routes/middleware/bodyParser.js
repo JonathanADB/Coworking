@@ -1,24 +1,27 @@
-const bodyParser = (req, res, next) => {
+import { createError } from "../../utils/error.js";
 
+const bodyParser = (req, res, next) => {
+  try {
+    
     if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH' )  {
       let data = '';
-
+  
       req.on('data', chunk => {
         data += chunk;
       });
   
       req.on('end', () => {
         try {
-          //if (req.body)  --> solucion para el endpoint GET reviews
           req.body = JSON.parse(data);
           next();
         } catch (error) {
-          res.status(400).json({ error: 'Error al analizar el cuerpo de la solicitud' });
+          throw createError(400, "Erro al analizar el cuerpo de la solicitud");
         }
       });
-    } else {
-      next();
-    }
+    } 
+  } catch (error) {
+    next(error)
+  }
   };
   
 export default bodyParser;

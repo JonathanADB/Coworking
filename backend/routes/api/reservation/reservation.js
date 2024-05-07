@@ -45,7 +45,6 @@ reservationRouter.get(
 );
 
 // Creación de reserva
-// He quitado userId de los parámetros de la dirección
 reservationRouter.post(
   "/room/:roomId",
   authenticate,

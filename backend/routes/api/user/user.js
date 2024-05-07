@@ -26,7 +26,9 @@ const { JWT_SECRET } = process.env;
 export const userRouter = Router();
 
 //Registro Usuario
-userRouter.post("/register", async (req, res, next) => {
+userRouter.post(
+  "/register", 
+  async (req, res, next) => {
   try {
     const { error } = userSchema.validate(req.body);
     if (error) {
@@ -55,7 +57,9 @@ userRouter.post("/register", async (req, res, next) => {
 });
 
 //Verificar Usuario
-userRouter.get("/validate/:email/:code", async (req, res, next) => {
+userRouter.get(
+  "/validate/:email/:code", 
+  async (req, res, next) => {
   try {
     const { email, code } = req.params || null;
     const { error } = validateSchema.validate({
@@ -86,7 +90,9 @@ userRouter.get("/validate/:email/:code", async (req, res, next) => {
 });
 
 //Login Usuario
-userRouter.post("/login", async (req, res, next) => {
+userRouter.post(
+  "/login", 
+  async (req, res, next) => {
   try {
     const { error } = userSchema.validate(req.body);
     if (error) {
@@ -123,7 +129,10 @@ userRouter.post("/login", async (req, res, next) => {
 });
 
 // Ver el perfil de usuario propio
-userRouter.get("/user/profile", authenticate, async (req, res, next) => {
+userRouter.get(
+  "/user/profile",
+  authenticate,
+  async (req, res, next) => {
   try {
     const user = await getUser(req.headers.authorization);
     res.json({
@@ -142,7 +151,10 @@ userRouter.get("/user/profile", authenticate, async (req, res, next) => {
 });
 
 // Modificar el propio perfil de usuario
-userRouter.put("/user/profile/", authenticate, async (req, res, next) => {
+userRouter.put(
+  "/user/profile/", 
+  authenticate, 
+  async (req, res, next) => {
   try {
     const user = await getUser(req.headers.authorization);
     const { firstName, lastName, username, email } = req.body;
@@ -201,7 +213,10 @@ userRouter.put("/user/profile/", authenticate, async (req, res, next) => {
 });
 
 //Cambio de contraseña
-userRouter.patch("/change-password", authenticate, async (req, res, next) => {
+userRouter.patch(
+  "/change-password", 
+  authenticate, 
+  async (req, res, next) => {
   try {
     const { email, currentPassword, newPassword } = req.body;
     const { error } = changePasswordSchema.validate({
@@ -234,7 +249,10 @@ userRouter.patch("/change-password", authenticate, async (req, res, next) => {
 });
 
 //Recuperar contraseña
-userRouter.post("/forgot-password", authenticate, async (req, res, next) => {
+userRouter.post(
+  "/forgot-password", 
+  authenticate, 
+  async (req, res, next) => {
   try {
     const { email } = req.body;
     const { error } = forgotPasswordSchema.validate({ email });
@@ -266,13 +284,4 @@ userRouter.post("/forgot-password", authenticate, async (req, res, next) => {
   }
 });
 
-/*function generatePassword(passwordLength) {
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let password = "";
-  for (let i = 0; i < passwordLength; i++) {
-    const index = Math.floor(Math.random() * characters.length);
-    password += characters.charAt(index);
-  }
-  return password;
-}*/
+
