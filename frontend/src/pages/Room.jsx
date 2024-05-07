@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Input from "../components/UI/Input";
 
 function CreateRoomForm({ onSubmit }) {
     const [formData, setFormData] = useState({
@@ -33,44 +34,53 @@ function CreateRoomForm({ onSubmit }) {
         <form className="flex flex-col px-1 my-4 gap-y-4" onSubmit={handleSubmit}>
 
 
-                <label className="flex justify-between w-full ">
+                <label className="flex items-center justify-between w-full ">
                     Nombre:
-                    <input type="text" 
-                    name="name" 
-                    className="rounded-md"
-                    value={formData.name} 
-                    onChange={handleChange}
-                    required />
+                    <Input 
+                        type="text" 
+                        name="name"
+                        className="w-2/3"
+                        value={formData.name} 
+                        onChange={handleChange}
+                        required 
+                     />
+
                 </label>
 
-                <label className="flex justify-between w-full ">
+                <label className="flex items-center justify-between w-full ">
                     Descripción:
-                    <input type="text" 
-                    name="description" 
-                    value={formData.description}
-                    className="rounded-md"
-                    onChange={handleChange}
-                    required />
+                    <Input 
+                        type="text" 
+                        name="description"
+                        className="w-2/3"
+                        value={formData.description} 
+                        onChange={handleChange}
+                        required 
+                     />
                 </label>
 
-                <label className="flex justify-between w-full ">
+                <label className="flex items-center justify-between w-full ">
                     Capacidad:
-                    <input type="number" 
-                    name="capacity" 
-                    className="rounded-md"
-                    value={formData.capacity} 
-                    onChange={handleChange} 
-                    required/>
+                    <Input 
+                        type="number" 
+                        name="capacity"
+                        className="w-2/3"
+                        value={formData.capacity} 
+                        onChange={handleChange}
+                        required 
+                     />
                 </label>
 
-                <label className="flex justify-between w-full ">
+                <label className="flex items-center justify-between w-full ">
                     Tipo:
-                    <input type="text" 
-                    name="typeOf" 
-                    className="rounded-md"
-                    value={formData.typeOf}
-                    onChange={handleChange}
-                    required />
+                    <Input 
+                        type="text" 
+                        name="typeOf"
+                        className="w-2/3"
+                        value={formData.typeOf} 
+                        onChange={handleChange}
+                        required 
+                     />
                 </label>
       
         </form>
