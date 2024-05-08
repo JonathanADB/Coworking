@@ -47,26 +47,39 @@ categoryIncidentsRouter.post(
 
 //Agregar una incidencia como usuario
 categoryIncidentsRouter.post(
-  "/:roomId/incidents/add",
+  "/:userId/:roomId/incidents/add",
   authenticate,
   async (req, res, next) => {
+    const userId = req.params.userId;
+    const roomId = req.params.roomId;
+
+    if (req.user.id !== userId) {
+      return res.status(401).json({
+        success: false,
+        message: "No tienes permisos para realizar esta acción",
+      });
+    }
+
+    const { error } = incidentSchema.validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
     try {
-      const userId = req.user.id;
-      const roomId = req.params.roomId;
-      const { error } = incidentSchema.validate(req.body);
-      if (error) {
-        throw createError(400, "Datos de entrada no válidos");
-      }
       const { description, equipmentId } = req.body;
-      await dbPool.execute(
+
+      const addIncident = await dbPool.execute(
         `INSERT INTO incidents (id, description,userId, roomId, equipmentId) VALUE (?, ?, ?, ?, ?)`,
         [crypto.randomUUID(), description, userId, roomId, equipmentId]
       );
+
       res.json({
         success: true,
         message: "Incidencia transmitida con éxito",
       });
+
+      if (!addIncident)
+        throw createError(401, "No se pudo añadir la incidencia");
     } catch (err) {
+      err.status = 401;
       next(err);
     }
   }

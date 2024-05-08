@@ -10,12 +10,14 @@ import {
 import { reservationRouter } from "./api/reservation/reservation.js";
 import { reviewRouter } from "./api/review/review.js";
 import { searchsRouter } from "./api/searchs/searchs.js";
+// import { equipmentRouter } from "./api/admin/equipment.js";
 
 const router = express.Router();
 router.use(cors());
 
 router.use(userRouter);
 router.use(equipmentAdminRouter);
+// router.use(equipmentRouter);
 router.use(roomRouter);
 router.use(categoryIncidentsRouter);
 router.use(listIncidentsRouter);

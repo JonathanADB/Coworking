@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import Logo from "../assets/images/Logo.png";
 import Fondo from "../assets/images/Fondo.png";
+import { toast } from "react-toastify";
 
 function CreateValidateUserForm({ onSubmit }) {
   const [formData, setFormData] = useState({
     code: "",
   });
-
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,16 +28,13 @@ function CreateValidateUserForm({ onSubmit }) {
       });
       const data = await response.json();
       if (response.ok) {
-        setSuccessMessage("Usuario validado correctamente");
-        setErrorMessage("");
+        toast.success("Usuario validado correctamente");
       } else {
-        setErrorMessage(data.error.message);
-        setSuccessMessage("");
+        toast.error(data.error.message);
       }
     } catch (error) {
       console.error(error);
-      setErrorMessage("Error al validar el usuario");
-      setSuccessMessage("");
+      toast.error("Error al validar el usuario");
     }
   };
   return (
@@ -66,12 +61,12 @@ function CreateValidateUserForm({ onSubmit }) {
       >
         Validar usuario
       </button>
-      {errorMessage && (
+      {/* {errorMessage && (
         <div className="mt-4 text-red-500 text-center">{errorMessage}</div>
       )}
       {successMessage && (
         <div className="mt-4 text-green-500 text-center">{successMessage}</div>
-      )}
+      )} */}
     </form>
   );
 }

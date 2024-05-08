@@ -8,7 +8,6 @@ import {
   addEquipmentSchema,
   updateEquipmentSchema,
   deleteEquipmentSchema,
-  searchEquipmentSchema,
 } from "../../schemas/equipmentAdminSchemas.js";
 import { createError } from "../../../utils/error.js";
 
@@ -16,55 +15,59 @@ const dbPool = getPool();
 
 export const equipmentAdminRouter = Router();
 
+equipmentAdminRouter.use(authenticate);
+equipmentAdminRouter.use(isAdmin);
+
 // agregar equipos solo admin
-equipmentAdminRouter.post(
-  "/equipment/add",
-  authenticate,
-  isAdmin,
-  async (req, res, next) => {
-    try {
-      const { name, description, inventory } = req.body;
-      const { error } = addEquipmentSchema.validate({
-        name,
-        description,
-        inventory,
-      });
-      if (error) {
-        throw createError(400, "Datos de entrada no válidos");
-      }
-      await dbPool.execute(
-        `INSERT INTO equipment(id, name, description, inventory) VALUES (?, ?, ?, ?)`,
-        [crypto.randomUUID(), name, description, inventory]
-      );
-      res.json({
-        success: true,
-        message: `Producto ${name} se añadió correctamente`,
-      });
-    } catch (err) {
-      next(err);
+equipmentAdminRouter.post("/equipment/add", async (req, res, next) => {
+  try {
+    const { name, description, inventory } = req.body;
+    const { error } = addEquipmentSchema.validate({
+      name,
+      description,
+      inventory,
+    });
+
+    if (error) {
+      throw createError(400, "Datos de entrada no válidos");
     }
+
+    const add = await dbPool.execute(
+      `INSERT INTO equipment(id, name, description, inventory) VALUES (?, ?, ?, ?)`,
+      [crypto.randomUUID(), name, description, inventory]
+    );
+
+    res.json({
+      success: true,
+      message: `Producto ${name} se añadió correctamente`,
+    });
+
+    if (!add) throw createError(401, "No se ha podido añadir el producto");
+  } catch (err) {
+    next(err);
   }
-);
+});
 
 //Update de equipos
 equipmentAdminRouter.patch(
   "/equipment/:equipmentId",
-  authenticate,
-  isAdmin,
   async (req, res, next) => {
     try {
       const equipmentId = req.params.equipmentId;
       const { error } = updateEquipmentSchema.validate({
         equipmentId,
       });
+
       if (error) {
         throw createError(400, "Datos de entrada no válidos");
       }
+
       const equipment = await validateEquipmentId(equipmentId);
       const { name, description, inventory } = validateEquipmentEditRequest(
         req.body
       );
-      await dbPool.execute(
+
+      const updateEquipment = await dbPool.execute(
         `UPDATE equipment SET name=?, description=?, inventory=?, updatedAt=CURRENT_TIME()
             WHERE id=?`,
         [
@@ -78,17 +81,17 @@ equipmentAdminRouter.patch(
         success: true,
         message: `Producto ${name} se actualizo correctamente`,
       });
+
+      if (!updateEquipment)
+        throw createError(401, "No se ha podido modificar el producto");
     } catch (err) {
       next(err);
     }
   }
 );
-
 // Borrar equipos
 equipmentAdminRouter.delete(
   "/equipment/:equipmentId",
-  authenticate,
-  isAdmin,
   async (req, res, next) => {
     try {
       const equipmentId = req.params.equipmentId;
@@ -98,70 +101,21 @@ equipmentAdminRouter.delete(
       if (error) {
         throw createError(400, "Datos de entrada no válidos");
       }
-      await dbPool.execute(`DELETE FROM equipment WHERE id=?`, [equipmentId]);
+
+      const deleteEquipment = await dbPool.execute(
+        `DELETE FROM equipment WHERE id=?`,
+        [equipmentId]
+      );
+
       res.json({
         success: true,
         message: `Producto borrado correctamente`,
       });
+
+      if (!deleteEquipment)
+        throw createError(401, "No se ha podido borrar el producto");
     } catch (err) {
       next(err);
     }
   }
 );
-
-//Busqueda de inventario de equipos
-equipmentAdminRouter.get("/equipment/search", async (req, res, next) => {
-  try {
-    const search = req.query.search;
-    const offset = req.query.offset || 0;
-    const { error } = searchEquipmentSchema.validate({
-      search,
-      offset,
-    });
-    if (error) {
-      throw createError(400, "Datos de entrada no válidos");
-    }
-    const [equipmentSearch] = await dbPool.execute(
-      `SELECT * FROM equipment
-        WHERE name LIKE ? OR description LIKE ?
-        ORDER BY name DESC
-        LIMIT 10 OFFSET ${offset}`,
-      [`%${search}%`, `%${search}%`]
-    );
-    res.json({
-      success: true,
-      message: `${equipmentSearch.length} resultado`,
-      data: equipmentSearch,
-    });
-  } catch (err) {
-    next(err);
-  }
-});
-
-//Busqueda para enlistar equipos
-equipmentAdminRouter.get("/equipment/searchlist", async (req, res, next) => {
-  try {
-    const search = req.query.search || "";
-    const offset = req.query.offset || 0;
-    const { error } = searchEquipmentSchema.validate({
-      search,
-      offset,
-    });
-    if (error) {
-      throw createError(400, "Datos de entrada no válidos");
-    }
-    const [equipment] = await dbPool.execute(
-      `SELECT name FROM equipment
-        WHERE name LIKE ? OR description LIKE ?
-        ORDER BY name DESC
-        LIMIT 10 OFFSET ${offset}`,
-      [`%${search}%`, `%${search}%`]
-    );
-    res.json({
-      success: true,
-      message: equipment,
-    });
-  } catch (err) {
-    next(err);
-  }
-});

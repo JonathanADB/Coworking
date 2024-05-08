@@ -29,7 +29,10 @@ searchsRouter.post("/rooms/types", async (req, res, next) => {
     res.json({
       roomsListByType,
     });
+
+    if (!roomsListByType) throw new Error("No se ha podido encontrar la sala");
   } catch (err) {
+    err.status = 401;
     next(err);
   }
 });
@@ -57,7 +60,11 @@ searchsRouter.get("/equipment/searchlist", async (req, res, next) => {
       success: true,
       message: equipment,
     });
+
+    if (!equipment)
+      throw new Error("No se puede encontrar ningún equipamiento");
   } catch (err) {
+    err.status = 401;
     next(err);
   }
 });
