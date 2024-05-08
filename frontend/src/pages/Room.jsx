@@ -5,7 +5,7 @@ function CreateRoomForm({ onSubmit }) {
     const [formData, setFormData] = useState({
         name: " ",
         description: " ",
-        capacity: "",
+        capacity: 1,
         typeOf: " "
     });
 
@@ -67,6 +67,8 @@ function CreateRoomForm({ onSubmit }) {
                         className="w-2/3"
                         value={formData.capacity} 
                         onChange={handleChange}
+                        min="1"
+                        max="256"
                         required 
                      />
                 </label>
