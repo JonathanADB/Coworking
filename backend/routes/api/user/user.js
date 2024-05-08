@@ -17,9 +17,10 @@ import {
   profileSchema,
   changePasswordSchema,
   forgotPasswordSchema,
+  loginSchema,
 } from "../../schemas/userSchemas.js";
-import { createError } from "../../../utils/error.js";
 import { getUser } from "../../../utils/getUser.js";
+import { createError } from "../../../utils/error.js";
 
 const pool = getPool();
 const { JWT_SECRET } = process.env;
@@ -94,7 +95,7 @@ userRouter.post(
   "/login", 
   async (req, res, next) => {
   try {
-    const { error } = userSchema.validate(req.body);
+    const { error } = loginSchema.validate(req.body);
     if (error) {
       throw createError(400, "Datos de entrada no válidos");
     }

@@ -3,11 +3,17 @@ import Joi from "joi";
 export const userSchema = Joi.object({
   firstName: Joi.string().optional(),
   lastName: Joi.string().optional(),
-  username: Joi.string().optional(),
-  email: Joi.string().optional(),
-  password: Joi.string().required(),
+  username: Joi.string().required(),
+  email: Joi.string().pattern(new RegExp('@')).required(),
+  password: Joi.string().pattern(new RegExp('(?=.*[A-Z])')).required(),
   avatar: Joi.optional(),
   role: Joi.string().optional(),
+});
+
+export const loginSchema = Joi.object({
+  username: Joi.string().optional(),
+  email: Joi.string().pattern(new RegExp('@')).optional(),
+  password: Joi.string().pattern(new RegExp('(?=.*[A-Z])')).required(),
 });
 
 export const validateSchema = Joi.object({
