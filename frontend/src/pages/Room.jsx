@@ -95,7 +95,7 @@ function CreateRoomForm({ onSubmit }) {
 }
 
 
-export function CreateRoom() {
+function CreateRoom() {
     const handleCreateRoom = async (roomData) => {
         const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjllNDkxZjI3LTVlZDAtNGJkOC04NjUwLTY2YWM4OTFkYmY1MyIsInVzZXJuYW1lIjoiZGNhYzMwMTIiLCJlbWFpbCI6ImRhbmllbGFhbDMwMTJAZ21haWwuY29tIiwiaWF0IjoxNzE1MTAzODY5LCJleHAiOjE3MTc2OTU4Njl9.XmbsvqQKyQyRAi2gfHk6XEl_6dyyuGs7lj1YMO5q3qc"
         localStorage.setItem("AUTH_TOKEN", token)
