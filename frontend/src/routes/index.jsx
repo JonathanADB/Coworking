@@ -6,7 +6,6 @@ import Mobile from '../components/Mobile';
 import RegisterUserForm from '../pages/Register';
 import LoginForm from '../pages/Login.jsx';
 
-
 const AppRoutes = () => {
   return (
     <Router>
