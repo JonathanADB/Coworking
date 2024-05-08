@@ -4,8 +4,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 :root {
-    background-color: #0E0E11;
-    color: #f8f6f9;
+    background-color: #e4e4e4;
+    color: #050505;
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -18,14 +18,7 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-    font-weight: 500;
-    color: #646cff;
-    text-decoration: inherit;
-  }
-  a:hover {
-    color: #535bf2;
-  }
+
   
   h1 {
     font-size: 3.2em;
@@ -39,7 +32,8 @@ a {
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background-color: #18181C;
+    background-color: #171717;
+    color: #e4e4e4;
     cursor: pointer;
     transition: border-color 0.25s;
   }

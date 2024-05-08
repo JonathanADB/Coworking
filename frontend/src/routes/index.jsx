@@ -2,13 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 import CreateRoom from '../pages/Room';
+import Mobile from '../components/Mobile';
 
 const AppRoutes = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/create-room" element={<CreateRoom />} />
+        <Route path="/" element={<Mobile><Home/></Mobile>} />
+        <Route path="/create-room" element={<Mobile><CreateRoom /></Mobile>} />
       </Routes>
     </Router>
   );
