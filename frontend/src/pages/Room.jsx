@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Input from "../components/UI/Input";
+import { AuthContext } from "../auth/auth-context";
 
 function CreateRoomForm({ onSubmit }) {
     const [formData, setFormData] = useState({
@@ -97,15 +98,17 @@ function CreateRoomForm({ onSubmit }) {
 
 function CreateRoom() {
     const handleCreateRoom = async (roomData) => {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjllNDkxZjI3LTVlZDAtNGJkOC04NjUwLTY2YWM4OTFkYmY1MyIsInVzZXJuYW1lIjoiZGNhYzMwMTIiLCJlbWFpbCI6ImRhbmllbGFhbDMwMTJAZ21haWwuY29tIiwiaWF0IjoxNzE1MTAzODY5LCJleHAiOjE3MTc2OTU4Njl9.XmbsvqQKyQyRAi2gfHk6XEl_6dyyuGs7lj1YMO5q3qc"
-        localStorage.setItem("AUTH_TOKEN", token)
-        console.log(roomData);
+        const { authState } = useContext(AuthContext);
+        const token = authState.token;
+        // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjllNDkxZjI3LTVlZDAtNGJkOC04NjUwLTY2YWM4OTFkYmY1MyIsInVzZXJuYW1lIjoiZGNhYzMwMTIiLCJlbWFpbCI6ImRhbmllbGFhbDMwMTJAZ21haWwuY29tIiwiaWF0IjoxNzE1MTAzODY5LCJleHAiOjE3MTc2OTU4Njl9.XmbsvqQKyQyRAi2gfHk6XEl_6dyyuGs7lj1YMO5q3qc"
+        // localStorage.setItem("AUTH_TOKEN", token)
+        // console.log(roomData);
         try {
             const response = await fetch('http://localhost:3000/create-room', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem("AUTH_TOKEN"),
+                    'Authorization': token,
                 },
                 body: JSON.stringify(roomData),
             });
