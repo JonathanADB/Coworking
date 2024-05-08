@@ -75,14 +75,17 @@ function CreateRoomForm({ onSubmit }) {
 
                 <label className="flex items-center justify-between w-full ">
                     Tipo:
-                    <Input 
-                        type="text" 
+                    <select 
                         name="typeOf"
-                        className="w-2/3"
+                        className="flex w-2/3 h-10 px-1 bg-transparent border border-gray-400 rounded-md outline-none outline-offset-0"
                         value={formData.typeOf} 
                         onChange={handleChange}
                         required 
-                     />
+                    >
+                        <option value="">Selecciona una opción</option>
+                        <option value="Pública">Pública</option>
+                        <option value="Privada">Privada</option>
+                    </select>
                 </label>
       
         </form>
