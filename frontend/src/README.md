@@ -30,9 +30,11 @@ Actualmente nos encontramos en pleno desarrollo de la aplicación. Sprint 2.
 - Formulario de creación y modifica espacio (solo administrator)
 - Testing y preparación del Sprint Review
 
-  <div align="center">
-<img src="https://github.com/JonathanADB/Coworking/blob/main/frontend/src/assets/imgreadme/fotoregister.png">
+<div style="display: flex;">
+  <img src="https://github.com/JonathanADB/Coworking/blob/main/frontend/src/assets/imgreadme/fotoregister.png" style="margin-right: 10px;">
+  <img src="https://github.com/JonathanADB/Coworking/blob/main/frontend/src/assets/imgreadme/logeo.png" style="margin-left: 10px;">
 </div>
+
 
 ### Tecnologías Utilizadas en el Frontend
 
