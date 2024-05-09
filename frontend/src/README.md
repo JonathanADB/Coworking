@@ -2,6 +2,9 @@
 
 ## Gestión de Coworking - COWorking
 
+<div align="center">
+<img src="https://github.com/JonathanADB/Coworking/blob/main/frontend/src/assets/imgreadme/titulo.png">
+</div>
 "Gestión de Coworking" es una aplicación web que permite publicar, reservar y gestionar los espacios de coworking de una empresa.
 
 ### Autores
