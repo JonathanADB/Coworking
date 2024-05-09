@@ -20,19 +20,7 @@ const authenticate = async (req, res, next) => {
       throw createError(404, "Usuario no encontrado");
     }
     req.user = decoded;
-    // Lo he comentado porque había situaciones en las que se enviaban dos respuestas sobre una misma petición.
-    // Si el usuario es encontrado, devuelve información sobre el usuario
-    /*res.json({
-      success: true,
-      message: "Usuario y token Authenticado exitosamente",
-      user: {
-        id: user.id,
-        name: user.name,
-        username: user.username,
-        email: user.email,
-        admin: user.admin,
-      },
-    });*/
+
     next();
   } catch (err) {
     next(err);

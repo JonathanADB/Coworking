@@ -9,6 +9,7 @@ import {
   viewRoomSchema,
 } from "../../schemas/roomSchemas.js";
 import { createError } from "../../../utils/error.js";
+import crypto from "crypto";
 
 const dbPool = getPool();
 
@@ -16,18 +17,14 @@ export const roomRouter = Router();
 
 // Endpoint creación de un espacio con nombre, desc, etc (admin)
 roomRouter.post(
-  "/create-rooms",
-  authenticate,
-  isAdmin,
+  "/create-room",
+authenticate,
+isAdmin,
   async (req, res, next) => {
     try {
       const { name, description, capacity, typeOf } = req.body;
-      const { error } = addRoomSchema.validate({
-        name,
-        description,
-        capacity,
-        typeOf,
-      });
+      const { error } = addRoomSchema.validate(req.body);
+
       if (error) {
         throw createError(400, "Datos de entrada no válidos");
       }

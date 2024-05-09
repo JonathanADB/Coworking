@@ -99,7 +99,7 @@ searchsRouter.get("/rooms/searchReservations", async (req, res, next) => {
       );
       // Si se ha definido una sala, se buscarán reservas en ésta
     } else {
-      const room = await validateRoomId(roomId);
+      const rooms = await validateRoomId(roomId);
       const roomIdString = roomId.toString();
       [rooms] = await pool.execute(
         "SELECT rooms.name, COUNT(reservations.id) AS reservationsNumber FROM rooms INNER JOIN reservations ON rooms.id=reservations.roomId WHERE reservations.reservationDateBeg >= ? AND reservations.reservationDateEnd <= ? AND rooms.id = ? GROUP BY rooms.name",

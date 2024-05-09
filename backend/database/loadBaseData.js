@@ -1,6 +1,7 @@
 import "dotenv/config.js";
 import bcrypt from "bcrypt";
 import chalk from "chalk";
+import { verify } from "crypto";
 
 export async function loadBaseData(db) {
   // Usuarios iniciales para la carga de la base de datos

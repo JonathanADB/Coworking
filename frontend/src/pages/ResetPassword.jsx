@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Logo from "../assets/images/Logo.png";
 import Fondo from "../assets/images/Fondo.png";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function CreateResetPasswordForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -9,8 +11,7 @@ function CreateResetPasswordForm({ onSubmit }) {
     confirmPassword: "",
   });
 
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,16 +33,16 @@ function CreateResetPasswordForm({ onSubmit }) {
       });
       const data = await response.json();
       if (response.ok) {
-        setSuccessMessage("Contraseña modificada correctamente");
-        setErrorMessage("");
+        toast.success("Contraseña modificada correctamente");
+        // Redirigir a la página de login
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        navigate("/login");
       } else {
-        setErrorMessage(data.error.message);
-        setSuccessMessage("");
+        toast.error(data.error.message);
       }
     } catch (error) {
       console.error(error);
-      setErrorMessage("Error al modificar la contraseña");
-      setSuccessMessage("");
+      toast.error("Error al modificar la contraseña");
     }
   };
   return (
@@ -66,7 +67,7 @@ function CreateResetPasswordForm({ onSubmit }) {
         <label className="block text-black">
           Nueva contraseña
           <input
-            type="text"
+            type="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
@@ -79,7 +80,7 @@ function CreateResetPasswordForm({ onSubmit }) {
         <label className="block text-black">
           Confirmar nueva contraseña
           <input
-            type="text"
+            type="password"
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
@@ -94,12 +95,12 @@ function CreateResetPasswordForm({ onSubmit }) {
       >
         Restablecer contraseña
       </button>
-      {errorMessage && (
+      {/* {errorMessage && (
         <div className="mt-4 text-red-500 text-center">{errorMessage}</div>
       )}
       {successMessage && (
         <div className="mt-4 text-green-500 text-center">{successMessage}</div>
-      )}
+      )} */}
     </form>
   );
 }

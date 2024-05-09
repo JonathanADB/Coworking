@@ -1,18 +1,22 @@
 import cors from 'cors';
 import "dotenv/config.js";
-
-// Utilizamos el archivo .env para configurar el modo de la aplicación, en modo desarrollo permitirá acceso a todas las solicitudes de origen y todos los métodos, en modo producción solo permitirá acceso a las solicitudes de origen que coincidan con el dominio establecido en CORS_ORIGIN y los métodos GET y POST.
+import { createError } from '../../utils/error.js';
 
 const handleCors = (req, res, next) => {
-  let corsOptions = {};
-
-  if (process.env.MODE === 'PRODUCTION') {
-    corsOptions.origin = process.env.CORS_ORIGIN;
-    corsOptions.methods = ['GET', 'POST'];
-  } else {
-    corsOptions.origin = '*';
-    corsOptions.methods = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'];
-  }
+  let corsOptions = {
+    origin: function (origin, callback) {
+      if (process.env.MODE === 'PRODUCTION') {
+        if (origin === process.env.CORS_ORIGIN) {
+          callback(null, true)
+        } else {
+          callback(createError(403, 'No permitido por CORS'), false);
+        }
+      } else {
+        callback(null, '*')
+      }
+    },
+    methods: process.env.MODE === 'PRODUCTION' ? ['GET', 'POST'] : ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+  };
 
   cors(corsOptions)(req, res, next);
 };

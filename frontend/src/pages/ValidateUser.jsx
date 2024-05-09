@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import Logo from "../assets/images/Logo.png";
 import Fondo from "../assets/images/Fondo.png";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function CreateValidateUserForm({ onSubmit }) {
   const [formData, setFormData] = useState({
     code: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +32,9 @@ function CreateValidateUserForm({ onSubmit }) {
       const data = await response.json();
       if (response.ok) {
         toast.success("Usuario validado correctamente");
+        // Redirigir a la página de login
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        navigate("/login");
       } else {
         toast.error(data.error.message);
       }

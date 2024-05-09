@@ -1,7 +1,13 @@
+import { createError } from "../../utils/error.js";
+
 const notFoundHandler = (req, res, next) => {
-    const error = new Error('Recurso no encontrado');
-    error.status = 404;
-    next(error);
+  try {
+    throw createError(404, 'Recurso no encontrado');
+    
+  } catch (error) {
+        next(error);
+ 
+  }
   };
   
 export default notFoundHandler;
