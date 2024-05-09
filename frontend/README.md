@@ -29,8 +29,7 @@
 - Daniela del Carmen Alvarez Carrasquel
 - Jorge Alberto Pérez Lehmann
 - Eduardo Martínez Frutos
-- Jonathan Alberto Domínguez Blanco
-- Juan José Ayuso Panezo
+- Jonathan Alberto Domínguez Blanco
 - Pablo Campuzano Fuente
 
 ### Fase de desarrollo
