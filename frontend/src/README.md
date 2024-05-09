@@ -7,6 +7,15 @@
 </div>
 "Gestión de Coworking" es una aplicación web que permite publicar, reservar y gestionar los espacios de coworking de una empresa.
 
+<img src="{https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB}" />
+
+### Tecnologías Utilizadas en el Frontend
+
+- React.js
+- React Router
+- Context API
+- Vite
+
 ### Autores
 
 - Daniela del Carmen Alvarez Carrasquel
@@ -36,12 +45,7 @@ Actualmente nos encontramos en pleno desarrollo de la aplicación. Sprint 2.
 </div>
 
 
-### Tecnologías Utilizadas en el Frontend
 
-- React.js
-- React Router
-- Context API
-- Vite
 
 ### Funcionalidades Implementadas en el Frontend
 
@@ -51,4 +55,10 @@ Actualmente nos encontramos en pleno desarrollo de la aplicación. Sprint 2.
 - Implementación del contexto para gestionar la información del usuario logueado.
 - Desarrollo de formularios para creación y modificación de espacios (solo para administradores).
 - Pruebas unitarias y preparación para la revisión del Sprint.
+
+### Notas
+
+- Validar el body de la petición con Joi en todos los endpoints (Backend).
+- Se debe dar feedback al usuario, ya sea con textos o notificaciones, de los errores que devuelve la API.
+- Aplicar la metodología mobile first.
 
