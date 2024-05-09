@@ -48,7 +48,6 @@ Actualmente nos encontramos en pleno desarrollo de la aplicación. Sprint 2.
 - Testing y preparación del Sprint Review
 
 <div style="display: flex;">
-  <img src="https://github.com/JonathanADB/Coworking/blob/main/frontend/src/assets/imgreadme/fotoregister.png" style="margin-right: 10px;">
   <img src="https://github.com/JonathanADB/Coworking/blob/main/frontend/src/assets/imgreadme/logeo.png" style="margin-left: 10px;">
 </div>
 
@@ -65,10 +64,8 @@ Actualmente nos encontramos en pleno desarrollo de la aplicación. Sprint 2.
 - Pruebas unitarias y preparación para la revisión del Sprint.
 
 ### Notas
-
-- Validar el body de la petición con Joi en todos los endpoints (Backend).
-- Se debe dar feedback al usuario, ya sea con textos o notificaciones, de los errores que devuelve la API.
-- Aplicar la metodología mobile first.
+-Validación de endpoint con joi
+-Respuesta y feedback con user mediante tostify 
 
 ### Inicialización y actulidad
 
