@@ -1,0 +1,30 @@
+# Dependencias
+/node_modules
+.env
+
+# Archivos de compilación
+/dist
+/build
+
+# Archivos de configuración local
+/config/local.js
+
+# Archivos de respaldo
+*.bak
+*.backup
+
+# Archivos temporales
+*.tmp
+
+# Archivos de registro
+*.log
+
+# Archivos de caché
+.cache
+
+# Archivos de usuario de Visual Studio Code
+.vscode/
+
+# Archivos generados por el sistema operativo
+.DS_Store
+Thumbs.db
