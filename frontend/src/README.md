@@ -1,10 +1,4 @@
 # Frontend
-<div align="center">
-
-
-</div>
-
-
 
 ## Gestión de Coworking - COWorking
 
@@ -49,12 +43,6 @@ Actualmente nos encontramos en pleno desarrollo de la aplicación. Sprint 2.
 - Desarrollo de formularios para creación y modificación de espacios (solo para administradores).
 - Pruebas unitarias y preparación para la revisión del Sprint.
 
-
-
-
 <div align="center">
-
-![Home](https://github.com/JonathanADB/Coworking/blob/main/frontend/src/assets/imgreadme/home.png)
 ![Registro del usuario](https://github.com/JonathanADB/Coworking/blob/main/frontend/src/assets/imgreadme/fotoregister.png)
-
 </div>
