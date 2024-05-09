@@ -1,13 +1,13 @@
 # Dependencias
-/node_modules
-.env
+*/node_modules
+*.env
 
 # Archivos de compilación
-/dist
-/build
+*/dist
+*/build
 
 # Archivos de configuración local
-/config/local.js
+*/config/local.js
 
 # Archivos de respaldo
 *.bak
@@ -20,11 +20,11 @@
 *.log
 
 # Archivos de caché
-.cache
+*.cache
 
 # Archivos de usuario de Visual Studio Code
-.vscode/
+*.vscode/
 
 # Archivos generados por el sistema operativo
-.DS_Store
-Thumbs.db
+*.DS_Store
+*Thumbs.db
