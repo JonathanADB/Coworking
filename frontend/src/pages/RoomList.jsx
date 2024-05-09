@@ -1,23 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from "../auth/auth-context";
 
 const RoomList = () => {
     const [rooms, setRooms] = useState([]);
+    const { authState } = useContext(AuthContext);
+    const token = authState.token;
+    console.log('token: ', token)
     
     useEffect(() => {
-        fetch('http://localhost:3001/rooms')
+        fetch('http://localhost:3000/rooms', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+        }
+        })
         .then((res) => res.json())
-        .then((data) => setRooms(data));
+        .then((data) => setRooms(data.message));
     }, []);
+
+    console.log('Rooms: ', rooms)
     
     return (
         <div>
         <ul>
-            {rooms.map((room) => (
-            <li key={room.id}>
+            {rooms && rooms.length > 0 ? (
+            rooms.map((room) => (
+                <li key={room.id}>
                 <Link to={`/room/${room.id}`}>{room.name}</Link>
-            </li>
-            ))}
+                </li>
+            ))
+            ) : (
+            <p>No existen espacios</p>
+            )}
         </ul>
         </div>
     );

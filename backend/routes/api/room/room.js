@@ -82,8 +82,8 @@ roomRouter.put("/room/:id", authenticate, isAdmin, async (req, res, next) => {
 // Endpoint para obtener todos los espacios (admin)
 roomRouter.get("/rooms", authenticate, isAdmin, async (req, res, next) => {
   try {
-    const [rooms] = await pool.execute(
-      "SELECT rooms.name, rooms.description, rooms.capacity, rooms.typeOf FROM rooms"
+    const [rooms] = await dbPool.execute(
+      "SELECT rooms.id, rooms.name, rooms.description, rooms.capacity, rooms.typeOf FROM rooms"
     );
     if (!rooms) {
       throw createError(404, "Espacios no encontrados");
