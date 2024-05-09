@@ -30,6 +30,9 @@ function Home() {
   <Link to='/create-room'>
         <button>Crear habitación</button>
   </Link>
+      <Link to='/room-list'>
+            <button>Lista de habitaciones</button>
+      </Link>
 </section>
       </div>
   );

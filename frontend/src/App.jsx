@@ -12,6 +12,7 @@ import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import ChangePassword from "./pages/ChangePassword.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
+import RoomList from "./pages/RoomList.jsx";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/reset-password" element={<Mobile><ResetPassword /></Mobile>} />
           <Route path="/change-password" element={<Mobile><ChangePassword /></Mobile>} />
           <Route path="/forgot-password" element={<Mobile><ForgotPassword /></Mobile>} />
+          <Route path="/room-list" element={<Mobile><RoomList /></Mobile>} />
         </Routes>
       </Router>
       <ToastContainer position="top-center" theme="colored" autoClose={4500} />
