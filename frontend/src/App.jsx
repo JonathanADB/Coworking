@@ -13,6 +13,7 @@ import Login from "./pages/Login.jsx";
 import ChangePassword from "./pages/ChangePassword.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import RoomList from "./pages/RoomList.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/change-password" element={<Mobile><ChangePassword /></Mobile>} />
           <Route path="/forgot-password" element={<Mobile><ForgotPassword /></Mobile>} />
           <Route path="/room-list" element={<Mobile><RoomList /></Mobile>} />
+          <Route path="*" element={<Mobile><NotFound /></Mobile>} />
         </Routes>
       </Router>
       <ToastContainer position="top-center" theme="colored" autoClose={4500} />
