@@ -18,7 +18,9 @@ const Profile = () => {
         <div>
         <h1>Perfil</h1>
         <div>
-            <h5 className="card-title">Nombre de usuario: {user.username}</h5>
+            <p>ID: {user.id}</p>
+            <p>Nombre de usuario: {user.username}</p>
+            <p>URL del avatar: {user.avatar}</p>
             <p>Email: {user.email}</p>
             <p>Rol: {user.role}</p>
             <Link to="/change-password">

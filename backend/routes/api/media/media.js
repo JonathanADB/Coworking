@@ -36,6 +36,11 @@ mediaRouter.post(
         [avatarId, url, userId]
       );
 
+      await dbPool.execute(
+        `UPDATE users SET avatar = ? WHERE id = ?`,
+        [url, userId]
+      );
+
       res.status(201).json({
         success: true,
         message: `La subida del archivo se añadió correctamente`,

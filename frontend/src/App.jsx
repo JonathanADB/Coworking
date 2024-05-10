@@ -18,7 +18,6 @@ import Profile from "./pages/Profile.jsx";
 import Protected from "./components/Protected.jsx";
 import Admin from "./components/Admin.jsx";
 
-//const ProtectedCreateRoom = Protected(CreateRoom);
 const ProtectedProfile = Protected(Profile);
 const AdminCreateRoom = Admin(CreateRoom);
 
