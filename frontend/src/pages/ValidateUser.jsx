@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Logo from "../assets/images/Logo.png";
 import Fondo from "../assets/images/Fondo.png";
+import Input from "../components/UI/Input";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -46,61 +47,42 @@ function CreateValidateUserForm({ onSubmit }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-md mx-auto mt-8 p-4 bg-white shadow-md rounded-md"
+      className="max-w-md p-4 mx-auto mt-4 rounded-md"
     >
-      <div className="mb-4">
-        <label className="block text-black">
-          Código de verificación
-          <input
+      <div className="mb-0">
+          <label>Código de verificación</label>
+          <Input
             type="text"
             name="code"
+            className="my-2"
             value={formData.code}
             onChange={handleChange}
             required
-            className="mt-1 focus:ring-black focus:border-black block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+            // className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
           />
-        </label>
       </div>
-      <button
-        type="submit"
-        className="w-full bg-black text-white font-bold py-2 px-4 rounded"
-      >
+      <button type="submit" className="w-full mt-2">
         Validar usuario
       </button>
+
       {/* {errorMessage && (
-        <div className="mt-4 text-red-500 text-center">{errorMessage}</div>
+        <div className="mt-4 text-center text-red-500">{errorMessage}</div>
       )}
       {successMessage && (
-        <div className="mt-4 text-green-500 text-center">{successMessage}</div>
+        <div className="mt-4 text-center text-green-500">{successMessage}</div>
       )} */}
+      
     </form>
   );
 }
 
 export function ValidateUser() {
   return (
-    <div
-      style={{
-        backgroundImage: `url(${Fondo})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "100vh",
-        padding: "1rem",
-      }}
-      className="text-black"
-    >
-      <img
-        src={Logo}
-        className="h-16 mt-8 mb-4 mx-auto"
-        alt="Logo COWorQUEEN"
-      />
-      <h2 className="text-2xl font-bold mb-4 text-center">
-        FORMULARIO DE VALIDACIÓN DE USUARIO
-      </h2>
-      <div>
+    <>
+
+      <h2 className="mt-2 text-center">Validación de usuario</h2>
         <CreateValidateUserForm />
-      </div>
-    </div>
+    </>
   );
 }
 

@@ -1,61 +1,85 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 :root {
-  background-color: #e4e4e4;
-  color: #050505;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  height: 100dvh;
-  width: 100vw;
-  text-rendering: optimizeLegibility;
-  font-synthesis: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    background-color: #e4e4e4;
+    color: #050505;
+    font-family: Roboto, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100dvh;
+    width: 100vw;
+    text-rendering: optimizeLegibility;
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #171717;
-  color: #e4e4e4;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: white;
-  background-color: #3c3a50;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+  h1 {
+    font-size: 2.5em;
+    line-height: 1.1;
+    font-weight: 700;
   }
-  a:hover {
-    color: #747bff;
+
+  h2 {
+    font-size: 2.125em;
+    line-height: 1.1;
+    font-weight: 500;
   }
+  
   button {
-    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #B39700;
+    color: #171717;
+    cursor: pointer;
+    transition: background-color 0.25s;
+    --webkit-appearance: none;
   }
+  button:hover {
+    background-color: #baa119;
+  }
+  button:not(:disabled) {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #B39700;
+    color: #171717;
+    cursor: pointer;
+    transition: background-color 0.25s;
+    -webkit-appearance: none;
 }
+button:not(:disabled):hover {
+    background-color: #baa119;
+}
+
+
+  
+  @media (prefers-color-scheme: light) {
+    :root {
+      color: #213547;
+      background-color: #ffffff;
+    }
+    a:hover {
+      color: #747bff;
+    }
+    button {
+      background-color: #f9f9f9;
+    }
+  }
+
 
 .logo {
   height: 6em;

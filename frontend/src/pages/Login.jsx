@@ -3,6 +3,7 @@ import Input from "../components/UI/Input";
 import { AuthContext } from "../auth/auth-context";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -50,34 +51,46 @@ function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="login-form">
-      <div className="input-group">
-        <label htmlFor="username">Usuario o Email</label>
-        <Input
-          type="text"
-          name="username"
-          id="username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-          placeholder="Ingrese su usuario o email"
-        />
-      </div>
-      <div className="input-group">
-        <label htmlFor="password">Contraseña</label>
-        <Input
-          type="password"
-          name="password"
-          id="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-          placeholder="Ingrese su contraseña"
-        />
-        <small>Debe contener una letra mayúscula y un símbolo: (?=.*)</small>
-      </div>
-      <button type="submit">Iniciar sesión</button>
-    </form>
+    <div className='flex flex-col justify-center p-4'>
+            <h1 className='mb-4 text-center'>Iniciar sesión</h1>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+                <label htmlFor="username">Usuario o Email</label>
+                <Input
+                    type="text"
+                    name="username"
+                    id="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    required
+                    placeholder="Ingrese su usuario o email"
+                />
+            </div>
+            <div>
+                <label htmlFor="password">Contraseña</label>
+                <Input 
+                    type="password"
+                    name="password"
+                    id="password"
+                    value={formData.password} 
+                    onChange={handleChange}
+                    required
+                    placeholder="Ingrese su contraseña"
+                />
+                {/* Este mensaje quizás solo se debería mostrar al fallar la contraseña una vez */}
+                <p className='text-xs mt-[2px]'>Debe contener una letra mayúscula y un símbolo: (?=.*)</p>
+            </div>
+            <div className="flex flex-col gap-y-4">
+
+            <button className='flex mx-auto w-fit' type="submit">Iniciar sesión</button>
+            <Link to='/forgot-password'>
+              <button className='flex mx-auto w-fit' type="button">¿Olvidaste tu contraseña?</button>
+              </Link>
+              </div>
+
+        </form>
+        </div>
   );
 }
 

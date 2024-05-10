@@ -5,10 +5,10 @@ import { toast } from "react-toastify";
 
 function CreateRoomForm({ onSubmit }) {
   const [formData, setFormData] = useState({
-    name: " ",
-    description: " ",
+    name: "",
+    description: "",
     capacity: 1,
-    typeOf: " ",
+    typeOf: "",
   });
 
   formData.capacity = Number(formData.capacity);
@@ -39,74 +39,72 @@ function CreateRoomForm({ onSubmit }) {
   };
   return (
     <div className="flex flex-col justify-center w-full ">
-      <form className="flex flex-col px-1 my-4 gap-y-4" onSubmit={handleSubmit}>
-        <label className="flex items-center justify-between w-full ">
-          Nombre:
-          <Input
-            type="text"
-            name="name"
-            className="w-2/3"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </label>
+    <form className="flex flex-col px-1 my-4 gap-y-4" onSubmit={handleSubmit}>
 
-        <label className="flex items-center justify-between w-full ">
-          Descripción:
-          <Input
-            type="text"
-            name="description"
-            className="w-2/3"
-            value={formData.description}
-            onChange={handleChange}
-            required
-          />
-        </label>
-
-        <label className="flex items-center justify-between w-full ">
-          Capacidad:
-          <Input
-            type="number"
-            name="capacity"
-            className="w-2/3"
-            value={formData.capacity}
-            onChange={handleChange}
-            min="1"
-            max="256"
-            required
-          />
-        </label>
-
-        <label className="flex items-center justify-between w-full ">
-          Tipo:
-          <select
-            name="typeOf"
-            className="flex w-2/3 h-10 px-1 bg-transparent border border-gray-400 rounded-md outline-none outline-offset-0"
-            value={formData.typeOf}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Selecciona una opción</option>
-            <option value="Pública">Pública</option>
-            <option value="Privada">Privada</option>
-          </select>
-        </label>
-      </form>
-      <button className="mx-auto w-fit" type="submit">
-        Crear habitación
-      </button>
+    <div>
+        <label>Nombre</label>
+            <Input 
+                type="text" 
+                name="name"
+                placeholder="Nombre de la habitación"
+                value={formData.name} 
+                onChange={handleChange}
+                required 
+            />
     </div>
-  );
+
+    <div>
+        <label>Descripción</label>
+            <Input 
+                type="text" 
+                name="description"
+                placeholder="Descripción de la habitación"
+                value={formData.description} 
+                onChange={handleChange}
+                required 
+            />
+    </div>
+
+    <div>
+        <label>Capacidad</label>
+                <Input 
+                    type="number" 
+                    name="capacity"
+                    value={formData.capacity} 
+                    onChange={handleChange}
+                    min="1"
+                    max="256"
+                    required 
+                 />
+    </div>
+
+    <div>
+        <label>Tipo</label>
+
+                <select 
+                    name="typeOf"
+                    className="flex w-full h-10 px-1 bg-transparent border border-gray-400 rounded-md outline-none outline-offset-0"
+                    value={formData.typeOf} 
+                    onChange={handleChange}
+                    required 
+                >
+                    <option value="">Selecciona una opción</option>
+                    <option value="Pública">Pública</option>
+                    <option value="Privada">Privada</option>
+                </select>
+            </div>
+  
+    </form>
+        <button onClick={handleSubmit} className="mx-auto w-fit" type="submit">Crear habitación</button>
+    </div>
+);
 }
 
 function CreateRoom() {
   const handleCreateRoom = async (roomData) => {
     const { authState } = useContext(AuthContext);
     const token = authState.token;
-    // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjllNDkxZjI3LTVlZDAtNGJkOC04NjUwLTY2YWM4OTFkYmY1MyIsInVzZXJuYW1lIjoiZGNhYzMwMTIiLCJlbWFpbCI6ImRhbmllbGFhbDMwMTJAZ21haWwuY29tIiwiaWF0IjoxNzE1MTAzODY5LCJleHAiOjE3MTc2OTU4Njl9.XmbsvqQKyQyRAi2gfHk6XEl_6dyyuGs7lj1YMO5q3qc"
-    // localStorage.setItem("AUTH_TOKEN", token)
-    // console.log(roomData);
+    console.log('Token:', token)
     try {
       const response = await fetch("http://localhost:3000/create-room", {
         method: "POST",
@@ -118,7 +116,8 @@ function CreateRoom() {
       });
 
       if (!response.ok) {
-        console.error("Error en la solicitud:");
+        console.error("Error en la solicitud:", error);
+        toast.error("Error en la solicitud");
         return;
       }
 
@@ -129,19 +128,22 @@ function CreateRoom() {
         if (data.success) {
         } else {
           console.error("Error del servidor:");
+          toast.error("Error del servidor");
         }
       } else {
         console.error("La respuesta no es JSON válida.");
+        toast.error("La respuesta no es JSON válida.");
       }
     } catch (error) {
       // Maneja errores en la solicitud
       console.error("Error al crear habitación:", error);
+      toast.error(`Error al crear habitación: ${error}`);
     }
   };
 
   return (
     <div className="flex flex-col justify-center p-4 ">
-      <h2 className="text-xl text-center">Crear nueva habitación</h2>
+      <h2 className="text-center">Crear nueva habitación</h2>
       <CreateRoomForm onSubmit={handleCreateRoom} />
     </div>
   );

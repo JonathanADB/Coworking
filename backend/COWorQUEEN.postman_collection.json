@@ -1,0 +1,961 @@
+{
+	"info": {
+		"_postman_id": "5cfbb8ba-f029-4426-8ddf-2412a7bb870c",
+		"name": "COWorQUEEN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32723005"
+	},
+	"item": [
+		{
+			"name": "USUARIO",
+			"item": [
+				{
+					"name": "registro nuevo usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"prueba2\",\r\n    \"email\": \"prueba2@gmail.com\",\r\n    \"password\": \"Prueba2*\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Incios Sesion Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Prueba2}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"prueba2\",\r\n    \"email\": \"prueba2@gmail.com\",\r\n    \"password\": \"Prueba2*\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vaerificar usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/validate/:email/:code",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"validate",
+								":email",
+								":code"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "danielaal3012@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "code",
+									"value": "235374",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "email",
+									"value": "prueba2@gmail.com"
+								},
+								{
+									"key": "code",
+									"value": "225422"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cambio de contraseña",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userDaniela}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"danielaal3012@coworqueen.com\",\r\n    \"currentPassword\": \"lavaca\",\r\n    \"newPassword\": \"lavacalola\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/change-password",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar contraseña",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{danielaUser}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"email\": \"danielaal3012@coworking.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/forgot-password",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busqueda de equipos disponibles Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/equipment/searchlist",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"equipment",
+								"searchlist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ver perfil usuario",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Admin}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/user/profile/68642af4-f16e-45bd-b2c7-2124e66d5864",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"profile",
+								"68642af4-f16e-45bd-b2c7-2124e66d5864"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar perfil usuario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userDaniela}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Daniela\",\r\n    \"lastName\":\"Alvarez\",\r\n    \"username\":\"userDaniela3012\",\r\n    \"email\": \"userDaniela@coworqueen.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/user/profile/68642af4-f16e-45bd-b2c7-2124e66d5864",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"profile",
+								"68642af4-f16e-45bd-b2c7-2124e66d5864"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ADMIN",
+			"item": [
+				{
+					"name": "Agregar equipos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mesas\",\r\n    \"description\": \"Mesas redondas capacidad 7 personas \",\r\n    \"inventory\" : \"60\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/equipment/add",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"equipment",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inicio sesion admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Admin\",\r\n    \"email\": \"admin@coworking.com\",\r\n    \"password\": \"Admin@1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar equipos",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{danielaUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/equipment/6db71c9e-16f7-4ea3-b0ce-c82e374e15ea",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"equipment",
+								"6db71c9e-16f7-4ea3-b0ce-c82e374e15ea"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update equipos",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{danielaUser}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sillas\",\r\n    \"description\": \"Sillas reclinables de color negro\",\r\n    \"inventory\":\"30\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/equipment/4e4cb223-e1b6-4ebc-a05c-984f9c15bc20",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"equipment",
+								"4e4cb223-e1b6-4ebc-a05c-984f9c15bc20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "busqueda de inventario de equipos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/equipment/search?search=Cafetera&offset=",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"equipment",
+								"search"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Cafetera"
+								},
+								{
+									"key": "offset",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busqueda de equipos disponibles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/equipment/searchlist",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"equipment",
+								"searchlist"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ROOMS",
+			"item": [
+				{
+					"name": "ROOMS CONTROLLER",
+					"item": [
+						{
+							"name": "Consulta de  todos los Rooms",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/rooms",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"rooms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Consulta de Room por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/room/b29265cc-e352-429d-915f-a91fea5a2705",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"room",
+										"b29265cc-e352-429d-915f-a91fea5a2705"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Consulta de reserva de Rooms",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/rooms/searchReservations?dateBeg=2024-04-01 10:00:00&dateEnd=2024-04-01 12:00:00&rooms=3e1b5109-3bcf-4f94-9727-217aa6f8230c",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"rooms",
+										"searchReservations"
+									],
+									"query": [
+										{
+											"key": "dateBeg",
+											"value": "2024-04-01 10:00:00"
+										},
+										{
+											"key": "dateEnd",
+											"value": "2024-04-01 12:00:00"
+										},
+										{
+											"key": "rooms",
+											"value": "3e1b5109-3bcf-4f94-9727-217aa6f8230c"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "crear rooms",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{dcac3012}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Napoleón Bonaparte\",\r\n    \"description\":\"Sala de general\",\r\n    \"capacity\":\"15\",\r\n    \"typeOf\": \"Publica\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/create-room",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"create-room"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busqueda de rooms por tipo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"typeOf\":\"Privada\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/rooms/types",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rooms",
+								"types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear reserva rooms",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userDaniela}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reservationDateBeg\": \"2024-04-01T13:00:00\",\r\n    \"reservationDateEnd\": \"2024-04-01T18:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/68642af4-f16e-45bd-b27-2124e66d5864/room/b747c415-767b-4281-8b26-8f6f3c2998f8",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"68642af4-f16e-45bd-b27-2124e66d5864",
+								"room",
+								"b747c415-767b-4281-8b26-8f6f3c2998f8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancelar reserva",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/rooms/0aeb84af-422e-493b-bfd1-dd924d4f9b4d/reservations/06c249e8-fd13-4479-b9ec-5d7a6f47ba23",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rooms",
+								"0aeb84af-422e-493b-bfd1-dd924d4f9b4d",
+								"reservations",
+								"06c249e8-fd13-4479-b9ec-5d7a6f47ba23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Room",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Frida Kahlo\",\r\n    \"description\":\"Sala general\",\r\n    \"capacity\":\"20\",\r\n    \"typeOf\": \"Publica\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/room/ba974c90-e7ad-4b74-9a08-ab79be6be8f3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"room",
+								"ba974c90-e7ad-4b74-9a08-ab79be6be8f3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "INCIDENTS",
+			"item": [
+				{
+					"name": "lista incidencias admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Admin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/incidents",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"incidents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Icidencia como usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userDaniela}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\":\"Se daño una Cafetera\",\r\n    \"equipmentId\":\"31e6760b-71fe-4262-90a6-2f882b3aed91\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/68642af4-f16e-45bd-b2c7-2124e66d5864/b747c415-767b-4281-8b26-8f6f3c2998f8/incidents/add",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"68642af4-f16e-45bd-b2c7-2124e66d5864",
+								"b747c415-767b-4281-8b26-8f6f3c2998f8",
+								"incidents",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Icidencia como Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\":\"Se la mesa ( Reparación parcial)\",\r\n    \"equipmentId\":\"31e6760b-71fe-4262-90a6-2f882b3aed91\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/5106dd8b-57bd-4816-b845-3bba91c1fb8d/7f232ba9-c90e-47da-88a1-cabce04cdb90/incidents/add",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"5106dd8b-57bd-4816-b845-3bba91c1fb8d",
+								"7f232ba9-c90e-47da-88a1-cabce04cdb90",
+								"incidents",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "REVIEW",
+			"item": [
+				{
+					"name": "agregar review",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{danielaUser}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rate\":\"4\",\r\n    \"description\": \"excelente atencion y servicio\",\r\n    \"reservationId\":\"3e1b5109-3bcf-4f94-9727-217aa6f8230c\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/review/add",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"review",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reviews hechas por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/review/ecc1dcd0-007f-4b46-835a-dac1ddc4edfe",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"review",
+								"ecc1dcd0-007f-4b46-835a-dac1ddc4edfe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reviews hechas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/reviews",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "borrar  reviews",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{danielaUser}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/review/68526947-23ff-4024-950e-75f4d3997df7",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"review",
+								"68526947-23ff-4024-950e-75f4d3997df7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar  reviews",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{danielaUser}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rate\":\" 10\",\r\n    \"description\": \" Maravilloso lugar para trabajar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/review/58d6cbc2-6bfd-4d34-a78e-6b2ffc1aad4a",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"review",
+								"58d6cbc2-6bfd-4d34-a78e-6b2ffc1aad4a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userDaniela",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjQyYWY0LWYxNmUtNDViZC1iMmM3LTIxMjRlNjZkNTg2NCIsInVzZXJuYW1lIjoidXNlckRhbmllbGEzMDEyIiwiZW1haWwiOiJ1c2VyRGFuaWVsYUBjb3dvcnF1ZWVuLmNvbSIsImlhdCI6MTcxNDc2MTMwOCwiZXhwIjoxNzE1MDIwNTA4fQ.9UOwrSt3I2p6ryl9B3nqfb42MFcwonDAPbmNkVPrNMw"
+		},
+		{
+			"key": "Admin",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUxMDZkZDhiLTU3YmQtNDgxNi1iODQ1LTNiYmE5MWMxZmI4ZCIsInVzZXJuYW1lIjoiQWRtaW4iLCJlbWFpbCI6ImFkbWluQGNvd29ya2luZy5jb20iLCJpYXQiOjE3MTQ1OTQ3MDcsImV4cCI6MTcxNDg1MzkwN30.BWWcYn-8YtVbAq5DKS56Ed3OAujOufipa2fP86Pt9kY"
+		},
+		{
+			"key": "dcac3012",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjllNDkxZjI3LTVlZDAtNGJkOC04NjUwLTY2YWM4OTFkYmY1MyIsInVzZXJuYW1lIjoiZGNhYzMwMTIiLCJlbWFpbCI6ImRhbmllbGFhbDMwMTJAZ21haWwuY29tIiwiaWF0IjoxNzE1MTAzODY5LCJleHAiOjE3MTc2OTU4Njl9.XmbsvqQKyQyRAi2gfHk6XEl_6dyyuGs7lj1YMO5q3qc"
+		},
+		{
+			"key": "Prueba2",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ4OTcxYTM0LTBiNTMtNGJmYy04MTk1LTAxYTQxOTY0ZGVlYiIsInVzZXJuYW1lIjoicHJ1ZWJhMiIsImVtYWlsIjoicHJ1ZWJhMkBnbWFpbC5jb20iLCJpYXQiOjE3MTUyMDczMDAsImV4cCI6MTcxNzc5OTMwMH0.1Qmf1GYzyicwh2Jdw-wWP_SZY3k7RnBBNXMdD6x5r2E"
+		}
+	]
+}

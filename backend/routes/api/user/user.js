@@ -202,11 +202,12 @@ userRouter.put("/user/profile/", authenticate, async (req, res, next) => {
 //Cambio de contraseña
 userRouter.patch("/change-password", authenticate, async (req, res, next) => {
   try {
-    const { email, currentPassword, newPassword } = req.body;
+    const { email, oldPassword, newPassword, confirmPassword } = req.body;
     const { error } = changePasswordSchema.validate({
       email,
-      currentPassword,
+      oldPassword,
       newPassword,
+      confirmPassword,
     });
     if (error) {
       throw createError(400, "Datos de entrada no válidos");
@@ -217,9 +218,15 @@ userRouter.patch("/change-password", authenticate, async (req, res, next) => {
     if (!user) {
       throw createError(404, "Usuario no encontrado");
     }
-    const passwordMatch = await compare(currentPassword, user.password);
+    const passwordMatch = await compare(oldPassword, user.password);
     if (!passwordMatch) {
-      throw createError(401, "Contraseña incorrecta");
+      throw createError(
+        401,
+        "La contraseña actual no coincide con la contraseña almacenada en la BD"
+      );
+    }
+    if (newPassword != confirmPassword) {
+      throw createError(401, "Las contraseñas no coinciden");
     }
     const hashedNewPassword = await hash(newPassword, 12);
     await pool.query("UPDATE users SET password = ? WHERE id = ?", [
