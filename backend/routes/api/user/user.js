@@ -115,7 +115,14 @@ userRouter.post("/login", async (req, res, next) => {
       success: true,
       message: "Usuario logueado exitosamente",
       token: token,
-      user: user.id,
+      user: {
+        id: user.id,
+        role: user.role,
+        username: user.username,
+        email: user.email,
+        avatar: user.avatar,
+      },
+
     });
   } catch (err) {
     next(err);
