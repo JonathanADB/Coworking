@@ -6,7 +6,6 @@ const RoomList = () => {
     const [rooms, setRooms] = useState([]);
     const { authState } = useContext(AuthContext);
     const token = authState.token;
-    console.log('token: ', token)
     
     useEffect(() => {
         fetch('http://localhost:3000/rooms', {
@@ -18,8 +17,6 @@ const RoomList = () => {
         .then((res) => res.json())
         .then((data) => setRooms(data.message));
     }, []);
-
-    console.log('Rooms: ', rooms)
     
     return (
         <div>
