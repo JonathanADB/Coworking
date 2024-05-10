@@ -5,6 +5,6 @@ import { fileURLToPath } from "url";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
-const serveStatic = express.static(path.join(dirname, "public"));
+const serveStatic = express.static(path.join(dirname, "..", "..", "..", "frontend", "public", "uploads"));
 
 export default serveStatic;

@@ -14,7 +14,7 @@ import { mediaRouter } from "./api/media/media.js";
 // import { equipmentRouter } from "./api/admin/equipment.js";
 
 const router = express.Router();
-router.use(cors());
+// router.use(cors());
 
 router.use(userRouter);
 router.use(equipmentAdminRouter);

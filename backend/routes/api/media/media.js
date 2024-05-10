@@ -29,7 +29,7 @@ mediaRouter.post(
       const avatarId = crypto.randomUUID();
       const { fileName, filePath } = req.body;
 
-      const url = `${API_HOST}/uploads/${fileName}`;
+      const url = `${API_HOST}/uploads/avatar/${fileName}`;
 
       await dbPool.execute(
         `INSERT INTO media(id, url, userId) VALUES (?, ?, ?)`,
