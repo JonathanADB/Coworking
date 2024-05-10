@@ -18,8 +18,8 @@ export async function loadBaseData(db) {
   ];
 
   for (const user of users) {
-    console.log(`Insertando información de ${chalk.bgCyan(user.email)}`);
-        await db.query(
+    console.log(`Insertando información de ${chalk.bgCyan(`${user.email}`)}`);
+    await db.query(
       `INSERT INTO users (id, username, email, password, verified, role) VALUES (?, ?, ?, ?, ?, ?)`,
       [
         user.id,
