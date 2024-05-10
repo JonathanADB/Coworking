@@ -1,18 +1,21 @@
+import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import { createError } from '../../utils/error.js';
 
 const handleFileUpload = (req, res, next) => {
   try {
-    if (!req.files || !req.files.file) {
+    if (!req.files || Object.keys(req.files).length === 0) {
       throw createError(400, "No se encontro ningun archivo para subir");
     }
   
     const file = req.files.file;
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif']; // Tipos de archivo permitidos
-    const maxSize = 10 * 1024 * 1024; // Tamaño máximo del archivo en MB
+    const maxSize = 10 * 1024 * 1024; // Tamaño máximo del archivo en bytes (10MB)
   
     if (!allowedTypes.includes(file.mimetype)) {
-      throw createError(404, "Tipo de archivo no permitido");
+      throw createError(400, "Tipo de archivo no permitido");
     }
   
     if (file.size > maxSize) {
@@ -21,20 +24,29 @@ const handleFileUpload = (req, res, next) => {
   
     // Modificamos el nombre del archivo para evitar conflictos añadiendo la fecha actual antes del nombre original
     const fileName = Date.now() + '-' + file.name;
-    const filePath = path.join(__dirname, 'uploads', fileName);
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    const dirPath = path.join(__dirname, '..', '..', '..', 'frontend', 'public', 'uploads', 'avatar');
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
+    }
+    const filePath = path.join(dirPath, fileName);
   
     file.mv(filePath, (err) => {
       if (err) {
         console.error(err);
-        throw createError(500, "Error al guardar el archivo");
+        throw createError(500, "Error al mover el archivo");
       }
-  
-      res.json({ message: 'Archivo subido con éxito', fileName: fileName });
+
+      // Añade el nombre del archivo y la ruta del archivo al cuerpo de la solicitud
+      req.body.fileName = fileName;
+      req.body.filePath = filePath;
+
+      next();
     });
-  
-    
-  } catch (error) {
-    next(error)
+  } catch (err) {
+    next(err);
   }
 };
+
 export default handleFileUpload;

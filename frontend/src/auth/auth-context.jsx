@@ -22,6 +22,8 @@ export function AuthProvider({ children }) {
 
   console.log(authState);
 
+  console.log(authState.token)
+
   return (
     <AuthContext.Provider value={{ authState, login, logout }}>
       {children}
