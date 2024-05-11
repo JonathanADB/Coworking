@@ -6,7 +6,7 @@ const Input = ({ className, type, ...props }) => {
         <input
             type={type}
             className={cn(
-                "flex h-10 w-full border border-gray-400 bg-transparent rounded-md outline-none outline-offset-0 px-1",
+                "flex h-10 w-full border border-[#B29700] bg-[#F4F3EB] rounded-md outline-none outline-offset-0 px-1",
                 className
               )}
             {...props}

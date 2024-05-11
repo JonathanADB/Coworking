@@ -117,6 +117,8 @@ userRouter.post("/login", async (req, res, next) => {
       token: token,
       user: {
         id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
         role: user.role,
         username: user.username,
         email: user.email,
