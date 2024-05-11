@@ -5,7 +5,7 @@ import Logo from "../assets/images/Logo.png";
 import coworqueen from "../assets/images/coworqueen.svg";
 import { AuthContext } from "../auth/auth-context";
 import background from "../assets/images/background.webp";
-import { ScrollArea } from "./UI/scroll-area";
+import { ScrollArea, ScrollBar } from "./UI/scroll-area";
 
 const Mobile = ({ children }) => {
   const location = useLocation();
@@ -31,6 +31,8 @@ const Mobile = ({ children }) => {
             />
           </Link>
           <div className="mb-4">{children}</div>
+          <ScrollBar className="hidden" />
+
         </ScrollArea>
         <div className="fixed bottom-0 flex items-center justify-around w-full h-12 text-2xl bg-[#171717] text-[#e4e4e4]">
           <Link to="/">

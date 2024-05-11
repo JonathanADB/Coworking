@@ -48,28 +48,6 @@ function Home() {
         <Link to="/room-list">Lista de habitaciones</Link>
       </Button>
 
-      <Button asChild>
-        <Link to="/room">Habitación</Link>
-      </Button>
-
-      <Button asChild>
-        <Link to="/room">Habitación</Link>
-      </Button>
-
-      <Button asChild>
-        <Link to="/room">Habitación</Link>
-      </Button>
-
-      <Button asChild>
-        <Link to="/room">Habitación</Link>
-      </Button>
-
-      <Button asChild>
-        <Link to="/room">Habitación</Link>
-      </Button>
-    
-      
-
       </section>
     </div>
   );
