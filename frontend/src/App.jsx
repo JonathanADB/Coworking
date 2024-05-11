@@ -15,6 +15,7 @@ import ForgotPassword from "./pages/ForgotPassword.jsx";
 import RoomList from "./pages/RoomList.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Profile from "./pages/Profile.jsx";
+import AddAvatar from "./pages/AddAvatar.jsx";
 import Protected from "./components/Protected.jsx";
 import Admin from "./components/Admin.jsx";
 
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/create-room" element={<Mobile><AdminCreateRoom /></Mobile>} />
           <Route path="/room-list" element={<Mobile><RoomList /></Mobile>} />
           <Route path="/profile" element={<Mobile><ProtectedProfile /></Mobile>} />
+          <Route path="/add-avatar" element={<Mobile><AddAvatar /></Mobile>} />
           <Route path="*" element={<Mobile><NotFound /></Mobile>} />
         </Routes>
       </Router>

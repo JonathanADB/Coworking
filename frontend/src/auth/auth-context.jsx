@@ -20,8 +20,14 @@ export function AuthProvider({ children }) {
     setAuthState({ token: null, user: null });
   };
 
+  const updateAvatar = (avatarUrl) => {
+    const updatedUser = { ...authState.user, avatar: avatarUrl };
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+    setAuthState(prevState => ({ ...prevState, user: updatedUser }));
+}
+
   return (
-    <AuthContext.Provider value={{ authState, login, logout }}>
+<AuthContext.Provider value={{ authState, login, logout, updateAvatar }}>
       {children}
     </AuthContext.Provider>
   );

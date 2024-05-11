@@ -45,6 +45,7 @@ mediaRouter.post(
         success: true,
         message: `La subida del archivo se añadió correctamente`,
         fileName: fileName,
+        url: url,
       });
     } catch (err) {
       next(err);
