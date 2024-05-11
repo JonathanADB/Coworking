@@ -27,6 +27,14 @@ function Home() {
         <button>Restablecer contraseña</button>
   </Link>
 
+  <Link to='/profile'>
+            <button>Perfil</button>
+      </Link>
+
+      <Link to='/add-avatar'>
+            <button>Agregar avatar</button>
+      </Link>
+
   <Link to='/create-room'>
         <button>Crear habitación</button>
   </Link>
