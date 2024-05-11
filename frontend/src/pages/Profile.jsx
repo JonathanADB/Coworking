@@ -77,9 +77,6 @@ const Profile = () => {
             </Link>
 
                 </div>
-
-  
-
         </div>
 
         <div className='relative flex items-center justify-left'>
