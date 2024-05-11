@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Input from "../components/UI/Input.jsx";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { FaUser } from "react-icons/fa";
 
 function RegisterUserForm({ onSubmit }) {
   const [formData, setFormData] = useState({

@@ -32,14 +32,12 @@ function LoginForm() {
       });
 
       if (!response.ok) {
-        console.log(formData);
         toast.error("Error en la solicitud");
       }
       const data = await response.json();
 
       login(data.token, data.user);
 
-      console.log("Inicio de sesión exitoso:", data);
       toast.success("Inicio de sesión exitoso");
       // Redirigir a la página de home
       await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -56,7 +54,7 @@ function LoginForm() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-                <label htmlFor="username">Usuario o Email</label>
+                <label htmlFor="username" className="flex justify-left">Usuario o correo electrónico</label>
                 <Input
                     type="text"
                     name="username"
@@ -68,7 +66,7 @@ function LoginForm() {
                 />
             </div>
             <div>
-                <label htmlFor="password">Contraseña</label>
+                <label htmlFor="password" className="flex justify-left">Contraseña</label>
                 <Input 
                     type="password"
                     name="password"

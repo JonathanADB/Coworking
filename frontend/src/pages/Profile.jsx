@@ -83,14 +83,14 @@ const Profile = () => {
         </div>
 
         <div className='relative flex items-center justify-left'>
-            <p className='absolute z-10 ml-4 bg-[#E4E4E4] px-2'>Coworking visitados</p>
+            <p className='absolute z-10 ml-4 bg-[#ECEBEB] px-2'>Coworking visitados</p>
             <div className='absolute inset-0 border-b border-[#B29700]' />
         </div>
 
         <div className='my-8'/>
 
         <div className='relative flex items-center justify-left'>
-            <p className='absolute z-10 ml-4 bg-[#E4E4E4] px-2'>Reseñas</p>
+            <p className='absolute z-10 ml-4 bg-[#ECEBEB] px-2'>Reseñas</p>
             <div className='absolute inset-0 border-b border-[#B29700]' />
         </div>
 
