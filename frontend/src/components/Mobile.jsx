@@ -28,8 +28,8 @@ const Mobile = ({children}) => {
                 <FaEye />
                 <FaBookmark />
                 <Link to='/profile'>
-                {authState.user.avatar ? (
-                    <img src={authState.user.avatar} width={24} height={24} className='rounded-full aspect-square' alt="Avatar del usuario" />
+                {authState?.user?.avatar ? (
+                    <img src={authState?.user?.avatar} width={24} height={24} className='rounded-full aspect-square' alt="Avatar del usuario" />
                 ) : (
                     <FaUserCircle className={location.pathname === '/register' || location.pathname === '/validate' || location.pathname === '/register' || location.pathname === '/forgot-password' || location.pathname === '/reset-password' || location.pathname === '/change-password' ? 'text-[#B39700]' : ''} />
                 )}
