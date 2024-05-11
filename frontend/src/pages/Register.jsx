@@ -3,11 +3,12 @@ import Input from "../components/UI/Input.jsx";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
+import { Button } from "@/components/UI/button.jsx";
 
 function RegisterUserForm({ onSubmit }) {
   const [formData, setFormData] = useState({
-    firstName: " ",
-    lastName: " ",
+    firstName: "",
+    lastName: "",
     username: "",
     email: "",
     password: "",
@@ -116,7 +117,10 @@ function RegisterUserForm({ onSubmit }) {
 
             </div>
   
-        <button className="mx-auto w-fit" type="submit">Registrarse</button>
+        <Button type="submit" className="w-full ">
+          Registrarse
+        </Button>
+        {/* <button className="mx-auto w-fit" type="submit">Registrarse</button> */}
     </form>
     </div>
 );

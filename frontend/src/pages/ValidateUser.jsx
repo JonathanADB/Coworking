@@ -4,6 +4,7 @@ import Fondo from "../assets/images/Fondo.png";
 import Input from "../components/UI/Input";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/UI/button";
 
 function CreateValidateUserForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -61,9 +62,14 @@ function CreateValidateUserForm({ onSubmit }) {
             // className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
           />
       </div>
-      <button type="submit" className="w-full mt-2">
+
+      <Button type="submit" className="w-full mt-2">
         Validar usuario
-      </button>
+      </Button>
+
+      {/* <button type="submit" className="w-full mt-2">
+        Validar usuario
+      </button> */}
 
       {/* {errorMessage && (
         <div className="mt-4 text-center text-red-500">{errorMessage}</div>

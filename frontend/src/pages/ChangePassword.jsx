@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Input from "../components/UI/Input";
+import { Button } from "@/components/UI/button";
 
 function CreateChangePasswordForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -101,12 +102,10 @@ function CreateChangePasswordForm({ onSubmit }) {
 
    
       </div>
-      <button
-        type="submit"
-        className="w-full px-4 py-2 font-bold text-white bg-black rounded"
-      >
+      <Button type="submit" className="w-full">
         Restablecer contraseña
-      </button>
+      </Button>
+
       {errorMessage && (
         <div className="mt-4 text-center text-red-500">{errorMessage}</div>
       )}

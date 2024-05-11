@@ -4,6 +4,7 @@ import { AuthContext } from "../auth/auth-context";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/UI/button";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -79,12 +80,15 @@ function LoginForm() {
                 {/* Este mensaje quizás solo se debería mostrar al fallar la contraseña una vez */}
                 <p className='text-xs mt-[2px]'>Debe contener una letra mayúscula y un símbolo: (?=.*)</p>
             </div>
-            <div className="flex flex-col gap-y-4">
+            <div className="flex flex-col gap-y-2">
 
-            <button className='flex mx-auto w-fit' type="submit">Iniciar sesión</button>
-            <Link to='/forgot-password'>
-              <button className='flex mx-auto w-fit' type="button">¿Olvidaste tu contraseña?</button>
-              </Link>
+
+          <Button className='flex w-full mx-auto' type="submit">Iniciar sesión</Button>
+
+          <Button asChild variant="link">
+            <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
+          </Button>
+
               </div>
 
         </form>

@@ -4,6 +4,7 @@ import Fondo from "../assets/images/Fondo.png";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/UI/Input";
+import { Button } from "@/components/UI/button";
 
 function CreateResetPasswordForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -84,12 +85,10 @@ function CreateResetPasswordForm({ onSubmit }) {
           />
 
       </div>
-      <button
-        type="submit"
-        className="w-full"
-      >
+      <Button type="submit" className="w-full">
         Restablecer contraseña
-      </button>
+      </Button>
+
       {/* {errorMessage && (
         <div className="mt-4 text-center text-red-500">{errorMessage}</div>
       )}

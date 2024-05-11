@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../auth/auth-context';
 import { FaPencilAlt } from "react-icons/fa";
 import Input from '../components/UI/Input';
+import { Button } from '@/components/UI/button';
 
 
 const Profile = () => {
@@ -72,23 +73,28 @@ const Profile = () => {
                     />
                     </div>
 
+                <Button asChild className="my-2">
                     <Link to="/change-password">
+                        Cambiar contraseña
+                    </Link>
+                </Button>
+                    {/* <Link to="/change-password">
                 <button className='flex justify-center w-full mx-auto mt-4 text-center'>Cambiar contraseña</button>
-            </Link>
+            </Link> */}
 
                 </div>
         </div>
 
         <div className='relative flex items-center justify-left'>
-            <p className='absolute z-10 ml-4 bg-[#ECEBEB] px-2'>Coworking visitados</p>
-            <div className='absolute inset-0 border-b border-[#B29700]' />
+            <p className='absolute z-10 ml-4 bg-[#FDFCFC] px-2'>Coworking visitados</p>
+            <div className='absolute inset-0 border-b border-primary' />
         </div>
 
         <div className='my-8'/>
 
         <div className='relative flex items-center justify-left'>
-            <p className='absolute z-10 ml-4 bg-[#ECEBEB] px-2'>Reseñas</p>
-            <div className='absolute inset-0 border-b border-[#B29700]' />
+            <p className='absolute z-10 ml-4 bg-[#FDFCFC] px-2'>Reseñas</p>
+            <div className='absolute inset-0 border-b border-primary' />
         </div>
 
         {/* <div>

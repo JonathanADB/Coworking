@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import Input from "../components/UI/Input";
 import { AuthContext } from "../auth/auth-context";
 import { toast } from "react-toastify";
+import { Button } from "@/components/UI/button";
 
 function CreateRoomForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -95,7 +96,7 @@ function CreateRoomForm({ onSubmit }) {
             </div>
   
     </form>
-        <button onClick={handleSubmit} className="mx-auto w-fit" type="submit">Crear habitación</button>
+        <Button onClick={handleSubmit} className="w-full" type="submit">Crear habitación</Button>
     </div>
 );
 }
