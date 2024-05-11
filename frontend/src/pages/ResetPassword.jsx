@@ -3,7 +3,7 @@ import Logo from "../assets/images/Logo.png";
 import Fondo from "../assets/images/Fondo.png";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import Input from "../components/UI/Input";
+import { Input } from "@/components/UI/input";
 import { Button } from "@/components/UI/button";
 
 function CreateResetPasswordForm({ onSubmit }) {

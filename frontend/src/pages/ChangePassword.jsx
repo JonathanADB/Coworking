@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Input from "../components/UI/Input";
+import { Input } from "@/components/UI/input";
 import { Button } from "@/components/UI/button";
 
 function CreateChangePasswordForm({ onSubmit }) {

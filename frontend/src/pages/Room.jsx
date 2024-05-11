@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import Input from "../components/UI/Input";
+import { Input } from "@/components/UI/input";
 import { AuthContext } from "../auth/auth-context";
 import { toast } from "react-toastify";
 import { Button } from "@/components/UI/button";

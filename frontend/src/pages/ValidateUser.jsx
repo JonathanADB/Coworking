@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import Logo from "../assets/images/Logo.png";
-import Fondo from "../assets/images/Fondo.png";
-import Input from "../components/UI/Input";
+import { Input } from "@/components/UI/input";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/UI/button";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/UI/input-otp"
+
 
 function CreateValidateUserForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -12,14 +17,6 @@ function CreateValidateUserForm({ onSubmit }) {
   });
 
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,25 +48,44 @@ function CreateValidateUserForm({ onSubmit }) {
       className="max-w-md p-4 mx-auto mt-4 rounded-md"
     >
       <div className="mb-0">
-          <label>Código de verificación</label>
-          <Input
-            type="text"
-            name="code"
-            className="my-2"
-            value={formData.code}
-            onChange={handleChange}
-            required
-            // className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
-          />
+        <label>Código de verificación</label>
+
+<div className="mx-auto w-fit">
+
+
+        <InputOTP
+        maxLength={6}
+        value={formData.code}
+        onChange={(value) =>
+          setFormData((prevState) => ({ ...prevState, code: value }))
+        }
+        required
+      >
+        <InputOTPGroup>
+          <InputOTPSlot index={0} />
+          <InputOTPSlot index={1} />
+          <InputOTPSlot index={2} />
+          <InputOTPSlot index={3} />
+          <InputOTPSlot index={4} />
+          <InputOTPSlot index={5} />
+        </InputOTPGroup>
+      </InputOTP>
       </div>
 
-      <Button type="submit" className="w-full mt-2">
+        {/* <Input
+          type="text"
+          name="code"
+          className="my-2"
+          value={formData.code}
+          onChange={handleChange}
+          required
+          // className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
+        /> */}
+      </div>
+
+      <Button type="submit" className="w-full my-8 mt-2">
         Validar usuario
       </Button>
-
-      {/* <button type="submit" className="w-full mt-2">
-        Validar usuario
-      </button> */}
 
       {/* {errorMessage && (
         <div className="mt-4 text-center text-red-500">{errorMessage}</div>
@@ -77,7 +93,6 @@ function CreateValidateUserForm({ onSubmit }) {
       {successMessage && (
         <div className="mt-4 text-center text-green-500">{successMessage}</div>
       )} */}
-      
     </form>
   );
 }

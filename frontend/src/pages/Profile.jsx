@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../auth/auth-context';
 import { FaPencilAlt } from "react-icons/fa";
-import Input from '../components/UI/Input';
+import { Input } from "@/components/UI/input";
 import { Button } from '@/components/UI/button';
 
 

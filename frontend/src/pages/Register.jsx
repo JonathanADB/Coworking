@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Input from "../components/UI/Input.jsx";
+import { Input } from "@/components/UI/input";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";

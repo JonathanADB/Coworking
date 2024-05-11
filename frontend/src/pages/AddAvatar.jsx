@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../auth/auth-context';
 import { Button } from '@/components/UI/button';
+import { Input } from "@/components/UI/input";
+
 
 const AddAvatar = () => {
     const { authState, updateAvatar } = useContext(AuthContext);
@@ -36,7 +38,7 @@ const AddAvatar = () => {
 
     return (
         <div className='flex flex-col justify-center p-4 gap-y-4'>
-            <input type='file' onChange={e => setSelectedFile(e.target.files[0])} />
+            <Input type='file' onChange={e => setSelectedFile(e.target.files[0])} />
             <Button onClick={handleFileUpload}>Subir foto de perfil</Button>
         </div>
     )
