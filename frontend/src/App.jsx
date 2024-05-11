@@ -20,6 +20,7 @@ import Protected from "./components/Protected.jsx";
 import Admin from "./components/Admin.jsx";
 
 const ProtectedProfile = Protected(Profile);
+const ProtectedAddAvatar = Protected(AddAvatar);
 const AdminCreateRoom = Admin(CreateRoom);
 
 const App = () => {
@@ -37,7 +38,7 @@ const App = () => {
           <Route path="/create-room" element={<Mobile><AdminCreateRoom /></Mobile>} />
           <Route path="/room-list" element={<Mobile><RoomList /></Mobile>} />
           <Route path="/profile" element={<Mobile><ProtectedProfile /></Mobile>} />
-          <Route path="/add-avatar" element={<Mobile><AddAvatar /></Mobile>} />
+          <Route path="/add-avatar" element={<Mobile><ProtectedAddAvatar /></Mobile>} />
           <Route path="*" element={<Mobile><NotFound /></Mobile>} />
         </Routes>
       </Router>
