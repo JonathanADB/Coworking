@@ -34,7 +34,7 @@ userRouter.post("/register", async (req, res, next) => {
     if (error) {
       throw createError(400, "Datos de entrada no válidos");
     }
-    const { username, email, password } = await validateRegisterRequest(
+    const { firstName,lastName, username, email, password } = await validateRegisterRequest(
       req.body
     );
     const userId = crypto.randomUUID();
@@ -44,7 +44,7 @@ userRouter.post("/register", async (req, res, next) => {
     ).toString();
     await pool.execute(
       "INSERT INTO users (id, username, email, password, verification_code) VALUES (?, ?, ?, ?, ?)",
-      [userId, username, email, hashedPassword, verificationCode]
+      [userId, firstName, lastName, username, email, hashedPassword, verificationCode]
     );
     await sendVerificationEmail(email, verificationCode);
     res.json({
