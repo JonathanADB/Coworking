@@ -40,6 +40,7 @@ function LoginForm() {
       }
       const data = await response.json();
 
+      console.log(data.user)
       login(data.token, data.user);
 
       toast.success("Inicio de sesión exitoso");

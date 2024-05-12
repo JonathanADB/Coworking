@@ -3,8 +3,8 @@ import { createError } from "../utils/error.js";
 
 const dbPool = getPool();
 
-export async function validateRegisterRequest({ username, email, password }) {
-  if (!username || !email || !password) {
+export async function validateRegisterRequest({ firstName, lastName, username, email, password }) {
+  if (!firstName || !lastName || !username || !email || !password) {
     throw createError(400, "Missing fields");
   }
 
@@ -22,6 +22,8 @@ export async function validateRegisterRequest({ username, email, password }) {
   }
 
   return {
+    firstName,
+    lastName,
     username,
     email,
     password,

@@ -14,6 +14,14 @@ function RegisterUserForm({ onSubmit }) {
     password: "",
   });
 
+  const removeSpaces = () => {
+    const newData = {};
+    for (const key in formData) {
+      newData[key] = formData[key].trim();
+    }
+    setFormData(newData);
+  }
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,7 +37,11 @@ function RegisterUserForm({ onSubmit }) {
       return;
     }
 
+
+
     try {
+      removeSpaces();
+      console.log(formData)
       const response = await fetch("http://localhost:3000/register", {
         method: "POST",
         headers: {

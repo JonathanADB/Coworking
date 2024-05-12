@@ -19,6 +19,8 @@ const Profile = () => {
     fetchUser();
   }, [authState]);
 
+  console.log(authState.user)
+
   return (
     <div>
       <div className="flex flex-row w-full p-4 ">
@@ -26,7 +28,7 @@ const Profile = () => {
 
         <Avatar className="w-[96px] h-[96px] aspect-square">
               <AvatarImage src={authState?.user?.avatar}  />
-              <AvatarFallback className="text-4xl">{authState?.user?.firstName.split('')[0]}</AvatarFallback> 
+              <AvatarFallback className="text-4xl">{authState?.user?.firstName?.split('')[0]}</AvatarFallback> 
           </Avatar>
 
         </div>

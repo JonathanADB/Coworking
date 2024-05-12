@@ -29,8 +29,13 @@ export function AuthProvider({ children }) {
     setAuthState(prevState => ({ ...prevState, user: updatedUser }));
 }
 
+  const updateUser = (user) => {
+    localStorage.setItem('user', JSON.stringify(user));
+    setAuthState(prevState => ({ ...prevState, user }));
+  };
+
   return (
-<AuthContext.Provider value={{ authState, login, logout, updateAvatar }}>
+    <AuthContext.Provider value={{ authState, login, logout, updateUser, updateAvatar }}>
       {children}
     </AuthContext.Provider>
   );

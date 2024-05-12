@@ -11,8 +11,6 @@ const AddAvatar = () => {
 
   const navigate = useNavigate();
 
-  console.log(authState.token)
-
   const handleFileUpload = async () => {
     const formData = new FormData();
     formData.append("file", selectedFile);

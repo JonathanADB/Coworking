@@ -43,7 +43,9 @@ const Mobile = ({ children }) => {
           <Link to="/profile">
           <Avatar>
               <AvatarImage src={authState?.user?.avatar}  />
-              <AvatarFallback>{authState?.user?.firstName.split('')[0]}</AvatarFallback> 
+              <AvatarFallback>
+                {authState?.user?.firstName?.split('')[0]}
+                </AvatarFallback> 
           </Avatar>
             {/* {authState?.user?.avatar ? (
               <img
