@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Logo from "../assets/images/Logo.png";
-import Fondo from "../assets/images/Fondo.png";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/UI/Input";
@@ -52,50 +50,40 @@ function CreateResetPasswordForm({ onSubmit }) {
       className="flex flex-col p-4 mx-auto mt-4 rounded-md gap-y-4"
     >
       <div>
-          <label>Código de verificación</label>
-          <Input
-            type="text"
-            name="verification_code"
-            value={formData.verification_code}
-            onChange={handleChange}
-            required
-          />
+        <label>Código de verificación</label>
+        <Input
+          type="text"
+          name="verification_code"
+          value={formData.verification_code}
+          onChange={handleChange}
+          required
+        />
       </div>
       <div>
-          <label>Nueva contraseña</label>
-          <Input
-            type="text"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            className=""
-          />
+        <label>Nueva contraseña</label>
+        <Input
+          type="text"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+          className=""
+        />
       </div>
       <div>
-          <label>Confirmar nueva contraseña</label>
-          <Input
-            type="text"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-            className=""
-          />
-
+        <label>Confirmar nueva contraseña</label>
+        <Input
+          type="text"
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          required
+          className=""
+        />
       </div>
-      <button
-        type="submit"
-        className="w-full"
-      >
+      <button type="submit" className="w-full">
         Restablecer contraseña
       </button>
-      {/* {errorMessage && (
-        <div className="mt-4 text-center text-red-500">{errorMessage}</div>
-      )}
-      {successMessage && (
-        <div className="mt-4 text-center text-green-500">{successMessage}</div>
-      )} */}
     </form>
   );
 }
@@ -103,9 +91,9 @@ function CreateResetPasswordForm({ onSubmit }) {
 export function ResetPassword() {
   return (
     <>
-
       <h2 className="mt-2 text-2xl text-center ">
-Recuperación de contraseña      </h2>
+        Recuperación de contraseña{" "}
+      </h2>
       <div>
         <CreateResetPasswordForm />
       </div>

@@ -16,6 +16,8 @@ import RoomList from "./pages/RoomList.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Protected from "./components/Protected.jsx";
 import Admin from "./components/Admin.jsx";
+import EditRoom from "./pages/EditRoom.jsx";
+import ViewRoom from "./pages/ViewRoom.jsx";
 
 //const ProtectedCreateRoom = Protected(CreateRoom);
 const AdminCreateRoom = Admin(CreateRoom);
@@ -24,17 +26,103 @@ const App = () => {
   return (
     <>
       <Router>
-        <Routes >
-          <Route path="/" element={<Mobile><Home /></Mobile>} />
-          <Route path="/register" element={<Mobile><Register /></Mobile>} />
-          <Route path="/login" element={<Mobile><Login /></Mobile>} />
-          <Route path="/validate" element={<Mobile><ValidateUser /></Mobile>} />
-          <Route path="/reset-password" element={<Mobile><ResetPassword /></Mobile>} />
-          <Route path="/change-password" element={<Mobile><ChangePassword /></Mobile>} />
-          <Route path="/forgot-password" element={<Mobile><ForgotPassword /></Mobile>} />
-          <Route path="/create-room" element={<Mobile><AdminCreateRoom /></Mobile>} />
-          <Route path="/room-list" element={<Mobile><RoomList /></Mobile>} />
-          <Route path="*" element={<Mobile><NotFound /></Mobile>} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Mobile>
+                <Home />
+              </Mobile>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <Mobile>
+                <Register />
+              </Mobile>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <Mobile>
+                <Login />
+              </Mobile>
+            }
+          />
+          <Route
+            path="/validate"
+            element={
+              <Mobile>
+                <ValidateUser />
+              </Mobile>
+            }
+          />
+          <Route
+            path="/reset-password"
+            element={
+              <Mobile>
+                <ResetPassword />
+              </Mobile>
+            }
+          />
+          <Route
+            path="/change-password"
+            element={
+              <Mobile>
+                <ChangePassword />
+              </Mobile>
+            }
+          />
+          <Route
+            path="/forgot-password"
+            element={
+              <Mobile>
+                <ForgotPassword />
+              </Mobile>
+            }
+          />
+          <Route
+            path="/create-room"
+            element={
+              <Mobile>
+                <AdminCreateRoom />
+              </Mobile>
+            }
+          />
+          <Route
+            path="/room-list"
+            element={
+              <Mobile>
+                <RoomList />
+              </Mobile>
+            }
+          />
+          <Route
+            path="/view-room/:roomId"
+            element={
+              <Mobile>
+                <ViewRoom />
+              </Mobile>
+            }
+          />
+          <Route
+            path="/edit-room/:roomId"
+            element={
+              <Mobile>
+                <EditRoom />
+              </Mobile>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <Mobile>
+                <NotFound />
+              </Mobile>
+            }
+          />
         </Routes>
       </Router>
       <ToastContainer position="top-center" theme="colored" autoClose={4500} />
