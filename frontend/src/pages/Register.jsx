@@ -55,10 +55,6 @@ function RegisterUserForm({ onSubmit }) {
         await new Promise((resolve) => setTimeout(resolve, 5000));
         navigate("/validate");
       }
-
-      const data = response.json();
-
-      onSubmit(data);
     } catch (error) {
       console.error("El usuario no se pudo registrar");
     }
