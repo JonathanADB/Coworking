@@ -18,6 +18,7 @@ import Profile from "./pages/Profile.jsx";
 import AddAvatar from "./pages/AddAvatar.jsx";
 import Protected from "./components/Protected.jsx";
 import Admin from "./components/Admin.jsx";
+import { AuthContextProvider } from "./auth/auth-context.jsx";
 
 const ProtectedProfile = Protected(Profile);
 const ProtectedAddAvatar = Protected(AddAvatar);
@@ -26,6 +27,8 @@ const AdminCreateRoom = Admin(CreateRoom);
 const App = () => {
   return (
     <>
+    <AuthContextProvider>
+
       <Router>
         <Routes>
           <Route path="/" element={<Mobile><Home /></Mobile>} />
@@ -43,6 +46,8 @@ const App = () => {
         </Routes>
       </Router>
       <ToastContainer position="top-center" theme="colored" autoClose={4500} />
+
+    </AuthContextProvider>
     </>
   );
 };

@@ -3,37 +3,35 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../auth/auth-context';
 import { FaPencilAlt } from "react-icons/fa";
 import Input from '../components/UI/Input';
+import UpdateProfile from './UpdateProfile.jsx';
 
 
 const Profile = () => {
+    const [editing, setEditing] = useState(false);
     const [user, setUser] = useState({});
-    const { authState } = useContext(AuthContext);
-    
+    const { currentUser } = useContext(AuthContext);
+
     useEffect(() => {
-        const fetchUser = async () => {
-        const user = authState.user;
-        setUser(user);
-        };
-        fetchUser();
-    }, [authState]);
-    
+        setUser(currentUser);
+    }, [currentUser]);
+
+    const handleEditClick = () => {
+        setEditing(true);
+    };
+    const handleSaveChanges = () => {
+        console.log("Guardando cambios en el perfil...");
+    };
+
+    const handleUpdateProfile = () => {
+        handleSaveChanges(); ;
+    };
+
     return (
         <div>
-
         <div className='flex flex-row w-full p-4 '>
             <div className='flex flex-col px-2 w-fit '>
-            <img src={user.avatar} alt={user.username} className='rounded-full aspect-square' width={96} height={96} />
+                <img src={user.avatar} alt={user.username} className='rounded-full aspect-square' width={96} height={96} />
             </div>
-            {/* <div className='flex flex-col w-full'>
-                <h3 className='text-2xl font-bold text-left'>{user.firstName} {user.lastName}</h3>
-                <div className='flex flex-row items-center justify-start text-sm gap-x-1'>
-                    <p>{user.username}</p>
-                    ·
-                    <p>{user.email}</p>
-                </div>
-
-            </div> */}
-
             <div className='flex flex-col w-full'>
                 <div>
                     <label>Nombre de usuario</label>
@@ -41,66 +39,66 @@ const Profile = () => {
                         label='Nombre'
                         placeholder={user.username}
                         value={user.username}
-                        disabled={true}
+                        disabled={!editing}
                     />
-                 </div>
-                 <div>
+                    <button onClick={handleEditClick}>Editar</button>
+                </div>
+                <div>
                     <label>Email</label>
                     <Input
                         label='Email'
                         placeholder={user.email}
                         value={user.email}
-                        disabled={true}
+                        disabled={!editing}
                     />
-                 </div>
+                    <button onClick={handleEditClick}>Editar</button>
+                </div>
                 <div>
                     <label>Nombre</label>
                     <Input
                         label='Nombre'
                         placeholder={user.firstName}
                         value={user.firstName}
-                        disabled={true}
+                        disabled={!editing}
                     />
-                    </div>
+                    <button onClick={handleEditClick}>Editar</button>
+                </div>
                 <div>
                     <label>Apellido</label>
                     <Input
                         label='Apellido'
                         placeholder={user.lastName}
                         value={user.lastName}
-                        disabled={true}
+                        disabled={!editing}
                     />
-                    </div>
-
-                    <Link to="/change-password">
-                <button className='flex justify-center w-full mx-auto mt-4 text-center'>Cambiar contraseña</button>
-            </Link>
-
+                    <button onClick={handleEditClick}>Editar</button>
                 </div>
+              
+                {!editing && (
+                    <Link to="/change-password">
+                        <button className=''>Cambiar contraseña</button>
+                    </Link>
+                )}
+                {editing && (
+                        <button onClick={handleUpdateProfile} className=''>Actualizar perfil</button>
+                )}
+            </div>
         </div>
-
+    
         <div className='relative flex items-center justify-left'>
             <p className='absolute z-10 ml-4 bg-[#ECEBEB] px-2'>Coworking visitados</p>
             <div className='absolute inset-0 border-b border-[#B29700]' />
         </div>
-
+    
         <div className='my-8'/>
-
+    
         <div className='relative flex items-center justify-left'>
             <p className='absolute z-10 ml-4 bg-[#ECEBEB] px-2'>Reseñas</p>
             <div className='absolute inset-0 border-b border-[#B29700]' />
         </div>
-
-        {/* <div>
-            <Link to="/change-password">
-                <button className='flex mx-auto mt-4'>Cambiar contraseña</button>
-            </Link>
-            </div> */}
-        </div>
+    </div>
+    
     );
-
-
-   
 }
 
 export default Profile;

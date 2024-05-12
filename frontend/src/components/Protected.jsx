@@ -1,20 +1,20 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../auth/auth-context';
 
 function withAuthentication(Component) {
   return function AuthenticatedComponent(props) {
-    const { authState } = useContext(AuthContext);
+    const { currentUser, isUserLoggedIn } = useContext(AuthContext);
     const navigate = useNavigate();
     const [isAuthStateKnown, setIsAuthStateKnown] = useState(false);
 
     useEffect(() => {
-      if (!authState.token) {
+      if (!isUserLoggedIn) {
         navigate('/login');
       } else {
         setIsAuthStateKnown(true);
       }
-    }, [authState, navigate]);
+    }, [isUserLoggedIn, navigate]);
 
     if (!isAuthStateKnown) {
       return null;
@@ -23,5 +23,4 @@ function withAuthentication(Component) {
     return <Component {...props} />;
   };
 }
-
 export default withAuthentication;

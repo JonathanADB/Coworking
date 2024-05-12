@@ -34,17 +34,19 @@ userRouter.post("/register", async (req, res, next) => {
     if (error) {
       throw createError(400, "Datos de entrada no válidos");
     }
-    const { username, email, password } = await validateRegisterRequest(
+    const { username, email, password, firstName, lastName } = await validateRegisterRequest(
       req.body
     );
     const userId = crypto.randomUUID();
     const hashedPassword = await hash(password, 12);
+    const firstname = firstName || null;
+    const lastname = lastName || null;
     const verificationCode = Math.floor(
       100000 + Math.random() * 900000
     ).toString();
     await pool.execute(
-      "INSERT INTO users (id, username, email, password, verification_code) VALUES (?, ?, ?, ?, ?)",
-      [userId, username, email, hashedPassword, verificationCode]
+      "INSERT INTO users (id, username, email, password,firstName, lastName, verification_code) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [userId, username, email, hashedPassword, firstname, lastname, verificationCode]
     );
     await sendVerificationEmail(email, verificationCode);
     res.json({
@@ -151,7 +153,7 @@ userRouter.get("/user/profile", authenticate, async (req, res, next) => {
 });
 
 // Modificar el propio perfil de usuario
-userRouter.put("/user/profile/", authenticate, async (req, res, next) => {
+userRouter.put("/user/update/profile/", authenticate, async (req, res, next) => {
   try {
     const user = await getUser(req.headers.authorization);
     const { firstName, lastName, username, email } = req.body;
