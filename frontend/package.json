@@ -11,6 +11,7 @@
     "init-db": "node src/database/initDb.js"
   },
   "dependencies": {
+    "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
     "bcrypt": "^5.1.1",
