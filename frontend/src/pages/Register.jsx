@@ -37,11 +37,8 @@ function RegisterUserForm({ onSubmit }) {
       return;
     }
 
-
-
     try {
       removeSpaces();
-      console.log(formData)
       const response = await fetch("http://localhost:3000/register", {
         method: "POST",
         headers: {
