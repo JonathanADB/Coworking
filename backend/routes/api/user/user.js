@@ -219,10 +219,11 @@ userRouter.put("/user/update/profile/", authenticate, async (req, res, next) => 
 //Cambio de contraseña
 userRouter.patch("/change-password", authenticate, async (req, res, next) => {
   try {
-    const { email, oldPassword, newPassword, confirmPassword } = req.body;
+    const { email, currentPassword, newPassword, confirmPassword } = req.body;
+
     const { error } = changePasswordSchema.validate({
       email,
-      oldPassword,
+      currentPassword,
       newPassword,
       confirmPassword,
     });
@@ -235,7 +236,8 @@ userRouter.patch("/change-password", authenticate, async (req, res, next) => {
     if (!user) {
       throw createError(404, "Usuario no encontrado");
     }
-    const passwordMatch = await compare(oldPassword, user.password);
+
+    const passwordMatch = await compare(currentPassword, user.password);
     if (!passwordMatch) {
       throw createError(
         401,
@@ -255,7 +257,6 @@ userRouter.patch("/change-password", authenticate, async (req, res, next) => {
     next(error);
   }
 });
-
 //Recuperar contraseña
 userRouter.post("/forgot-password", async (req, res, next) => {
   try {

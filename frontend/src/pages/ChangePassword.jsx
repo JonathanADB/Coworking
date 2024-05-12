@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "@/auth/auth-context";
 import { Input } from "@/components/UI/Input";
 import { Button } from "@/components/UI/button";
 import { Label } from "@/components/UI/label";
 
-function CreateChangePasswordForm({ onSubmit }) {
+function CreateChangePasswordForm() {
   const [formData, setFormData] = useState({
     email: "",
-    oldPassword: "",
+    currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
 
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  const { authState } = useContext(AuthContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +32,7 @@ function CreateChangePasswordForm({ onSubmit }) {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          Authorization: localStorage.getItem("AUTH_TOKEN"),
+          Authorization: authState.token,
         },
         body: JSON.stringify(formData),
       });
@@ -66,9 +69,9 @@ function CreateChangePasswordForm({ onSubmit }) {
       <div>
         <Label>Contraseña anterior</Label>
         <Input
-          type="text"
-          name="oldPassword"
-          value={formData.oldPassword}
+          type="password"
+          name="currentPassword"
+          value={formData.currentPassword}
           onChange={handleChange}
           required
           className="w-full"
@@ -77,7 +80,7 @@ function CreateChangePasswordForm({ onSubmit }) {
       <div>
         <Label>Nueva contraseña</Label>
         <Input
-          type="text"
+          type="password"
           name="newPassword"
           value={formData.newPassword}
           onChange={handleChange}
@@ -88,7 +91,7 @@ function CreateChangePasswordForm({ onSubmit }) {
       <div>
         <Label>Confirmar nueva contraseña</Label>
         <Input
-          type="text"
+          type="password"
           name="confirmPassword"
           value={formData.confirmPassword}
           onChange={handleChange}

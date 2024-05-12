@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/UI/button";
 import { Label } from "@/components/UI/label";
 
-function RegisterUserForm({ onSubmit }) {
+function RegisterUserForm({  }) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -59,9 +59,7 @@ function RegisterUserForm({ onSubmit }) {
         navigate("/validate");
       }
 
-      const data = response.json();
-
-      onSubmit(data);
+     
     } catch (error) {
       console.error("El usuario no se pudo registrar");
     }
