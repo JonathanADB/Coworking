@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../auth/auth-context";
+import { Button } from "@/components/UI/button";
 
 const RoomList = () => {
   const [rooms, setRooms] = useState([]);
@@ -21,17 +22,17 @@ const RoomList = () => {
   return (
     <div>
       <h2 className="text-center">Lista de espacios</h2>
-      <ul className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
+      <ul className="p-4 mt-8 space-y-4">
         {rooms && rooms.length > 0 ? (
           rooms.map((room) => (
-            <li key={room.id} className="flex flex-col p-4 border rounded-md">
+            <li key={room.id} className="flex flex-col p-4 border rounded-md border-primary">
               <p className="mb-2 text-xl font-semibold">{room.name}</p>
               <div className="flex flex-row justify-center gap-4">
                 <Link to={`/room/${room.id}`}>
-                  <button>Mostrar espacio</button>
+                  <Button>Mostrar espacio</Button>
                 </Link>
                 <Link to={`/edit-room/${room.id}`}>
-                  <button>Editar espacio</button>
+                  <Button variant="secondary">Editar espacio</Button>
                 </Link>
               </div>
             </li>
