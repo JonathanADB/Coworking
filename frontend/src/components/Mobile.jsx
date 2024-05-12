@@ -36,7 +36,7 @@ const Mobile = ({ children }) => {
         <div className="fixed bottom-0 flex items-center justify-around w-full h-12 text-2xl bg-[#171717] text-[#e4e4e4]">
           <Link to="/">
             {/* <FaHome className={location.pathname === '/' ? 'text-[#B39700]' : ''} /> */}
-            <img src={coworqueen} height={24} width={24} alt="Coworqueen" />
+            <img src={coworqueen} height={24} width={24} alt="Coworqueen" className="h-6 aspect-auto" />
           </Link>
           <FaEye />
           <FaBookmark />
