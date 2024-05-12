@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/UI/button.jsx";
 import { Label } from "@/components/UI/label";
 
-function RegisterUserForm({ onSubmit }) {
+function RegisterUserForm() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
