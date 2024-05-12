@@ -5,7 +5,7 @@ import Logo from "../assets/images/Logo.png";
 import coworqueen from "../assets/images/coworqueen.svg";
 import { AuthContext } from "../auth/auth-context";
 import background from "../assets/images/background.webp";
-import { ScrollArea, ScrollBar } from "./UI/scroll-area";
+import { ScrollArea } from "./UI/scroll-area";
 
 const Mobile = ({ children }) => {
   const location = useLocation();
