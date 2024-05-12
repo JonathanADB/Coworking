@@ -74,12 +74,12 @@ const Profile = () => {
                     <button onClick={handleEditClick}>Editar</button>
                 </div>
               
-                {!editing && (
+                {(
                     <Link to="/change-password">
                         <button className=''>Cambiar contraseña</button>
                     </Link>
                 )}
-                {editing && (
+                { (
                         <button onClick={handleUpdateProfile} className=''>Actualizar perfil</button>
                 )}
             </div>
