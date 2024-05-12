@@ -217,7 +217,6 @@ userRouter.patch("/change-password", authenticate, async (req, res, next) => {
   try {
     const { email, currentPassword, newPassword, confirmPassword } = req.body;
    
-
     const { error } = changePasswordSchema.validate({
       email,
       currentPassword,
@@ -233,7 +232,6 @@ userRouter.patch("/change-password", authenticate, async (req, res, next) => {
     if (!user) {
       throw createError(404, "Usuario no encontrado");
     }
-
 
     const passwordMatch = await compare(currentPassword, user.password);
     if (!passwordMatch) {

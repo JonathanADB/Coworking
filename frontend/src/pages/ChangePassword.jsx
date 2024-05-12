@@ -12,8 +12,6 @@ function CreateChangePasswordForm() {
     confirmPassword: "",
   });
 
-  console.log(formData);
-
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
