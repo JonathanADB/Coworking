@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Logo from "../assets/images/Logo.png";
-import Fondo from "../assets/images/Fondo.png";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import Input from "../components/UI/Input";
+import { Input } from "@/components/UI/Input";
+import { Button } from "@/components/UI/button";
+import { Label } from "@/components/UI/label";
 
 function CreateForgotPasswordForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -47,29 +47,20 @@ function CreateForgotPasswordForm({ onSubmit }) {
     }
   };
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="p-4 mx-auto mt-4 rounded-md "
-    >
+    <form onSubmit={handleSubmit} className="p-4 mx-auto mt-4 rounded-md ">
       <div className="mb-4">
-
-          <label>Correo electrónico</label>
-          <Input 
-            type="text"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
-          />
-
+        <Label>Correo electrónico</Label>
+        <Input
+          type="text"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
       </div>
-      <button
-        type="submit"
-        className="w-full px-4 py-2 font-bold text-white bg-black rounded"
-      >
+      <Button type="submit" className="w-full">
         Restablecer contraseña
-      </button>
+      </Button>
     </form>
   );
 }
@@ -77,9 +68,7 @@ function CreateForgotPasswordForm({ onSubmit }) {
 export function ForgotPassword() {
   return (
     <div>
-
-      <h2 className="mb-4 font-bold text-center">
-Olvidé mi contraseña      </h2>
+      <h2 className="mb-4 font-bold text-center">Olvidé mi contraseña </h2>
       <div>
         <CreateForgotPasswordForm />
       </div>

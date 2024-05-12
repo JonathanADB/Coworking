@@ -9,50 +9,19 @@ export const AuthContext = createContext({
   isUserLoggedIn: false,
 });
 
-export function AuthContextProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(
-    !!localStorage.getItem("AUTH_TOKEN")
-  );
+export function AuthProvider({ children }) {
+  const storedUser = localStorage.getItem('user');
+  const user = storedUser ? JSON.parse(storedUser) : null;
+  
+  const [authState, setAuthState] = useState({
+    token: localStorage.getItem('token'),
+    user: user,
+  });
 
-  useEffect(() => {
-    const token = localStorage.getItem("AUTH_TOKEN");
-    if (token) {
-      const user = jwtDecode(token);
-      if (user.exp * 1000 >= Date.now()) {
-        setCurrentUser(user);
-        setIsUserLoggedIn(true);
-      } else {
-        localStorage.removeItem("AUTH_TOKEN");
-        setIsUserLoggedIn(false);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    const handler = (event) => {
-      if (event.key === "AUTH_TOKEN") {
-        if (event.newValue) {
-          const user = jwtDecode(event.newValue);
-          setCurrentUser(user);
-          setIsUserLoggedIn(true);
-        } else {
-          setCurrentUser(null);
-          setIsUserLoggedIn(false);
-        }
-      }
-    };
-    window.addEventListener("storage", handler);
-    return () => {
-      window.removeEventListener("storage", handler);
-    };
-  }, []);
-
-  const login = (token) => {
-    localStorage.setItem("AUTH_TOKEN", token);
-    const user = jwtDecode(token);
-    setCurrentUser(user);
-    setIsUserLoggedIn(true);
+  const login = (token, user) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    setAuthState({ token, user });
   };
 
   const logout = () => {

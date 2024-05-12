@@ -13,16 +13,22 @@ import Login from "./pages/Login.jsx";
 import ChangePassword from "./pages/ChangePassword.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import RoomList from "./pages/RoomList.jsx";
+import ViewRoom from "./pages/ViewRoom.jsx";
+import EditRoom from "./pages/EditRoom.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Profile from "./pages/Profile.jsx";
 import AddAvatar from "./pages/AddAvatar.jsx";
+import UpdateProfile from "./pages/UpdateProfile.jsx";
 import Protected from "./components/Protected.jsx";
 import Admin from "./components/Admin.jsx";
 import { AuthContextProvider } from "./auth/auth-context.jsx";
 
 const ProtectedProfile = Protected(Profile);
 const ProtectedAddAvatar = Protected(AddAvatar);
+const ProtectedUpdateProfile = Protected(UpdateProfile);
 const AdminCreateRoom = Admin(CreateRoom);
+const AdminRoomList = Admin(RoomList);
+const AdminEditRoom = Admin(EditRoom);
 
 const App = () => {
   return (
@@ -39,9 +45,12 @@ const App = () => {
           <Route path="/change-password" element={<Mobile><ChangePassword /></Mobile>} />
           <Route path="/forgot-password" element={<Mobile><ForgotPassword /></Mobile>} />
           <Route path="/create-room" element={<Mobile><AdminCreateRoom /></Mobile>} />
-          <Route path="/room-list" element={<Mobile><RoomList /></Mobile>} />
+          <Route path="/room-list" element={<Mobile><AdminRoomList /></Mobile>} />
+          <Route path="/room/:id" element={<Mobile><ViewRoom /></Mobile>} />
+          <Route path="/edit-room/:id" element={<Mobile><AdminEditRoom /></Mobile>} />
           <Route path="/profile" element={<Mobile><ProtectedProfile /></Mobile>} />
           <Route path="/add-avatar" element={<Mobile><ProtectedAddAvatar /></Mobile>} />
+          <Route path="/update-profile" element={<Mobile><ProtectedUpdateProfile /></Mobile>} />
           <Route path="*" element={<Mobile><NotFound /></Mobile>} />
         </Routes>
       </Router>

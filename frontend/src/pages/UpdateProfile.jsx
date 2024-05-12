@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Input from '../components/UI/Input';
+import { Input } from "@/components/UI/Input";
 import { AuthContext } from '../auth/auth-context';
 
 const UpdateProfile = () => {

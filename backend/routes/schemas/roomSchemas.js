@@ -8,11 +8,11 @@ export const addRoomSchema = Joi.object({
 });
 
 export const updateRoomSchema = Joi.object({
-  roomId: Joi.string().required(),
-  name: Joi.string().required(),
-  description: Joi.string().required(),
-  capacity: Joi.number().integer().min(0).max(255).required(),
-  typeOf: Joi.string().required(),
+  roomId: Joi.string().optional(),
+  name: Joi.string().optional(),
+  description: Joi.string().optional(),
+  capacity: Joi.number().integer().min(0).max(255).optional(),
+  typeOf: Joi.string().optional(),
 });
 
 export const viewRoomSchema = Joi.object({

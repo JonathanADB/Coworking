@@ -38,7 +38,6 @@ const handleFileUpload = (req, res, next) => {
         throw createError(500, "Error al mover el archivo");
       }
 
-      // Añade el nombre del archivo y la ruta del archivo al cuerpo de la solicitud
       req.body.fileName = fileName;
       req.body.filePath = filePath;
 
