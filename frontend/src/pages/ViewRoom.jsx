@@ -6,15 +6,17 @@ function ViewRoom() {
   const { authState } = useContext(AuthContext);
   const token = authState.token;
   const [roomData, setRoomData] = useState({});
-  const { roomId } = useParams();
+  const { id } = useParams();
+    const roomId = id;
+  console.log(id);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/room/${roomId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    })
+fetch(`http://localhost:3000/room/${id}`, {
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: token,
+  },
+})
       .then((res) => res.json())
       .then((data) => {
         setRoomData(data);

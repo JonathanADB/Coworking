@@ -15,7 +15,8 @@ function CreateEditRoomForm() {
     typeOf: "",
   });
 
-  const { roomId } = useParams();
+  const { id } = useParams();
+  const roomId = id;
 
   useEffect(() => {
     fetch(`http://localhost:3000/room/${roomId}`, {

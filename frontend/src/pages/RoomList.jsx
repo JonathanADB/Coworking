@@ -27,7 +27,7 @@ const RoomList = () => {
             <li key={room.id} className="flex flex-col p-4 border rounded-md">
               <p className="mb-2 text-xl font-semibold">{room.name}</p>
               <div className="flex flex-row justify-center gap-4">
-                <Link to={`/view-room/${room.id}`}>
+                <Link to={`/room/${room.id}`}>
                   <button>Mostrar espacio</button>
                 </Link>
                 <Link to={`/edit-room/${room.id}`}>
