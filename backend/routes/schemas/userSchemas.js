@@ -30,8 +30,8 @@ export const profileSchema = Joi.object({
 
 export const changePasswordSchema = Joi.object({
   email: Joi.string().pattern(new RegExp('@')).required(),
-  currentPassword: Joi.string().pattern(new RegExp('(?=.[A-Z])')).required(),
-  newPassword: Joi.string().pattern(new RegExp('(?=.[A-Z])')).required(),
+  currentPassword: Joi.string().pattern(new RegExp('(?=.*[A-Z])')).required(),
+  newPassword: Joi.string().pattern(new RegExp('(?=.*[A-Z])')).required(),
   confirmPassword: Joi.string().pattern(new RegExp('(?=.*[A-Z])')).required(),
 });
 

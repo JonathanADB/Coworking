@@ -34,11 +34,9 @@ userRouter.post("/register", async (req, res, next) => {
     if (error) {
       throw createError(400, "Datos de entrada no válidos");
     }
-    console.log(req.body);
     const { firstName, lastName, username, email, password } = await validateRegisterRequest(
       req.body
     );
-    console.log(firstName, lastName, username, email, password);
     const userId = crypto.randomUUID();
     const hashedPassword = await hash(password, 12);
     // let firstname = firstName || null;
@@ -159,9 +157,7 @@ userRouter.get("/user/profile", authenticate, async (req, res, next) => {
 userRouter.put("/user/update/profile/", authenticate, async (req, res, next) => {
   try {
     const user = await getUser(req.headers.authorization);
-    console.log(user);
     const { firstName, lastName, username, email } = req.body;
-    console.log(req.body)
     const avatarFile = req.file?.avatar || null; // falta el uploadFile de Avatar
     const { error } = profileSchema.validate({
       firstName,
@@ -220,7 +216,7 @@ userRouter.put("/user/update/profile/", authenticate, async (req, res, next) => 
 userRouter.patch("/change-password", authenticate, async (req, res, next) => {
   try {
     const { email, currentPassword, newPassword, confirmPassword } = req.body;
-
+   
     const { error } = changePasswordSchema.validate({
       email,
       currentPassword,
@@ -257,6 +253,7 @@ userRouter.patch("/change-password", authenticate, async (req, res, next) => {
     next(error);
   }
 });
+
 //Recuperar contraseña
 userRouter.post("/forgot-password", async (req, res, next) => {
   try {

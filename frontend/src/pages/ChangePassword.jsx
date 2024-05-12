@@ -117,7 +117,7 @@ export function ChangePassword() {
   return (
     <div>
       <h2 className="mb-4 text-2xl font-bold text-center">
-        Cambiar contraseña{" "}
+        Cambiar contraseña
       </h2>
       <div>
         <CreateChangePasswordForm />
