@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/UI/button";
 import { Label } from "@/components/UI/label";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function LoginForm() {
+  const [inputType, setInputType] = useState('password');
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -73,15 +75,26 @@ function LoginForm() {
           <Label htmlFor="password" className="flex justify-left">
             Contraseña
           </Label>
-          <Input
-            type="password"
-            name="password"
-            id="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            placeholder="Ingrese su contraseña"
-          />
+          <div className="relative flex items-center">
+            <Input
+              type={inputType}
+              name="password"
+              id="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              placeholder="Ingrese su contraseña"
+            />
+            <button className="absolute right-3"
+               onClick={(event) => {
+                event.preventDefault();
+                setInputType(inputType === 'password' ? 'text' : 'password');
+              }}
+            >
+             {inputType === 'password' ? <FaEye /> : <FaEyeSlash />}
+              </button> 
+         </div>
+
           {/* Este mensaje quizás solo se debería mostrar al fallar la contraseña una vez */}
           <p className="text-xs mt-[2px]">
             Debe contener una letra mayúscula y un símbolo: (?=.*)
