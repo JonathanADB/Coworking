@@ -15,7 +15,6 @@ function CreateEditRoomForm() {
     typeOf: "",
   });
 
-  // Obtiene el parámetro roomId de la URL
   const { roomId } = useParams();
 
   useEffect(() => {

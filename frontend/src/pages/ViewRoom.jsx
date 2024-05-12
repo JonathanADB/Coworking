@@ -9,7 +9,6 @@ function ViewRoom() {
   const { roomId } = useParams();
 
   useEffect(() => {
-    // Simulación de solicitud HTTP para obtener los datos de la habitación
     fetch(`http://localhost:3000/room/${roomId}`, {
       headers: {
         "Content-Type": "application/json",
@@ -18,7 +17,6 @@ function ViewRoom() {
     })
       .then((res) => res.json())
       .then((data) => {
-        // Almacena los datos de la habitación en el estado
         setRoomData(data);
       })
       .catch((error) =>
