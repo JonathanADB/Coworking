@@ -6,6 +6,7 @@ import coworqueen from "../assets/images/coworqueen.svg";
 import { AuthContext } from "../auth/auth-context";
 import background from "../assets/images/background.webp";
 import { ScrollArea } from "./UI/scroll-area";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/UI/avatar"
 
 const Mobile = ({ children }) => {
   const location = useLocation();
@@ -40,7 +41,11 @@ const Mobile = ({ children }) => {
           <FaEye />
           <FaBookmark />
           <Link to="/profile">
-            {authState?.user?.avatar ? (
+          <Avatar>
+              <AvatarImage src={authState?.user?.avatar}  />
+              <AvatarFallback>{authState?.user?.firstName.split('')[0]}</AvatarFallback> 
+          </Avatar>
+            {/* {authState?.user?.avatar ? (
               <img
                 src={authState?.user?.avatar}
                 width={24}
@@ -61,7 +66,8 @@ const Mobile = ({ children }) => {
                     : ""
                 }
               />
-            )}
+            )} */}
+
           </Link>
         </div>
       </div>

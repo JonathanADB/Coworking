@@ -4,6 +4,8 @@ import { AuthContext } from "../auth/auth-context";
 import { Input } from "@/components/UI/Input";
 import { Button } from "@/components/UI/button";
 import { Label } from "@/components/UI/label";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/UI/avatar"
+
 
 const Profile = () => {
   const [user, setUser] = useState({});
@@ -21,13 +23,12 @@ const Profile = () => {
     <div>
       <div className="flex flex-row w-full p-4 ">
         <div className="flex flex-col px-2 w-fit ">
-          <img
-            src={user.avatar}
-            alt={user.username}
-            className="rounded-full aspect-square"
-            width={96}
-            height={96}
-          />
+
+        <Avatar className="w-[96px] h-[96px] aspect-square">
+              <AvatarImage src={authState?.user?.avatar}  />
+              <AvatarFallback className="text-4xl">{authState?.user?.firstName.split('')[0]}</AvatarFallback> 
+          </Avatar>
+
         </div>
         {/* <div className='flex flex-col w-full'>
                 <h3 className='text-2xl font-bold text-left'>{user.firstName} {user.lastName}</h3>
