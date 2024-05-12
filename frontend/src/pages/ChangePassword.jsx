@@ -7,10 +7,12 @@ import { Label } from "@/components/UI/label";
 function CreateChangePasswordForm() {
   const [formData, setFormData] = useState({
     email: "",
-    oldPassword: "",
+    currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
+
+  console.log(formData);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -69,9 +71,9 @@ function CreateChangePasswordForm() {
       <div>
         <Label>Contraseña anterior</Label>
         <Input
-          type="text"
-          name="oldPassword"
-          value={formData.oldPassword}
+          type="password"
+          name="currentPassword"
+          value={formData.currentPassword}
           onChange={handleChange}
           required
           className="w-full"
@@ -80,7 +82,7 @@ function CreateChangePasswordForm() {
       <div>
         <Label>Nueva contraseña</Label>
         <Input
-          type="text"
+          type="password"
           name="newPassword"
           value={formData.newPassword}
           onChange={handleChange}
@@ -91,7 +93,7 @@ function CreateChangePasswordForm() {
       <div>
         <Label>Confirmar nueva contraseña</Label>
         <Input
-          type="text"
+          type="password"
           name="confirmPassword"
           value={formData.confirmPassword}
           onChange={handleChange}
@@ -117,7 +119,7 @@ export function ChangePassword() {
   return (
     <div>
       <h2 className="mb-4 text-2xl font-bold text-center">
-        Cambiar contraseña{" "}
+        Cambiar contraseña
       </h2>
       <div>
         <CreateChangePasswordForm />
