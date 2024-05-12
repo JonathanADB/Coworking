@@ -1,5 +1,4 @@
 import express from "express";
-import cors from "cors";
 import { userRouter } from "./api/user/user.js";
 import { equipmentAdminRouter } from "./api/admin/equipmentAdmin.js";
 import { roomRouter } from "./api/room/room.js";
@@ -14,9 +13,9 @@ import { mediaRouter } from "./api/media/media.js";
 // import { equipmentRouter } from "./api/admin/equipment.js";
 
 const router = express.Router();
-// router.use(cors());
 
 router.use(userRouter);
+router.use(mediaRouter);
 router.use(equipmentAdminRouter);
 // router.use(equipmentRouter);
 router.use(roomRouter);
@@ -25,6 +24,5 @@ router.use(listIncidentsRouter);
 router.use(reservationRouter);
 router.use(reviewRouter);
 router.use(searchsRouter);
-router.use(mediaRouter);
 
 export default router;

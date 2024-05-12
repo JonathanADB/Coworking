@@ -11,6 +11,8 @@ const AddAvatar = () => {
 
   const navigate = useNavigate();
 
+  console.log(authState.token)
+
   const handleFileUpload = async () => {
     const formData = new FormData();
     formData.append("file", selectedFile);
@@ -20,8 +22,8 @@ const AddAvatar = () => {
       {
         method: "POST",
         headers: {
-          Authorization: `${authState.token}`,
-        },
+          Authorization: authState.token,
+       },
         body: formData,
       }
     );

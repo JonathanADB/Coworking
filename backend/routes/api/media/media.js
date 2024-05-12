@@ -27,7 +27,10 @@ mediaRouter.post(
       const { id: userId } = req.params;
       const { API_HOST } = process.env;
       const avatarId = crypto.randomUUID();
-      const { fileName, filePath } = req.body;
+      const { fileName } = req.body;
+
+
+      console.log(userId, fileName, avatarId, API_HOST)
 
       const url = `${API_HOST}/uploads/avatar/${fileName}`;
 
