@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "@/auth/auth-context";
 import { Input } from "@/components/UI/Input";
 import { Button } from "@/components/UI/button";
 import { Label } from "@/components/UI/label";
 
-function CreateChangePasswordForm({ onSubmit }) {
+function CreateChangePasswordForm() {
   const [formData, setFormData] = useState({
     email: "",
     oldPassword: "",
@@ -13,6 +14,8 @@ function CreateChangePasswordForm({ onSubmit }) {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  const { authState } = useContext(AuthContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +32,7 @@ function CreateChangePasswordForm({ onSubmit }) {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          Authorization: localStorage.getItem("AUTH_TOKEN"),
+          Authorization: authState.token,
         },
         body: JSON.stringify(formData),
       });
