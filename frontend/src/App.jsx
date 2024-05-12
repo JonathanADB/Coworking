@@ -22,6 +22,7 @@ import Admin from "./components/Admin.jsx";
 const ProtectedProfile = Protected(Profile);
 const ProtectedAddAvatar = Protected(AddAvatar);
 const AdminCreateRoom = Admin(CreateRoom);
+const AdminRoomList = Admin(RoomList);
 
 const App = () => {
   return (
@@ -36,7 +37,7 @@ const App = () => {
           <Route path="/change-password" element={<Mobile><ChangePassword /></Mobile>} />
           <Route path="/forgot-password" element={<Mobile><ForgotPassword /></Mobile>} />
           <Route path="/create-room" element={<Mobile><AdminCreateRoom /></Mobile>} />
-          <Route path="/room-list" element={<Mobile><RoomList /></Mobile>} />
+          <Route path="/room-list" element={<Mobile><AdminRoomList /></Mobile>} />
           <Route path="/profile" element={<Mobile><ProtectedProfile /></Mobile>} />
           <Route path="/add-avatar" element={<Mobile><ProtectedAddAvatar /></Mobile>} />
           <Route path="*" element={<Mobile><NotFound /></Mobile>} />
