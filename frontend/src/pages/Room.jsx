@@ -46,6 +46,9 @@ function CreateRoomForm({ onSubmit }) {
     onSubmit(formData);
     toast.success("Sala creada correctamente");
   };
+
+  console.log("Form data:", formData);
+
   return (
     <div className="flex flex-col justify-center w-full ">
       <form className="flex flex-col px-1 my-4 gap-y-4" onSubmit={handleSubmit}>
@@ -88,7 +91,8 @@ function CreateRoomForm({ onSubmit }) {
 
         <div>
           <Label>Tipo</Label>
-          <Select>
+          <Select         onValueChange={(value) => setFormData(prevState => ({ ...prevState, typeOf: value }))}
+>
             <SelectTrigger>
               <SelectValue placeholder="Selecciona un tipo de habitación" />
             </SelectTrigger>

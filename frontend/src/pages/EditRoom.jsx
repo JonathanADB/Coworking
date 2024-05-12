@@ -2,6 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../auth/auth-context";
 import { Input } from "@/components/UI/Input";
+import { Button } from "@/components/UI/button";
+import { Label } from "@/components/UI/label";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/UI/select";
 
 function CreateEditRoomForm() {
   const { authState } = useContext(AuthContext);
@@ -65,13 +74,20 @@ function CreateEditRoomForm() {
       });
   };
 
+
+  const handleRoomTypeChange = (value) => {
+    setRoomData(prevState => ({ ...prevState, typeOf: value }));
+  };
+
+  console.log(roomData)
+
   return (
     <form
       onSubmit={handleUpdateRoom}
       className="flex flex-col p-4 mx-auto mt-4 rounded-md gap-y-4"
     >
       <div>
-        <label>Id</label>
+        <Label>Id</Label>
         <Input
           type="text"
           name="id"
@@ -81,7 +97,7 @@ function CreateEditRoomForm() {
         />
       </div>
       <div>
-        <label>Nombre</label>
+        <Label>Nombre</Label>
         <Input
           type="text"
           name="name"
@@ -91,7 +107,7 @@ function CreateEditRoomForm() {
         />
       </div>
       <div>
-        <label>Descripción</label>
+        <Label>Descripción</Label>
         <Input
           type="text"
           name="description"
@@ -101,7 +117,7 @@ function CreateEditRoomForm() {
         />
       </div>
       <div>
-        <label>Capacidad</label>
+        <Label>Capacidad</Label>
         <Input
           type="number"
           name="capacity"
@@ -112,21 +128,23 @@ function CreateEditRoomForm() {
         />
       </div>
       <div>
-        <label>Tipo</label>
-        <select
-          name="typeOf"
-          className="flex w-full h-10 px-1 bg-transparent border border-gray-400 rounded-md outline-none outline-offset-0"
-          value={roomData.typeOf}
-          onChange={handleChange}
+        <Label>Tipo</Label>
+        <Select 
+        value={roomData.typeOf} 
+        onValueChange={(value) => setRoomData(prevState => ({ ...prevState, typeOf: value }))}
         >
-          <option value="">Selecciona una opción</option>
-          <option value="Pública">Pública</option>
-          <option value="Privada">Privada</option>
-        </select>
+          <SelectTrigger>
+            <SelectValue placeholder="Selecciona un tipo de habitación" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Pública">Pública</SelectItem>
+            <SelectItem value="Privada">Privada</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
-      <button type="submit" className="w-full">
+      <Button type="submit" className="w-full">
         Guardar cambios
-      </button>
+      </Button>
     </form>
   );
 }
