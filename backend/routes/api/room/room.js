@@ -18,8 +18,8 @@ export const roomRouter = Router();
 // Endpoint creación de un espacio con nombre, desc, etc (admin)
 roomRouter.post(
   "/create-room",
-authenticate,
-isAdmin,
+  authenticate,
+  isAdmin,
   async (req, res, next) => {
     try {
       const { name, description, capacity, typeOf } = req.body;
@@ -97,23 +97,28 @@ roomRouter.get("/rooms", authenticate, isAdmin, async (req, res, next) => {
   }
 });
 
-roomRouter.get("/room/:roomId", async (req, res, next) => {
-  try {
-    // Extraemos la id de la room de los parámetros de la petición
-    const roomId = req.params.roomId;
-    const { error } = viewRoomSchema.validate({
-      roomId,
-    });
-    if (error) {
-      throw createError(400, "Datos de entrada no válidos");
+roomRouter.get(
+  "/room/:roomId",
+  authenticate,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      // Extraemos la id de la room de los parámetros de la petición
+      const roomId = req.params.roomId;
+      const { error } = viewRoomSchema.validate({
+        roomId,
+      });
+      if (error) {
+        throw createError(400, "Datos de entrada no válidos");
+      }
+      // Consultamos el espacio en la BD
+      const room = await validateRoomId(roomId);
+      res.json({
+        success: true,
+        message: room,
+      });
+    } catch (error) {
+      next(error);
     }
-    // Consultamos el espacio en la BD
-    const room = await validateRoomId(roomId);
-    res.json({
-      success: true,
-      message: room,
-    });
-  } catch (error) {
-    next(error);
   }
-});
+);
