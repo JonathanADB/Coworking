@@ -9,7 +9,7 @@ function Admin(Component) {
     const [isAuthStateKnown, setIsAuthStateKnown] = useState(false);
 
     useEffect(() => {
-      if (!authState.token || !authState.user.role === 'admin') {
+      if (!authState.token && !authState.user.role === 'admin') {
         navigate('/login');
       } else {
         setIsAuthStateKnown(true);
