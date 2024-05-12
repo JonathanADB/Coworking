@@ -20,17 +20,22 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-  h1 {
-    font-size: 2.5em;
-    line-height: 1.1;
-    font-weight: 700;
-  }
+h1 {
+  font-size: 2.5em;
+  line-height: 1.1;
+  font-weight: 700;
+}
 
-  h2 {
-    font-size: 2.125em;
-    line-height: 1.1;
-    font-weight: 500;
-  }
+h2 {
+  font-size: 2.125em;
+  line-height: 1.1;
+  font-weight: 500;
+}
+
+img {
+  user-select: none;
+  pointer-events: none;
+}
   
   @layer base {
     :root {

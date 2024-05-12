@@ -34,22 +34,24 @@ userRouter.post("/register", async (req, res, next) => {
     if (error) {
       throw createError(400, "Datos de entrada no válidos");
     }
-    const { username, email, password, firstName, lastName } = await validateRegisterRequest(
+    console.log(req.body);
+    const { firstName, lastName, username, email, password } = await validateRegisterRequest(
       req.body
     );
+    console.log(firstName, lastName, username, email, password);
     const userId = crypto.randomUUID();
     const hashedPassword = await hash(password, 12);
-    const firstname = firstName || null;
-    const lastname = lastName || null;
+    // let firstname = firstName || null;
+    // let lastname = lastName || null;
     const verificationCode = Math.floor(
       100000 + Math.random() * 900000
     ).toString();
     await pool.execute(
-      "INSERT INTO users (id, username, email, password,firstName, lastName, verification_code) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [userId, username, email, hashedPassword, firstname, lastname, verificationCode]
+      "INSERT INTO users (id, firstName, lastName, username, email, password, verification_code) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [userId, firstName, lastName, username, email, hashedPassword, verificationCode]
     );
     await sendVerificationEmail(email, verificationCode);
-    res.json({
+    res.status(201).json({
       success: true,
       message: "Usuario registrado exitosamente",
     });
@@ -96,6 +98,7 @@ userRouter.post("/login", async (req, res, next) => {
     const { email, username } = await validateLoginRequest(req.body);
     const query = " SELECT * FROM users WHERE email= ? OR username= ?";
     const [[user]] = await pool.execute(query, [email, username]);
+
     if (!user.verified) {
       throw createError(404, "Usuario no verificado");
     }
@@ -113,7 +116,7 @@ userRouter.post("/login", async (req, res, next) => {
         expiresIn: "30d",
       }
     );
-    res.json({
+    res.status(201).json({
       success: true,
       message: "Usuario logueado exitosamente",
       token: token,
@@ -156,7 +159,9 @@ userRouter.get("/user/profile", authenticate, async (req, res, next) => {
 userRouter.put("/user/update/profile/", authenticate, async (req, res, next) => {
   try {
     const user = await getUser(req.headers.authorization);
+    console.log(user);
     const { firstName, lastName, username, email } = req.body;
+    console.log(req.body)
     const avatarFile = req.file?.avatar || null; // falta el uploadFile de Avatar
     const { error } = profileSchema.validate({
       firstName,

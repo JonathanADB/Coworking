@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div className="flex flex-col items-center justify-center">
-      <section className="flex flex-col items-center justify-center mt-8 overflow-y-scroll gap-y-4">
+      <section className="flex flex-col items-center justify-center mt-8 gap-y-4">
         <Button asChild>
           <Link to="/register">Registro</Link>
         </Button>

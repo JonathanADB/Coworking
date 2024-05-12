@@ -1,13 +1,6 @@
-import React, { createContext, useState, useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
+import { createContext, useState } from "react";
 
-export const AuthContext = createContext({
-  currentUser: null,
-  login: (token) => {},
-  logout: () => {},
-  updateAvatar: (avatarUrl) => {},
-  isUserLoggedIn: false,
-});
+export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const storedUser = localStorage.getItem('user');
@@ -25,32 +18,24 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
-    localStorage.removeItem("AUTH_TOKEN");
-    setCurrentUser(null);
-    setIsUserLoggedIn(false);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setAuthState({ token: null, user: null });
   };
 
   const updateAvatar = (avatarUrl) => {
-    setCurrentUser((prevUser) => ({
-      ...prevUser,
-      avatar: avatarUrl,
-    }));
-    localStorage.setItem(
-      "AUTH_TOKEN",
-      jwtEncode({ ...currentUser, avatar: avatarUrl })
-    );
+    const updatedUser = { ...authState.user, avatar: avatarUrl };
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+    setAuthState(prevState => ({ ...prevState, user: updatedUser }));
+}
+
+  const updateUser = (user) => {
+    localStorage.setItem('user', JSON.stringify(user));
+    setAuthState(prevState => ({ ...prevState, user }));
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        currentUser,
-        login,
-        logout,
-        updateAvatar,
-        isUserLoggedIn,
-      }}
-    >
+    <AuthContext.Provider value={{ authState, login, logout, updateUser, updateAvatar }}>
       {children}
     </AuthContext.Provider>
   );

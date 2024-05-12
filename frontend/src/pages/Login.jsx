@@ -35,14 +35,15 @@ function LoginForm() {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        toast.error("Error en la solicitud");
-      }
       const data = await response.json();
 
-      login(data.token, data.user);
-
-      toast.success("Inicio de sesión exitoso");
+      if (data.error) {
+        toast.error(data.error.message);
+        return;
+      } else {
+        login(data.token, data.user);
+        toast.success("Inicio de sesión exitoso");
+      }
       // Redirigir a la página de home
       await new Promise((resolve) => setTimeout(resolve, 5000));
       navigate("/");
