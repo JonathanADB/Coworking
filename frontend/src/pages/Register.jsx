@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input } from "@/components/UI/Input";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/UI/button.jsx";
+import { Button } from "@/components/UI/button";
 import { Label } from "@/components/UI/label";
 
 function RegisterUserForm({ onSubmit }) {
