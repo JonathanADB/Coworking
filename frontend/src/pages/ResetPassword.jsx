@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { Input } from "@/components/UI/input";
+import { Input } from "@/components/UI/Input";
 import { Button } from "@/components/UI/button";
 import { Label } from "@/components/UI/label";
 

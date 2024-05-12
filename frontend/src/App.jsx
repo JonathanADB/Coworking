@@ -16,11 +16,13 @@ import RoomList from "./pages/RoomList.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Profile from "./pages/Profile.jsx";
 import AddAvatar from "./pages/AddAvatar.jsx";
+import UpdateProfile from "./pages/UpdateProfile.jsx";
 import Protected from "./components/Protected.jsx";
 import Admin from "./components/Admin.jsx";
 
 const ProtectedProfile = Protected(Profile);
 const ProtectedAddAvatar = Protected(AddAvatar);
+const ProtectedUpdateProfile = Protected(UpdateProfile);
 const AdminCreateRoom = Admin(CreateRoom);
 const AdminRoomList = Admin(RoomList);
 
@@ -40,6 +42,7 @@ const App = () => {
           <Route path="/room-list" element={<Mobile><AdminRoomList /></Mobile>} />
           <Route path="/profile" element={<Mobile><ProtectedProfile /></Mobile>} />
           <Route path="/add-avatar" element={<Mobile><ProtectedAddAvatar /></Mobile>} />
+          <Route path="/update-profile" element={<Mobile><ProtectedUpdateProfile /></Mobile>} />
           <Route path="*" element={<Mobile><NotFound /></Mobile>} />
         </Routes>
       </Router>

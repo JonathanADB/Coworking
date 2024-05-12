@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../auth/auth-context";
 import { Button } from "@/components/UI/button";
-import { Input } from "@/components/UI/input";
+import { Input } from "@/components/UI/Input";
 
 const AddAvatar = () => {
   const { authState, updateAvatar } = useContext(AuthContext);

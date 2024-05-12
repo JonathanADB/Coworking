@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Input } from "@/components/UI/input";
+import { Input } from "@/components/UI/Input";
 import { AuthContext } from "../auth/auth-context";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
