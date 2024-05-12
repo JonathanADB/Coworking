@@ -7,7 +7,6 @@ function ViewRoom() {
   const token = authState.token;
   const [roomData, setRoomData] = useState({});
   const { roomId } = useParams();
-
   useEffect(() => {
     fetch(`http://localhost:3000/room/${roomId}`, {
       headers: {
@@ -23,9 +22,6 @@ function ViewRoom() {
         console.error("Error al obtener los datos de la habitación:", error)
       );
   }, [roomId]);
-
-  console.log(roomData);
-
   return (
     <div className="text-center">
       {roomData && roomData.message && (

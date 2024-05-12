@@ -2,11 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../auth/auth-context";
 import Input from "../components/UI/Input";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function CreateEditRoomForm() {
   const { authState } = useContext(AuthContext);
   const token = authState.token;
-
   const [roomData, setRoomData] = useState({
     roomId: "",
     name: "",
@@ -14,9 +15,8 @@ function CreateEditRoomForm() {
     capacity: 1,
     typeOf: "",
   });
-
   const { roomId } = useParams();
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetch(`http://localhost:3000/room/${roomId}`, {
       headers: {
@@ -25,15 +25,11 @@ function CreateEditRoomForm() {
       },
     })
       .then((res) => res.json())
-      .then((roomData) => {
-        setRoomData(roomData);
-        console.log(roomData);
+      .then((data) => {
+        setRoomData(data);
       })
-      .catch((error) =>
-        console.error("Error al obtener los datos de la habitación:", error)
-      );
+      .catch((error) => console.error(error));
   }, [roomId]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRoomData({
@@ -41,7 +37,6 @@ function CreateEditRoomForm() {
       [name]: value,
     });
   };
-
   const handleUpdateRoom = (e) => {
     e.preventDefault();
     fetch(`http://localhost:3000/room/${roomId}`, {
@@ -54,31 +49,24 @@ function CreateEditRoomForm() {
     })
       .then((response) => {
         if (response.ok) {
-          console.log(roomData);
+          toast.success("Espacio modificado correctamente");
+          setTimeout(() => {
+            navigate("/room-list");
+          }, 5000);
         } else {
-          throw new Error("Error al actualizar los datos de la habitación.");
+          throw new Error("Error al actualizar los datos del espacio.");
         }
       })
       .catch((error) => {
+        toast.error("Error al actualizar los datos del espacio");
         console.error(error);
       });
   };
-
   return (
     <form
       onSubmit={handleUpdateRoom}
       className="flex flex-col p-4 mx-auto mt-4 rounded-md gap-y-4"
     >
-      <div>
-        <label>Id</label>
-        <Input
-          type="text"
-          name="id"
-          placeholder="Id del espacio"
-          value={roomData.id}
-          onChange={handleChange}
-        />
-      </div>
       <div>
         <label>Nombre</label>
         <Input
@@ -129,7 +117,6 @@ function CreateEditRoomForm() {
     </form>
   );
 }
-
 export function EditRoom() {
   return (
     <>
