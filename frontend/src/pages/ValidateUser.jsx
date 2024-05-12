@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { Input } from "@/components/UI/input";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/UI/button";
+import { Label } from "@/components/UI/label";
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
-} from "@/components/UI/input-otp"
-
+} from "@/components/UI/input-otp";
 
 function CreateValidateUserForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -48,29 +46,27 @@ function CreateValidateUserForm({ onSubmit }) {
       className="max-w-md p-4 mx-auto mt-4 rounded-md"
     >
       <div className="mb-0">
-        <label>Código de verificación</label>
+        <Label>Código de verificación</Label>
 
-<div className="mx-auto w-fit">
-
-
-        <InputOTP
-        maxLength={6}
-        value={formData.code}
-        onChange={(value) =>
-          setFormData((prevState) => ({ ...prevState, code: value }))
-        }
-        required
-      >
-        <InputOTPGroup>
-          <InputOTPSlot index={0} />
-          <InputOTPSlot index={1} />
-          <InputOTPSlot index={2} />
-          <InputOTPSlot index={3} />
-          <InputOTPSlot index={4} />
-          <InputOTPSlot index={5} />
-        </InputOTPGroup>
-      </InputOTP>
-      </div>
+        <div className="mx-auto w-fit">
+          <InputOTP
+            maxLength={6}
+            value={formData.code}
+            onChange={(value) =>
+              setFormData((prevState) => ({ ...prevState, code: value }))
+            }
+            required
+          >
+            <InputOTPGroup>
+              <InputOTPSlot index={0} />
+              <InputOTPSlot index={1} />
+              <InputOTPSlot index={2} />
+              <InputOTPSlot index={3} />
+              <InputOTPSlot index={4} />
+              <InputOTPSlot index={5} />
+            </InputOTPGroup>
+          </InputOTP>
+        </div>
 
         {/* <Input
           type="text"
@@ -100,9 +96,8 @@ function CreateValidateUserForm({ onSubmit }) {
 export function ValidateUser() {
   return (
     <>
-
       <h2 className="mt-2 text-center">Validación de usuario</h2>
-        <CreateValidateUserForm />
+      <CreateValidateUserForm />
     </>
   );
 }

@@ -3,6 +3,14 @@ import { Input } from "@/components/UI/input";
 import { AuthContext } from "../auth/auth-context";
 import { toast } from "react-toastify";
 import { Button } from "@/components/UI/button";
+import { Label } from "@/components/UI/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/UI/select";
 
 function CreateRoomForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -40,72 +48,69 @@ function CreateRoomForm({ onSubmit }) {
   };
   return (
     <div className="flex flex-col justify-center w-full ">
-    <form className="flex flex-col px-1 my-4 gap-y-4" onSubmit={handleSubmit}>
+      <form className="flex flex-col px-1 my-4 gap-y-4" onSubmit={handleSubmit}>
+        <div>
+          <Label>Nombre</Label>
+          <Input
+            type="text"
+            name="name"
+            placeholder="Nombre de la habitación"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-    <div>
-        <label>Nombre</label>
-            <Input 
-                type="text" 
-                name="name"
-                placeholder="Nombre de la habitación"
-                value={formData.name} 
-                onChange={handleChange}
-                required 
-            />
+        <div>
+          <Label>Descripción</Label>
+          <Input
+            type="text"
+            name="description"
+            placeholder="Descripción de la habitación"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div>
+          <Label>Capacidad</Label>
+          <Input
+            type="number"
+            name="capacity"
+            value={formData.capacity}
+            onChange={handleChange}
+            min="1"
+            max="256"
+            required
+          />
+        </div>
+
+        <div>
+          <Label>Tipo</Label>
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="Selecciona un tipo de habitación" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Pública">Pública</SelectItem>
+              <SelectItem value="Privada">Privada</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </form>
+      <Button onClick={handleSubmit} className="w-full" type="submit">
+        Crear habitación
+      </Button>
     </div>
-
-    <div>
-        <label>Descripción</label>
-            <Input 
-                type="text" 
-                name="description"
-                placeholder="Descripción de la habitación"
-                value={formData.description} 
-                onChange={handleChange}
-                required 
-            />
-    </div>
-
-    <div>
-        <label>Capacidad</label>
-                <Input 
-                    type="number" 
-                    name="capacity"
-                    value={formData.capacity} 
-                    onChange={handleChange}
-                    min="1"
-                    max="256"
-                    required 
-                 />
-    </div>
-
-    <div>
-        <label>Tipo</label>
-
-                <select 
-                    name="typeOf"
-                    className="flex w-full h-10 px-1 bg-transparent border border-gray-400 rounded-md outline-none outline-offset-0"
-                    value={formData.typeOf} 
-                    onChange={handleChange}
-                    required 
-                >
-                    <option value="">Selecciona una opción</option>
-                    <option value="Pública">Pública</option>
-                    <option value="Privada">Privada</option>
-                </select>
-            </div>
-  
-    </form>
-        <Button onClick={handleSubmit} className="w-full" type="submit">Crear habitación</Button>
-    </div>
-);
+  );
 }
 
 function CreateRoom() {
   const handleCreateRoom = async (roomData) => {
     const { authState } = useContext(AuthContext);
     const token = authState.token;
-    console.log('Token:', token)
+    console.log("Token:", token);
     try {
       const response = await fetch("http://localhost:3000/create-room", {
         method: "POST",

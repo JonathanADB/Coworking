@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "@/components/UI/input";
 import { Button } from "@/components/UI/button";
+import { Label } from "@/components/UI/label";
 
 function CreateChangePasswordForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -52,55 +53,48 @@ function CreateChangePasswordForm({ onSubmit }) {
       className="flex flex-col p-4 mx-auto mt-4 rounded-md gap-y-4"
     >
       <div>
-          <label>Correo electrónico</label>
-          <Input
-            type="text"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full"
-          />
-
+        <Label>Correo electrónico</Label>
+        <Input
+          type="text"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="w-full"
+        />
       </div>
       <div>
-          <label>Contraseña anterior</label>
-          <Input
-            type="text"
-            name="oldPassword"
-            value={formData.oldPassword}
-            onChange={handleChange}
-            required
-            className="w-full"
-          />
-
+        <Label>Contraseña anterior</Label>
+        <Input
+          type="text"
+          name="oldPassword"
+          value={formData.oldPassword}
+          onChange={handleChange}
+          required
+          className="w-full"
+        />
       </div>
       <div>
-
-          <label>Nueva contraseña</label>
-          <Input
-            type="text"
-            name="newPassword"
-            value={formData.newPassword}
-            onChange={handleChange}
-            required
-            className="w-full"
-          />
-
+        <Label>Nueva contraseña</Label>
+        <Input
+          type="text"
+          name="newPassword"
+          value={formData.newPassword}
+          onChange={handleChange}
+          required
+          className="w-full"
+        />
       </div>
       <div>
-
-          <label>Confirmar nueva contraseña</label>
-          <Input
-            type="text"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-            className="w-full"
-          />
-
-   
+        <Label>Confirmar nueva contraseña</Label>
+        <Input
+          type="text"
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          required
+          className="w-full"
+        />
       </div>
       <Button type="submit" className="w-full">
         Restablecer contraseña
@@ -118,11 +112,10 @@ function CreateChangePasswordForm({ onSubmit }) {
 
 export function ChangePassword() {
   return (
-    <div
-    >
-
+    <div>
       <h2 className="mb-4 text-2xl font-bold text-center">
-Cambiar contraseña      </h2>
+        Cambiar contraseña{" "}
+      </h2>
       <div>
         <CreateChangePasswordForm />
       </div>
