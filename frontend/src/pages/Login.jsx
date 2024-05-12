@@ -96,9 +96,9 @@ function LoginForm() {
          </div>
 
           {/* Este mensaje quizás solo se debería mostrar al fallar la contraseña una vez */}
-          <p className="text-xs mt-[2px]">
+          {/* <p className="text-xs mt-[2px]">
             Debe contener una letra mayúscula y un símbolo: (?=.*)
-          </p>
+          </p> */}
         </div>
         <div className="flex flex-col gap-y-2">
           <Button className="flex w-full mx-auto" type="submit">
