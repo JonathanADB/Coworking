@@ -36,8 +36,7 @@ function CreateEditRoomForm() {
     })
       .then((res) => res.json())
       .then((roomData) => {
-        setRoomData(roomData);
-        console.log(roomData);
+        setRoomData(roomData.message);
       })
       .catch((error) =>
         console.error("Error al obtener los datos de la habitación:", error)
@@ -74,13 +73,6 @@ function CreateEditRoomForm() {
       });
   };
 
-
-  const handleRoomTypeChange = (value) => {
-    setRoomData(prevState => ({ ...prevState, typeOf: value }));
-  };
-
-  console.log(roomData)
-
   return (
     <form
       onSubmit={handleUpdateRoom}
@@ -91,7 +83,7 @@ function CreateEditRoomForm() {
         <Input
           type="text"
           name="id"
-          placeholder="Id del espacio"
+          placeholder={roomData.id}
           value={roomData.id}
           onChange={handleChange}
         />

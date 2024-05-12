@@ -86,8 +86,8 @@ export async function dbSchema(db) {
   await db.query(`CREATE TABLE media(
 	  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
     url VARCHAR(150) UNIQUE NOT NULL,
-    userId CHAR(36) UNIQUE, 
-    roomId CHAR(36) UNIQUE,
+    userId CHAR(36), 
+    roomId CHAR(36),
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME,
     deletedAt DATETIME,

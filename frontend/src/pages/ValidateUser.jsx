@@ -68,15 +68,6 @@ function CreateValidateUserForm({ onSubmit }) {
           </InputOTP>
         </div>
 
-        {/* <Input
-          type="text"
-          name="code"
-          className="my-2"
-          value={formData.code}
-          onChange={handleChange}
-          required
-          // className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm"
-        /> */}
       </div>
 
       <Button type="submit" className="w-full my-8 mt-2">

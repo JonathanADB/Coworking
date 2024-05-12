@@ -91,8 +91,11 @@ function CreateRoomForm({ onSubmit }) {
 
         <div>
           <Label>Tipo</Label>
-          <Select         onValueChange={(value) => setFormData(prevState => ({ ...prevState, typeOf: value }))}
->
+          <Select
+            onValueChange={(value) =>
+              setFormData((prevState) => ({ ...prevState, typeOf: value }))
+            }
+          >
             <SelectTrigger>
               <SelectValue placeholder="Selecciona un tipo de habitación" />
             </SelectTrigger>
@@ -145,7 +148,6 @@ function CreateRoom() {
         toast.error("La respuesta no es JSON válida.");
       }
     } catch (error) {
-      // Maneja errores en la solicitud
       console.error("Error al crear habitación:", error);
       toast.error(`Error al crear habitación: ${error}`);
     }

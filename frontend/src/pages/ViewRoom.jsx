@@ -7,7 +7,7 @@ function ViewRoom() {
   const token = authState.token;
   const [roomData, setRoomData] = useState({});
   const { id } = useParams();
-    const roomId = id;
+  const roomId = id;
   console.log(id);
 
   useEffect(() => {
@@ -35,27 +35,19 @@ fetch(`http://localhost:3000/room/${id}`, {
           <h2 className="mb-8 text-xl font-bold">
             Espacio {roomData.message.name}
           </h2>
-          <ul className="grid grid-cols-1 gap-4 list-none">
-            <li
-              style={{ borderBottom: "1px solid #ccc", paddingBottom: "8px" }}
-            >
+          <ul className="flex flex-col gap-y-4">
+          <li >
               <span className="font-bold">ID:</span> {roomData.message.id}
             </li>
-            <li
-              style={{ borderBottom: "1px solid #ccc", paddingBottom: "8px" }}
-            >
+            <li>
               <span className="font-bold">Descripción:</span>{" "}
               {roomData.message.description}
             </li>
-            <li
-              style={{ borderBottom: "1px solid #ccc", paddingBottom: "8px" }}
-            >
+            <li>
               <span className="font-bold">Capacidad:</span>{" "}
               {roomData.message.capacity}
             </li>
-            <li
-              style={{ borderBottom: "1px solid #ccc", paddingBottom: "8px" }}
-            >
+            <li>
               <span className="font-bold">Tipo:</span> {roomData.message.typeOf}
             </li>
           </ul>
