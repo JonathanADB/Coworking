@@ -24,7 +24,7 @@ reviewRouter.get("/reviews", async (req, res, next) => {
     if (!reviews) {
       throw createError(404, "Reviews no encontradas");
     }
-    res.json({
+    res.status(200).json({
       success: true,
       data: reviews,
     });
@@ -42,7 +42,7 @@ reviewRouter.get("/review/:reviewId", async (req, res, next) => {
       throw createError(400, "Datos de entrada no válidos");
     }
     const review = await validateReviewId(reviewId);
-    res.json({
+    res.status(200).json({
       success: true,
       message: review,
     });
@@ -78,7 +78,7 @@ reviewRouter.post("/review/add", authenticate, async (req, res, next) => {
       "INSERT INTO reviews(id, rate, description, reservationId) VALUES (?, ?, ?, ?)",
       [crypto.randomUUID(), rate, description, reservationId]
     );
-    res.json({
+    res.status(201).json({
       success: true,
       message: "Review creada correctamente",
     });
@@ -100,7 +100,7 @@ reviewRouter.delete(
       }
       const review = await validateReviewId(reviewId);
       await pool.execute("DELETE FROM reviews WHERE id = ?", [reviewId]);
-      res.json({
+      res.status(200).json({
         success: true,
         message: "Review eliminada correctamente",
       });
@@ -135,7 +135,7 @@ reviewRouter.patch(
           reviewId,
         ]
       );
-      res.json({
+      res.status(200).json({
         success: true,
         message: "Review modificada correctamente",
       });

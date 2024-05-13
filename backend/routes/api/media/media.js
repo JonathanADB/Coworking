@@ -43,8 +43,7 @@ mediaRouter.post(
 
       res.status(201).json({
         success: true,
-        message: `La subida del archivo se añadió correctamente`,
-        fileName: fileName,
+        message: `Se ha actualizado el avatar correctamente`,
         url: url,
       });
     } catch (err) {

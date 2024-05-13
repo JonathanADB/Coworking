@@ -34,7 +34,7 @@ reservationRouter.get(
       if (!reviews) {
         throw createError(404, "Reservas no encontradas");
       }
-      res.json({
+      res.status(200).json({
         success: true,
         data: reviews,
       });
@@ -84,7 +84,7 @@ reservationRouter.post(
         `INSERT INTO reservations (id, roomId, userId, reservationDateBeg, reservationDateEnd) VALUES (?,?,?,?,?)`,
         [reservationsId, roomId, userId, reservationDateBeg, reservationDateEnd]
       );
-      res.json({
+      res.status(201).json({
         success: true,
         message: "Reserva realizada con exito",
       });
@@ -119,7 +119,7 @@ reservationRouter.delete(
         `DELETE FROM reservations WHERE id = ? AND roomId = ?`,
         [reservationId, roomId]
       );
-      res.json({
+      res.status(200).json({
         success: true,
         message: "Reserva cancelada con éxito",
       });

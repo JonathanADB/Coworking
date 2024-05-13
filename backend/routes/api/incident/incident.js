@@ -35,7 +35,7 @@ categoryIncidentsRouter.post(
           equipmentId,
         ]
       );
-      res.json({
+      res.status(201).json({
         success: true,
         message: "Incidencia transmitida con éxito",
       });
@@ -71,7 +71,7 @@ categoryIncidentsRouter.post(
         [crypto.randomUUID(), description, userId, roomId, equipmentId]
       );
 
-      res.json({
+      res.status(201).json({
         success: true,
         message: "Incidencia transmitida con éxito",
       });
@@ -143,7 +143,7 @@ categoryIncidentsRouter.get(
       if (incident.length === 0) {
         throw createError(404, "Incidencia no encontrada");
       }
-      res.json(incident[0]);
+      res.status(200).json(incident[0]);
     } catch (err) {
       next(err);
     }

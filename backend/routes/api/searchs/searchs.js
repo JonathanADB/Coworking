@@ -26,7 +26,7 @@ searchsRouter.post("/rooms/types", async (req, res, next) => {
         WHERE rooms.typeOf=?`,
       [typeOf]
     );
-    res.json({
+    res.status(200).json({
       roomsListByType,
     });
 
@@ -56,7 +56,7 @@ searchsRouter.get("/equipment/searchlist", async (req, res, next) => {
         LIMIT 10 OFFSET ${offset}`,
       [`%${search}%`, `%${search}%`]
     );
-    res.json({
+    res.status(200).json({
       success: true,
       message: equipment,
     });
@@ -106,7 +106,7 @@ searchsRouter.get("/rooms/searchReservations", async (req, res, next) => {
         [dateBegString, dateEndString, roomIdString]
       );
     }
-    res.json({
+    res.status(200).json({
       success: true,
       message: rooms,
     });

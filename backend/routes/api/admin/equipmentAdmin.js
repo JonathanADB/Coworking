@@ -37,7 +37,7 @@ equipmentAdminRouter.post("/equipment/add", async (req, res, next) => {
       [crypto.randomUUID(), name, description, inventory]
     );
 
-    res.json({
+    res.status(201).json({
       success: true,
       message: `Producto ${name} se añadió correctamente`,
     });
@@ -77,7 +77,7 @@ equipmentAdminRouter.patch(
           equipmentId,
         ]
       );
-      res.json({
+      res.status(200).json({
         success: true,
         message: `Producto ${name} se actualizo correctamente`,
       });
@@ -107,7 +107,7 @@ equipmentAdminRouter.delete(
         [equipmentId]
       );
 
-      res.json({
+      res.status(200).json({
         success: true,
         message: `Producto borrado correctamente`,
       });

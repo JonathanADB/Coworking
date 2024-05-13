@@ -131,7 +131,6 @@ function CreateRoom() {
   const handleCreateRoom = async (roomData) => {
     const { authState } = useContext(AuthContext);
     const token = authState.token;
-    console.log("Token:", token);
     try {
       const response = await fetch("http://localhost:3000/create-room", {
         method: "POST",
