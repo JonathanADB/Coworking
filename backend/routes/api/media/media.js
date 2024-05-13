@@ -18,38 +18,64 @@ mediaRouter.use(fileUpload({
 }));
 
 // Añadir un avatar
+mediaRouter.use(fileUpload({
+  createParentPath: true, 
+}));
+
+// Actualizar el avatar
 mediaRouter.post(
-  "/user/:id/media/add-avatar",
+  "/user/:id/media/update-avatar",
   authenticate,
   handleFileUpload,
   async (req, res, next) => {
     try {
       const { id: userId } = req.params;
       const { API_HOST } = process.env;
-      const avatarId = crypto.randomUUID();
       const { fileName } = req.body;
 
-
-      console.log(userId, fileName, avatarId, API_HOST)
-
-      const url = `${API_HOST}/uploads/avatar/${fileName}`;
-
-      await dbPool.execute(
-        `INSERT INTO media(id, url, userId) VALUES (?, ?, ?)`,
-        [avatarId, url, userId]
+      const [existingMedia] = await dbPool.query(
+        `SELECT * FROM media WHERE userId = ?`,
+        [userId]
       );
 
-      await dbPool.execute(
-        `UPDATE users SET avatar = ? WHERE id = ?`,
-        [url, userId]
-      );
+      if (existingMedia) {
+        // Si ya existe un archivo de medios asociado al usuario, actualizarlo
+        const { id: mediaId } = existingMedia;
+        const url = `${API_HOST}/uploads/avatar/${fileName}`;
 
-      res.status(201).json({
-        success: true,
-        message: `La subida del archivo se añadió correctamente`,
-        fileName: fileName,
-        url: url,
-      });
+        await dbPool.execute(
+          `UPDATE media SET url = ? WHERE id = ?`,
+          [url, mediaId]
+        );
+
+        res.status(200).json({
+          success: true,
+          message: `El avatar se actualizó correctamente`,
+          fileName: fileName,
+          url: url,
+        });
+      } else {
+        // Si no existe un archivo de medios asociado al usuario, crear uno nuevo
+        const avatarId = crypto.randomUUID();
+        const url = `${API_HOST}/uploads/avatar/${fileName}`;
+
+        await dbPool.execute(
+          `INSERT INTO media(id, url, userId) VALUES (?, ?, ?)`,
+          [avatarId, url, userId]
+        );
+
+        await dbPool.execute(
+          `UPDATE users SET avatar = ? WHERE id = ?`,
+          [url, userId]
+        );
+
+        res.status(201).json({
+          success: true,
+          message: `El avatar se añadió correctamente`,
+          fileName: fileName,
+          url: url,
+        });
+      }
     } catch (err) {
       next(err);
     }

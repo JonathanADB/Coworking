@@ -5,11 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/UI/button";
 import { Label } from "@/components/UI/label";
 
-<<<<<<< HEAD
-function RegisterUserForm({  }) {
-=======
 function RegisterUserForm() {
->>>>>>> main
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -59,11 +55,6 @@ function RegisterUserForm() {
         await new Promise((resolve) => setTimeout(resolve, 5000));
         navigate("/validate");
       }
-<<<<<<< HEAD
-
-     
-=======
->>>>>>> main
     } catch (error) {
       console.error("El usuario no se pudo registrar");
     }
