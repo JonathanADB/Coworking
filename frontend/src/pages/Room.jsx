@@ -12,13 +12,15 @@ import {
   SelectValue,
 } from "@/components/UI/select";
 
-function CreateRoomForm({ onSubmit }) {
+function CreateRoomForm() {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     capacity: 1,
     typeOf: "",
   });
+
+  const { authState } = useContext(AuthContext);
 
   formData.capacity = Number(formData.capacity);
 
@@ -30,24 +32,36 @@ function CreateRoomForm({ onSubmit }) {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !formData.name ||
-      !formData.description ||
-      !formData.capacity ||
-      !formData.typeOf
-    ) {
+    if (!formData.name || !formData.description || !formData.capacity || !formData.typeOf) {
       toast.error("Todos los cambos son obligatorios");
       return;
     }
-    // Llama a la función de envío desde el componente padre
-    onSubmit(formData);
-    toast.success("Sala creada correctamente");
-  };
 
-  console.log("Form data:", formData);
+    try {
+      const response = await fetch("http://localhost:3000/create-room", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: authState.token,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('No se ha podido crear la sala');
+      }
+
+      toast.success("Sala creada correctamente");
+
+    } catch (error) {
+      console.error("Error al crear la sala:", error);
+      toast.error("Error al crear la sala");
+    }
+      
+  };
 
   return (
     <div className="flex flex-col justify-center w-full ">
@@ -117,7 +131,6 @@ function CreateRoom() {
   const handleCreateRoom = async (roomData) => {
     const { authState } = useContext(AuthContext);
     const token = authState.token;
-    console.log("Token:", token);
     try {
       const response = await fetch("http://localhost:3000/create-room", {
         method: "POST",
@@ -138,7 +151,7 @@ function CreateRoom() {
       if (contentType && contentType.includes("application/json")) {
         const data = await response.json();
 
-        if (data.success) {
+        if (response.ok) {
         } else {
           console.error("Error del servidor:");
           toast.error("Error del servidor");

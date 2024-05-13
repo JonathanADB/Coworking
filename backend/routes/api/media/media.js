@@ -9,6 +9,9 @@ import fileUpload from "express-fileupload";
 import { addMediaAvatarSchema } from "../../schemas/mediaSchema.js";
 import handleFileUpload from "../../middleware/handleFileUpload.js";
 import serveStatic from "../../middleware/serveStatic.js";
+import { basename, resolve } from 'path';
+import { unlinkSync } from 'fs';
+import { cwd } from 'process';
 
 const dbPool = getPool();
 export const mediaRouter = Router();
@@ -18,64 +21,53 @@ mediaRouter.use(fileUpload({
 }));
 
 // Añadir un avatar
-mediaRouter.use(fileUpload({
-  createParentPath: true, 
-}));
-
-// Actualizar el avatar
 mediaRouter.post(
-  "/user/:id/media/update-avatar",
+  "/user/:id/media/add-avatar",
   authenticate,
   handleFileUpload,
   async (req, res, next) => {
     try {
       const { id: userId } = req.params;
       const { API_HOST } = process.env;
+      const avatarId = crypto.randomUUID();
       const { fileName } = req.body;
 
-      const [existingMedia] = await dbPool.query(
-        `SELECT * FROM media WHERE userId = ?`,
+      const url = `${API_HOST}/uploads/avatar/${fileName}`;
+      
+      const [avatar] = await dbPool.execute(
+        `SELECT avatar FROM users WHERE id = ?`,
         [userId]
       );
 
-      if (existingMedia) {
-        // Si ya existe un archivo de medios asociado al usuario, actualizarlo
-        const { id: mediaId } = existingMedia;
-        const url = `${API_HOST}/uploads/avatar/${fileName}`;
-
-        await dbPool.execute(
-          `UPDATE media SET url = ? WHERE id = ?`,
-          [url, mediaId]
+      if (avatar[0].avatar) {
+        const avatarUrl = avatar[0].avatar;
+        const avatarFileName = basename(avatarUrl);
+        const avatarPath = resolve(
+          cwd(),
+          "..",
+          "frontend",
+          "public",
+          "uploads",
+          "avatar",
+          avatarFileName
         );
-
-        res.status(200).json({
-          success: true,
-          message: `El avatar se actualizó correctamente`,
-          fileName: fileName,
-          url: url,
-        });
-      } else {
-        // Si no existe un archivo de medios asociado al usuario, crear uno nuevo
-        const avatarId = crypto.randomUUID();
-        const url = `${API_HOST}/uploads/avatar/${fileName}`;
-
-        await dbPool.execute(
-          `INSERT INTO media(id, url, userId) VALUES (?, ?, ?)`,
-          [avatarId, url, userId]
-        );
-
-        await dbPool.execute(
-          `UPDATE users SET avatar = ? WHERE id = ?`,
-          [url, userId]
-        );
-
-        res.status(201).json({
-          success: true,
-          message: `El avatar se añadió correctamente`,
-          fileName: fileName,
-          url: url,
-        });
+        unlinkSync(avatarPath);
       }
+        
+      await dbPool.execute(
+        `INSERT INTO media(id, url, userId) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE url = ?, id = ?`,
+        [avatarId, url, userId, url, avatarId]
+      );
+
+      await dbPool.execute(
+        `UPDATE users SET avatar = ? WHERE id = ?`,
+        [url, userId]
+      );
+
+      res.status(201).json({
+        message: `Se ha actualizado el avatar correctamente`,
+        url: url,
+      });
     } catch (err) {
       next(err);
     }

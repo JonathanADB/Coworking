@@ -39,8 +39,6 @@ userRouter.post("/register", async (req, res, next) => {
     );
     const userId = crypto.randomUUID();
     const hashedPassword = await hash(password, 12);
-    // let firstname = firstName || null;
-    // let lastname = lastName || null;
     const verificationCode = Math.floor(
       100000 + Math.random() * 900000
     ).toString();
@@ -50,7 +48,6 @@ userRouter.post("/register", async (req, res, next) => {
     );
     await sendVerificationEmail(email, verificationCode);
     res.status(201).json({
-      success: true,
       message: "Usuario registrado exitosamente",
     });
   } catch (err) {
@@ -114,8 +111,7 @@ userRouter.post("/login", async (req, res, next) => {
         expiresIn: "30d",
       }
     );
-    res.status(201).json({
-      success: true,
+    res.status(200).json({
       message: "Usuario logueado exitosamente",
       token: token,
       user: {
@@ -138,8 +134,7 @@ userRouter.post("/login", async (req, res, next) => {
 userRouter.get("/user/profile", authenticate, async (req, res, next) => {
   try {
     const user = await getUser(req.headers.authorization);
-    res.json({
-      success: true,
+    res.status(200).json({
       profile: {
         firstName: user.firstName,
         lastName: user.lastName,
@@ -201,9 +196,8 @@ userRouter.put("/user/update/profile/", authenticate, async (req, res, next) => 
         expiresIn: "3d",
       }
     );
-    return res.json({
-      success: true,
-      message: "Usuario actualizado correctamente",
+    res.status(200).json({
+      message: "Perfil actualizado correctamente",
       user: updatedUser,
       token: token,
     });
@@ -248,8 +242,7 @@ userRouter.patch("/change-password", authenticate, async (req, res, next) => {
       hashedNewPassword,
       user.id,
     ]);
-    res.json({ success: true, message: "Contraseña actualizada exitosamente" });
-  } catch (error) {
+    res.status(200).json({ message: "Contraseña actualizada exitosamente" });  } catch (error) {
     next(error);
   }
 });
@@ -276,10 +269,8 @@ userRouter.post("/forgot-password", async (req, res, next) => {
       [verificationCode, user.id]
     );
     await sendForgotPasswordEmail(email, verificationCode);
-    res.json({
-      success: true,
-      message:
-        "Se ha enviado un correo electrónico con un código de verificación",
+    res.status(200).json({
+      message: "Se ha enviado un correo electrónico con un código de verificación",
     });
   } catch (error) {
     next(error);
@@ -313,8 +304,7 @@ userRouter.post("/reset-password", async (req, res, next) => {
       hashedNewPassword,
       user.id,
     ]);
-    console.log("Contraseña actualizada");
-    res.json({ success: true, message: "Contraseña actualizada exitosamente" });
+    res.status(200).json({ message: "Contraseña actualizada exitosamente" });
   } catch (error) {
     next(error);
   }

@@ -11,6 +11,7 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/UI/select";
+import { toast } from "react-toastify";
 
 function CreateEditRoomForm() {
   const { authState } = useContext(AuthContext);
@@ -62,11 +63,10 @@ function CreateEditRoomForm() {
       body: JSON.stringify(roomData),
     })
       .then((response) => {
-        if (response.ok) {
-          console.log(roomData);
-        } else {
+        if (!response.ok) {
           throw new Error("Error al actualizar los datos de la habitación.");
         }
+          toast.success("Datos de la habitación actualizados correctamente");
       })
       .catch((error) => {
         console.error(error);

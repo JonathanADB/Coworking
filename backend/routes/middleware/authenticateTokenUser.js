@@ -9,7 +9,7 @@ const { JWT_SECRET } = process.env;
 const authenticate = async (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
-    const error = createError(404, "Token no encontrado");
+    const error = createError(401, "No autorizado");
     return next(error);
   }
   try {

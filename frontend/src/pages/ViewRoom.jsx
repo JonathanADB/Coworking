@@ -8,7 +8,6 @@ function ViewRoom() {
   const [roomData, setRoomData] = useState({});
   const { id } = useParams();
   const roomId = id;
-  console.log(id);
 
   useEffect(() => {
 fetch(`http://localhost:3000/room/${id}`, {
@@ -25,8 +24,6 @@ fetch(`http://localhost:3000/room/${id}`, {
         console.error("Error al obtener los datos de la habitación:", error)
       );
   }, [roomId]);
-
-  console.log(roomData);
 
   return (
     <div className="text-center">

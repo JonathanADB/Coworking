@@ -35,8 +35,7 @@ categoryIncidentsRouter.post(
           equipmentId,
         ]
       );
-      res.json({
-        success: true,
+      res.status(201).json({
         message: "Incidencia transmitida con éxito",
       });
     } catch (err) {
@@ -55,7 +54,6 @@ categoryIncidentsRouter.post(
 
     if (req.user.id !== userId) {
       return res.status(401).json({
-        success: false,
         message: "No tienes permisos para realizar esta acción",
       });
     }
@@ -71,8 +69,7 @@ categoryIncidentsRouter.post(
         [crypto.randomUUID(), description, userId, roomId, equipmentId]
       );
 
-      res.json({
-        success: true,
+      res.status(201).json({
         message: "Incidencia transmitida con éxito",
       });
 
@@ -143,7 +140,7 @@ categoryIncidentsRouter.get(
       if (incident.length === 0) {
         throw createError(404, "Incidencia no encontrada");
       }
-      res.json(incident[0]);
+      res.status(200).json(incident[0]);
     } catch (err) {
       next(err);
     }
