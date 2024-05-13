@@ -30,7 +30,7 @@ const AddAvatar = () => {
 
     if (data.success) {
       updateAvatar(data.url);
-      toast.success("Avatar subido correctamente");
+      toast.success("Avatar actualizado correctamente");
       navigate("/profile");
     } else {
       toast.error(data.message);
