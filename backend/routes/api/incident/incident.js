@@ -54,7 +54,6 @@ categoryIncidentsRouter.post(
 
     if (req.user.id !== userId) {
       return res.status(401).json({
-        success: false,
         message: "No tienes permisos para realizar esta acción",
       });
     }
