@@ -35,7 +35,6 @@ reservationRouter.get(
         throw createError(404, "Reservas no encontradas");
       }
       res.status(200).json({
-        success: true,
         data: reviews,
       });
     } catch (error) {
@@ -85,7 +84,6 @@ reservationRouter.post(
         [reservationsId, roomId, userId, reservationDateBeg, reservationDateEnd]
       );
       res.status(201).json({
-        success: true,
         message: "Reserva realizada con exito",
       });
     } catch (err) {
@@ -115,12 +113,11 @@ reservationRouter.delete(
       if (reservation.length === 0) {
         throw createError(404, "Reserva no encontrada");
       }
-      await dbPool.execute(
+      await pool.execute(
         `DELETE FROM reservations WHERE id = ? AND roomId = ?`,
         [reservationId, roomId]
       );
       res.status(200).json({
-        success: true,
         message: "Reserva cancelada con éxito",
       });
     } catch (err) {

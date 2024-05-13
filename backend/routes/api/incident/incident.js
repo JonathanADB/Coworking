@@ -36,7 +36,6 @@ categoryIncidentsRouter.post(
         ]
       );
       res.status(201).json({
-        success: true,
         message: "Incidencia transmitida con éxito",
       });
     } catch (err) {
@@ -72,7 +71,6 @@ categoryIncidentsRouter.post(
       );
 
       res.status(201).json({
-        success: true,
         message: "Incidencia transmitida con éxito",
       });
 

@@ -57,7 +57,6 @@ searchsRouter.get("/equipment/searchlist", async (req, res, next) => {
       [`%${search}%`, `%${search}%`]
     );
     res.status(200).json({
-      success: true,
       message: equipment,
     });
 
@@ -107,7 +106,6 @@ searchsRouter.get("/rooms/searchReservations", async (req, res, next) => {
       );
     }
     res.status(200).json({
-      success: true,
       message: rooms,
     });
   } catch (err) {

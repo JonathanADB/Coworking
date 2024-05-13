@@ -38,7 +38,6 @@ equipmentAdminRouter.post("/equipment/add", async (req, res, next) => {
     );
 
     res.status(201).json({
-      success: true,
       message: `Producto ${name} se añadió correctamente`,
     });
 
@@ -78,7 +77,6 @@ equipmentAdminRouter.patch(
         ]
       );
       res.status(200).json({
-        success: true,
         message: `Producto ${name} se actualizo correctamente`,
       });
 
@@ -108,7 +106,6 @@ equipmentAdminRouter.delete(
       );
 
       res.status(200).json({
-        success: true,
         message: `Producto borrado correctamente`,
       });
 

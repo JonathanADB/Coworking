@@ -25,7 +25,6 @@ reviewRouter.get("/reviews", async (req, res, next) => {
       throw createError(404, "Reviews no encontradas");
     }
     res.status(200).json({
-      success: true,
       data: reviews,
     });
   } catch (error) {
@@ -43,7 +42,6 @@ reviewRouter.get("/review/:reviewId", async (req, res, next) => {
     }
     const review = await validateReviewId(reviewId);
     res.status(200).json({
-      success: true,
       message: review,
     });
   } catch (error) {
@@ -79,7 +77,6 @@ reviewRouter.post("/review/add", authenticate, async (req, res, next) => {
       [crypto.randomUUID(), rate, description, reservationId]
     );
     res.status(201).json({
-      success: true,
       message: "Review creada correctamente",
     });
   } catch (err) {
@@ -101,7 +98,6 @@ reviewRouter.delete(
       const review = await validateReviewId(reviewId);
       await pool.execute("DELETE FROM reviews WHERE id = ?", [reviewId]);
       res.status(200).json({
-        success: true,
         message: "Review eliminada correctamente",
       });
     } catch (err) {
@@ -136,7 +132,6 @@ reviewRouter.patch(
         ]
       );
       res.status(200).json({
-        success: true,
         message: "Review modificada correctamente",
       });
     } catch (err) {

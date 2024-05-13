@@ -48,7 +48,6 @@ userRouter.post("/register", async (req, res, next) => {
     );
     await sendVerificationEmail(email, verificationCode);
     res.status(201).json({
-      success: true,
       message: "Usuario registrado exitosamente",
     });
   } catch (err) {
@@ -113,7 +112,6 @@ userRouter.post("/login", async (req, res, next) => {
       }
     );
     res.status(200).json({
-      success: true,
       message: "Usuario logueado exitosamente",
       token: token,
       user: {
@@ -137,7 +135,6 @@ userRouter.get("/user/profile", authenticate, async (req, res, next) => {
   try {
     const user = await getUser(req.headers.authorization);
     res.status(200).json({
-      success: true,
       profile: {
         firstName: user.firstName,
         lastName: user.lastName,
@@ -200,7 +197,6 @@ userRouter.put("/user/update/profile/", authenticate, async (req, res, next) => 
       }
     );
     res.status(200).json({
-      success: true,
       message: "Perfil actualizado correctamente",
       user: updatedUser,
       token: token,
@@ -246,7 +242,7 @@ userRouter.patch("/change-password", authenticate, async (req, res, next) => {
       hashedNewPassword,
       user.id,
     ]);
-    res.status(200).json({ success: true, message: "Contraseña actualizada exitosamente" });  } catch (error) {
+    res.status(200).json({ message: "Contraseña actualizada exitosamente" });  } catch (error) {
     next(error);
   }
 });
@@ -274,7 +270,6 @@ userRouter.post("/forgot-password", async (req, res, next) => {
     );
     await sendForgotPasswordEmail(email, verificationCode);
     res.status(200).json({
-      success: true,
       message: "Se ha enviado un correo electrónico con un código de verificación",
     });
   } catch (error) {
@@ -309,7 +304,7 @@ userRouter.post("/reset-password", async (req, res, next) => {
       hashedNewPassword,
       user.id,
     ]);
-    res.status(200).json({ success: true, message: "Contraseña actualizada exitosamente" });
+    res.status(200).json({ message: "Contraseña actualizada exitosamente" });
   } catch (error) {
     next(error);
   }

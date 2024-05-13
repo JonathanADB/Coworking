@@ -42,7 +42,6 @@ mediaRouter.post(
       );
 
       res.status(201).json({
-        success: true,
         message: `Se ha actualizado el avatar correctamente`,
         url: url,
       });

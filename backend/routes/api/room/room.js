@@ -34,7 +34,6 @@ roomRouter.post(
         [roomsId, name, description, capacity, typeOf]
       );
       res.status(201).json({
-        success: true,
         message: "Espacio agregado correctamente",
       });
     } catch (err) {
@@ -71,7 +70,6 @@ roomRouter.put("/room/:id", authenticate, isAdmin, async (req, res, next) => {
       ]
     );
     res.status(200).json({
-      success: true,
       message: "Espacio actualizada correctamente",
     });
   } catch (err) {
@@ -89,7 +87,6 @@ roomRouter.get("/rooms", authenticate, isAdmin, async (req, res, next) => {
       throw createError(404, "Espacios no encontrados");
     }
     res.status(200).json({
-      success: true,
       message: rooms,
     });
   } catch (err) {
@@ -114,7 +111,6 @@ roomRouter.get(
       // Consultamos el espacio en la BD
       const room = await validateRoomId(roomId);
       res.status(200).json({
-        success: true,
         message: room,
       });
     } catch (error) {
