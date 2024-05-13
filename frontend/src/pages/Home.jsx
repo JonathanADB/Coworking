@@ -18,10 +18,6 @@ function Home() {
         </Button>
 
         <Button asChild>
-          <Link to="/change-password">Cambiar contraseña</Link>
-        </Button>
-
-        <Button asChild>
           <Link to="/forgot-password">Olvidé mi contraseña</Link>
         </Button>
 
@@ -31,10 +27,6 @@ function Home() {
 
         <Button asChild>
           <Link to="/profile">Perfil</Link>
-        </Button>
-
-        <Button asChild>
-          <Link to="/add-avatar">Agregar avatar</Link>
         </Button>
 
         <Button asChild>
