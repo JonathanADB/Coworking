@@ -13,7 +13,7 @@ const Mobile = ({ children }) => {
   const { authState } = useContext(AuthContext);
 
   return (
-    <div className="relative w-full h-dvh">
+    <div className="relative w-full bg-transparent h-dvh">
       <div className="relative w-full h-dvh">
         {/* <div
           className="absolute inset-0"
