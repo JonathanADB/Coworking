@@ -4,13 +4,14 @@ import { FaHome, FaEye, FaBookmark, FaUserCircle } from "react-icons/fa";
 import Logo from "../assets/images/Logo.png";
 import coworqueen from "../assets/images/coworqueen.svg";
 import { AuthContext } from "../auth/auth-context";
-import background from "../assets/images/background.webp";
 import { ScrollArea } from "./UI/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/UI/avatar"
 
 const Mobile = ({ children }) => {
   const location = useLocation();
   const { authState } = useContext(AuthContext);
+
+  console.log(authState.user)
 
   return (
     <div className="relative w-full bg-transparent h-dvh">
@@ -39,6 +40,7 @@ const Mobile = ({ children }) => {
           </Link>
           <FaEye />
           <FaBookmark />
+          {authState?.token ? 
           <Link to="/profile">
           <Avatar>
               <AvatarImage src={authState?.user?.avatar}  />
@@ -46,7 +48,10 @@ const Mobile = ({ children }) => {
                 {authState?.user?.firstName?.split('')[0]}
                 </AvatarFallback> 
           </Avatar>
-          </Link>
+        </Link>
+          : 
+          <Link to="/login"><FaUserCircle /></Link>
+          }
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import { AuthContext } from "../auth/auth-context";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/UI/avatar";
 import { FaPencilAlt, FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const EditProfile = () => {
   const [user, setUser] = useState(null);

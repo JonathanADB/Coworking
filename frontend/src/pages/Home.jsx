@@ -9,25 +9,13 @@ function Home() {
           <Link to="/register">Registro</Link>
         </Button>
 
-        <Button asChild>
+        {/* <Button asChild>
           <Link to="/validate">Validar usuario</Link>
-        </Button>
+        </Button> */}
 
-        <Button asChild>
-          <Link to="/login">Iniciar sesión</Link>
-        </Button>
-
-        <Button asChild>
-          <Link to="/forgot-password">Olvidé mi contraseña</Link>
-        </Button>
-
-        <Button asChild>
+        {/* <Button asChild>
           <Link to="/reset-password">Restablecer contraseña</Link>
-        </Button>
-
-        <Button asChild>
-          <Link to="/profile">Perfil</Link>
-        </Button>
+        </Button> */}
 
         <Button asChild>
           <Link to="/create-room">Crear habitación</Link>
@@ -36,6 +24,7 @@ function Home() {
         <Button asChild>
           <Link to="/room-list">Lista de habitaciones</Link>
         </Button>
+        
       </section>
     </div>
   );
