@@ -15,31 +15,6 @@ const CreateIncident = () => {
         description: '',
     });
 
-    //console.log(incident)
-
-    // const getAllUserIncidents = async () => {
-    //     try {
-    //         const response = await fetch(`http://localhost:3000/incidents/by-userid/${authState.user.id}`, {
-    //           method: "GET",
-    //           headers: {
-    //             'Content-Type': 'application/json',
-    //             Authorization: authState.token,
-    //           },
-    //         });
-        
-    //         if (!response.ok) {
-    //           throw new Error('No se han podido obtener las incidencias');
-    //         }
-        
-    //         const incidents = await response.json();
-    //         console.log(incidents);
-    //       } catch (error) {
-    //         console.error(error);
-    //       }
-    //     }
-
-    // getAllUserIncidents();
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setIncident({
