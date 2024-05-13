@@ -131,11 +131,10 @@ const Profile = () => {
             )}
             {!editing && (
               <>
-            <div className='relative flex items-center justify-left'>
+            {/* <div className='relative flex items-center justify-left'>
                 <p className='absolute z-10 px-2 ml-4 bg-background'>Coworking visitados</p>
                 <div className='absolute inset-0 border-b border-[#B29700]' />
-            </div>
-            <div className='my-8'/>
+            </div> */}
             <div className='relative flex items-center justify-left'>
                 <p className='absolute z-10 px-2 ml-4 bg-background'>Reseñas</p>
                 <div className='absolute inset-0 border-b border-[#B29700]' />
