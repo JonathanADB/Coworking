@@ -11,8 +11,6 @@ const Mobile = ({ children }) => {
   const location = useLocation();
   const { authState } = useContext(AuthContext);
 
-  console.log(authState.user)
-
   return (
     <div className="relative w-full bg-transparent h-dvh">
       <div className="relative w-full h-dvh">
