@@ -12,6 +12,7 @@ import {
     SelectValue,
   } from "@/components/UI/select";
 import { toast } from "react-toastify";
+import { Textarea } from "@/components/UI/textarea"
 
 function CreateEditRoomForm() {
   const { authState } = useContext(AuthContext);
@@ -100,7 +101,7 @@ function CreateEditRoomForm() {
       </div>
       <div>
         <Label>Descripción</Label>
-        <Input
+        <Textarea
           type="text"
           name="description"
           placeholder="Descripción del espacio"
