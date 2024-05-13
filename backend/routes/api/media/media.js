@@ -9,6 +9,9 @@ import fileUpload from "express-fileupload";
 import { addMediaAvatarSchema } from "../../schemas/mediaSchema.js";
 import handleFileUpload from "../../middleware/handleFileUpload.js";
 import serveStatic from "../../middleware/serveStatic.js";
+import { basename, resolve } from 'path';
+import { unlinkSync } from 'fs';
+import { cwd } from 'process';
 
 const dbPool = getPool();
 export const mediaRouter = Router();
@@ -30,7 +33,27 @@ mediaRouter.post(
       const { fileName } = req.body;
 
       const url = `${API_HOST}/uploads/avatar/${fileName}`;
+      
+      const [avatar] = await dbPool.execute(
+        `SELECT avatar FROM users WHERE id = ?`,
+        [userId]
+      );
 
+      if (avatar[0].avatar) {
+        const avatarUrl = avatar[0].avatar;
+        const avatarFileName = basename(avatarUrl);
+        const avatarPath = resolve(
+          cwd(),
+          "..",
+          "frontend",
+          "public",
+          "uploads",
+          "avatar",
+          avatarFileName
+        );
+        unlinkSync(avatarPath);
+      }
+        
       await dbPool.execute(
         `INSERT INTO media(id, url, userId) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE url = ?, id = ?`,
         [avatarId, url, userId, url, avatarId]

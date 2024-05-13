@@ -151,7 +151,7 @@ function CreateRoom() {
       if (contentType && contentType.includes("application/json")) {
         const data = await response.json();
 
-        if (data.success) {
+        if (response.ok) {
         } else {
           console.error("Error del servidor:");
           toast.error("Error del servidor");

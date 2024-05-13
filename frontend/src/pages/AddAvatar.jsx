@@ -28,7 +28,7 @@ const AddAvatar = () => {
 
     const data = await response.json();
 
-    if (data.success) {
+    if (response.ok) {
       updateAvatar(data.url);
       toast.success("Avatar actualizado correctamente");
       navigate("/profile");
