@@ -70,7 +70,7 @@ const Help = () => {
                 {previousIncidents.length > 0 && (
                     <>
                         {previousIncidents.map((incident) => (
-                            <div key={incident.id} className='flex flex-row justify-between'>
+                            <Link key={incident.id} className='flex flex-row justify-between' to={`/incident/${incident.id}`}>
                                 <p>{incident.description}</p>
                                 <p> {new Date(incident.createdAt).toLocaleString('es-ES', {
                                     day: '2-digit',
@@ -78,7 +78,7 @@ const Help = () => {
                                     hour: '2-digit',
                                     minute: '2-digit',
                                 })}</p>
-                            </div>
+                            </Link>
                         ))}
                     </>
                 )}

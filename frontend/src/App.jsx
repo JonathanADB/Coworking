@@ -21,6 +21,7 @@ import EditProfile from "./pages/EditProfile.jsx";
 import UserSettings from "./pages/UserSettings.jsx";
 import Help from "./pages/Help.jsx";
 import CreateIncident from "./pages/CreateIncident.jsx";
+import ViewIncident from "./pages/ViewIncident.jsx";
 import Protected from "./components/Protected.jsx";
 import Admin from "./components/Admin.jsx";
 
@@ -29,6 +30,7 @@ const ProtectedEditProfile = Protected(EditProfile);
 const ProtectedHelp = Protected(Help);
 const ProtectedUserSettings = Protected(UserSettings);
 const ProtectedCreateIncident = Protected(CreateIncident);
+const ProtectedViewIncident = Protected(ViewIncident);
 const AdminCreateRoom = Admin(CreateRoom);
 const AdminRoomList = Admin(RoomList);
 const AdminEditRoom = Admin(EditRoom);
@@ -54,6 +56,7 @@ const App = () => {
           <Route path="/user-settings" element={<Mobile><ProtectedUserSettings /></Mobile>} />
           <Route path="/help" element={<Mobile><ProtectedHelp /></Mobile>} />
           <Route path="/create-incident" element={<Mobile><ProtectedCreateIncident /></Mobile>} />
+          <Route path="/incident/:id" element={<Mobile><ProtectedViewIncident /></Mobile>} />
           <Route path="*" element={<Mobile><NotFound /></Mobile>} />
         </Routes>
       </Router>
