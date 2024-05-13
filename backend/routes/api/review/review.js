@@ -95,7 +95,7 @@ reviewRouter.delete(
       if (error) {
         throw createError(400, "Datos de entrada no válidos");
       }
-      const review = await validateReviewId(reviewId);
+      await validateReviewId(reviewId);
       await pool.execute("DELETE FROM reviews WHERE id = ?", [reviewId]);
       res.status(200).json({
         message: "Review eliminada correctamente",
