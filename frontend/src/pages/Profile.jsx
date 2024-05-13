@@ -40,8 +40,6 @@ const Profile = () => {
                 },
                 body: JSON.stringify(user),
             });
-
-            console.log('response:', response);
     
             if (!response.ok) {
                 throw new Error('Failed to update profile');

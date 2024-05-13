@@ -115,7 +115,7 @@ listIncidentsRouter.get(
   }
 );
 
-//Lista de incidencias
+// Lista de incidencias
 categoryIncidentsRouter.get(
   "/incidents/:incidentId",
   async (req, res, next) => {
@@ -141,6 +141,264 @@ categoryIncidentsRouter.get(
         throw createError(404, "Incidencia no encontrada");
       }
       res.status(200).json(incident[0]);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+//Lista de incidencias por usuario
+categoryIncidentsRouter.get(
+  "/incidents/by-userid/:userId",
+  authenticate,
+  async (req, res, next) => {
+    const userId = req.params.userId;
+    if (req.user.id !== userId) {
+      return res.status(401).json({
+        message: "No tienes permisos para realizar esta acción",
+      });
+    }
+
+    try {
+      const [incidents] = await dbPool.execute(
+        `SELECT *
+      FROM incidents
+      JOIN users
+        ON users.id = incidents.userId
+      JOIN rooms
+        ON rooms.id = incidents.roomId
+      JOIN equipment
+        ON equipment.id = incidents.equipmentId
+      WHERE incidents.userId=?`,
+        [userId]
+      );
+      res.status(200).json(incidents);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// Lista de incidencias por sala
+categoryIncidentsRouter.get(
+  "/incidents/by-roomid/:roomId",
+  authenticate,
+  async (req, res, next) => {
+    const roomId = req.params.roomId;
+
+    try {
+      const [incidents] = await dbPool.execute(
+        `SELECT *
+      FROM incidents
+      JOIN users
+        ON users.id = incidents.userId
+      JOIN rooms
+        ON rooms.id = incidents.roomId
+      JOIN equipment
+        ON equipment.id = incidents.equipmentId
+      WHERE incidents.roomId=?`,
+        [roomId]
+      );
+      res.status(200).json(incidents);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// Lista de incidencias por equipo
+categoryIncidentsRouter.get(
+  "/incidents/by-equipmentid/:equipmentId",
+  authenticate,
+  async (req, res, next) => {
+    const equipmentId = req.params.equipmentId;
+
+    try {
+      const [incidents] = await dbPool.execute(
+        `SELECT *
+      FROM incidents
+      JOIN users
+        ON users.id = incidents.userId
+      JOIN rooms
+        ON rooms.id = incidents.roomId
+      JOIN equipment
+        ON equipment.id = incidents.equipmentId
+      WHERE incidents.equipmentId=?`,
+        [equipmentId]
+      );
+      res.status(200).json(incidents);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// Modificar incidencia creada por un usuario
+categoryIncidentsRouter.put(
+  "/incidents/:incidentId",
+  authenticate,
+  async (req, res, next) => {
+    const incidentId = req.params.incidentId;
+
+    try {
+      const [incident] = await dbPool.execute(
+        `SELECT *
+      FROM incidents
+      WHERE id=?`,
+        [incidentId]
+      );
+
+      if (incident.length === 0) {
+        throw createError(404, "Incidencia no encontrada");
+      }
+
+      if (req.user.id !== incident[0].userId) {
+        return res.status(401).json({
+          message: "No tienes permisos para realizar esta acción",
+        });
+      }
+
+      const { description, equipmentId } = req.body;
+
+      const updateIncident = await dbPool.execute(
+        `UPDATE incidents
+      SET description=?, equipmentId=?
+      WHERE id=?`,
+        [description, equipmentId, incidentId]
+      );
+
+      if (!updateIncident) {
+        throw createError(401, "No se pudo modificar la incidencia");
+      }
+
+      res.status(200).json({
+        message: "Incidencia modificada con éxito",
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// Modificar incidencia como Admin
+categoryIncidentsRouter.put(
+  "/incidents/:incidentId",
+  authenticate,
+  isAdmin,
+  async (req, res, next) => {
+    const incidentId = req.params.incidentId;
+
+    try {
+      const [incident] = await dbPool.execute(
+        `SELECT *
+      FROM incidents
+      WHERE id=?`,
+        [incidentId]
+      );
+
+      if (incident.length === 0) {
+        throw createError(404, "Incidencia no encontrada");
+      }
+
+      const { description, equipmentId } = req.body;
+
+      const updateIncident = await dbPool.execute(
+        `UPDATE incidents
+      SET description=?, equipmentId=?
+      WHERE id=?`,
+        [description, equipmentId, incidentId]
+      );
+
+      if (!updateIncident) {
+        throw createError(401, "No se pudo modificar la incidencia");
+      }
+
+      res.status(200).json({
+        message: "Incidencia modificada con éxito",
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// Eliminar incidencia creada por un usuario
+categoryIncidentsRouter.delete(
+  "/incidents/:incidentId",
+  authenticate,
+  async (req, res, next) => {
+    const incidentId = req.params.incidentId;
+
+    try {
+      const [incident] = await dbPool.execute(
+        `SELECT *
+      FROM incidents
+      WHERE id=?`,
+        [incidentId]
+      );
+
+      if (incident.length === 0) {
+        throw createError(404, "Incidencia no encontrada");
+      }
+
+      if (req.user.id !== incident[0].userId) {
+        return res.status(401).json({
+          message: "No tienes permisos para realizar esta acción",
+        });
+      }
+
+      const deleteIncident = await dbPool.execute(
+        `DELETE FROM incidents
+      WHERE id=?`,
+        [incidentId]
+      );
+
+      if (!deleteIncident) {
+        throw createError(401, "No se pudo eliminar la incidencia");
+      }
+
+      res.status(200).json({
+        message: "Incidencia eliminada con éxito",
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// Eliminar incidencia como Admin
+categoryIncidentsRouter.delete(
+  "/incidents/:incidentId",
+  authenticate,
+  isAdmin,
+  async (req, res, next) => {
+    const incidentId = req.params.incidentId;
+
+    try {
+      const [incident] = await dbPool.execute(
+        `SELECT *
+      FROM incidents
+      WHERE id=?`,
+        [incidentId]
+      );
+
+      if (incident.length === 0) {
+        throw createError(404, "Incidencia no encontrada");
+      }
+
+      const deleteIncident = await dbPool.execute(
+        `DELETE FROM incidents
+      WHERE id=?`,
+        [incidentId]
+      );
+
+      if (!deleteIncident) {
+        throw createError(401, "No se pudo eliminar la incidencia");
+      }
+
+      res.status(200).json({
+        message: "Incidencia eliminada con éxito",
+      });
     } catch (err) {
       next(err);
     }

@@ -17,12 +17,14 @@ import ViewRoom from "./pages/ViewRoom.jsx";
 import EditRoom from "./pages/EditRoom.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Profile from "./pages/Profile.jsx";
+import CreateIncident from "./pages/CreateIncident.jsx";
 import AddAvatar from "./pages/AddAvatar.jsx";
 import Protected from "./components/Protected.jsx";
 import Admin from "./components/Admin.jsx";
 
 const ProtectedProfile = Protected(Profile);
 const ProtectedAddAvatar = Protected(AddAvatar);
+const ProtectedCreateIncident = Protected(CreateIncident);
 const AdminCreateRoom = Admin(CreateRoom);
 const AdminRoomList = Admin(RoomList);
 const AdminEditRoom = Admin(EditRoom);
@@ -45,6 +47,7 @@ const App = () => {
           <Route path="/edit-room/:id" element={<Mobile><AdminEditRoom /></Mobile>} />
           <Route path="/profile" element={<Mobile><ProtectedProfile /></Mobile>} />
           <Route path="/add-avatar" element={<Mobile><ProtectedAddAvatar /></Mobile>} />
+          <Route path="/create-incident" element={<Mobile><ProtectedCreateIncident /></Mobile>} />
           <Route path="*" element={<Mobile><NotFound /></Mobile>} />
         </Routes>
       </Router>
