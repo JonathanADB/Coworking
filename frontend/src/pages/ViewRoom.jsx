@@ -10,12 +10,12 @@ function ViewRoom() {
   const roomId = id;
 
   useEffect(() => {
-fetch(`http://localhost:3000/room/${id}`, {
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: token,
-  },
-})
+    fetch(`http://localhost:3000/room/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setRoomData(data);
@@ -33,7 +33,7 @@ fetch(`http://localhost:3000/room/${id}`, {
             Espacio {roomData.message.name}
           </h2>
           <ul className="flex flex-col gap-y-4">
-          <li >
+            <li>
               <span className="font-bold">ID:</span> {roomData.message.id}
             </li>
             <li>
