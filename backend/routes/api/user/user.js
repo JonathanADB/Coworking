@@ -154,7 +154,7 @@ userRouter.put("/user/update/profile/", authenticate, async (req, res, next) => 
   try {
     const user = await getUser(req.headers.authorization);
     const { firstName, lastName, username, email } = req.body;
-    //const avatarFile = req.file?.avatar || null; // falta el uploadFile de Avatar
+    const avatarFile = req.file?.avatar || null; // falta el uploadFile de Avatar
     const { error } = profileSchema.validate({
       firstName,
       lastName,

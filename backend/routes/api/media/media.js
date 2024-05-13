@@ -8,6 +8,7 @@ import process from "node:process";
 import fileUpload from "express-fileupload";
 import { addMediaAvatarSchema } from "../../schemas/mediaSchema.js";
 import handleFileUpload from "../../middleware/handleFileUpload.js";
+import isAdmin from "../../middleware/isAdmin.js";
 import serveStatic from "../../middleware/serveStatic.js";
 import { basename, resolve } from 'path';
 import { unlinkSync } from 'fs';
@@ -66,6 +67,35 @@ mediaRouter.post(
 
       res.status(201).json({
         message: `Se ha actualizado el avatar correctamente`,
+        url: url,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+mediaRouter.post(
+  "/room/:id/media/add-media",
+  authenticate,
+  isAdmin,
+  handleFileUpload,
+  async (req, res, next) => {
+    try {
+      const { id: roomId } = req.params;
+      const { API_HOST } = process.env;
+      const mediaId = crypto.randomUUID();
+      const { fileName } = req.body;
+
+      const url = `${API_HOST}/uploads/media/${fileName}`;
+
+      await dbPool.execute(
+        `INSERT INTO media(id, url, roomId) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE url = ?, id = ?`,
+        [mediaId, url, roomId, url, mediaId]
+      );
+
+      res.status(201).json({
+        message: `Se ha añadido el archivo correctamente`,
         url: url,
       });
     } catch (err) {

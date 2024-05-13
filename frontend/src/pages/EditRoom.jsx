@@ -64,10 +64,13 @@ function CreateEditRoomForm() {
       body: JSON.stringify(roomData),
     })
       .then((response) => {
+
         if (!response.ok) {
-          throw new Error("Error al actualizar los datos de la habitación.");
-        }
+          toast.error("Error al actualizar los datos de la habitación.");
+        } else {
+         
           toast.success("Datos de la habitación actualizados correctamente");
+        }
       })
       .catch((error) => {
         console.error(error);
