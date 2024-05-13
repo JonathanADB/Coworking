@@ -50,10 +50,10 @@ function RegisterUserForm() {
       if (!response.ok) {
         toast.error("Error en los datos de solicitud");
       } else {
-        toast.success("Usuario registrado exitosamente");
         // Redirigir a la página de validate
-        await new Promise((resolve) => setTimeout(resolve, 5000));
+        await new Promise((resolve) => setTimeout(resolve, 250));
         navigate("/validate");
+        toast.success("Usuario registrado exitosamente");
       }
     } catch (error) {
       console.error("El usuario no se pudo registrar");

@@ -42,11 +42,11 @@ function LoginForm() {
         return;
       } else {
         login(data.token, data.user);
-        toast.success("Inicio de sesión exitoso");
       }
       // Redirigir a la página de home
-      await new Promise((resolve) => setTimeout(resolve, 5000));
+      //await new Promise((resolve) => setTimeout(resolve, 250));
       navigate("/");
+      toast.success("Inicio de sesión exitoso");
     } catch (error) {
       console.error("Error en el inicio de sesión:", error);
       toast.error(`Error al iniciar sesión: ${error}`);
