@@ -140,9 +140,6 @@ const EditProfile = () => {
                 <Button onClick={() => setEditing(true)} className="w-full ">
                   Editar perfil
                 </Button>
-                <Button asChild className="w-full">
-                  <Link to="/change-password">Cambiar contraseña</Link>
-                </Button>
               </div>
             )}
           </div>
