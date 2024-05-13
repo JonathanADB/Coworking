@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from 'react-router-dom';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/UI/button";
@@ -9,10 +10,17 @@ import {
   InputOTPSlot,
 } from "@/components/UI/input-otp";
 
-function CreateValidateUserForm({ onSubmit }) {
+function CreateValidateUserForm() {
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const codeFromEmail = query.get('code');
+
   const [formData, setFormData] = useState({
-    code: "",
+    code: codeFromEmail || "",
   });
+
+  // MODIFICAR PLANTILLA EMAIL PARA SEGUIR EL FORMATO
+  // http://localhost:5173/validate?code=123456
 
   const navigate = useNavigate();
 
@@ -52,6 +60,7 @@ function CreateValidateUserForm({ onSubmit }) {
           <InputOTP
             maxLength={6}
             value={formData.code}
+            placeholder={formData.code}
             onChange={(value) =>
               setFormData((prevState) => ({ ...prevState, code: value }))
             }
