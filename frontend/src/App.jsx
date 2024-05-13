@@ -18,6 +18,7 @@ import EditRoom from "./pages/EditRoom.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Profile from "./pages/Profile.jsx";
 import EditProfile from "./pages/EditProfile.jsx";
+import UserSettings from "./pages/UserSettings.jsx";
 import Help from "./pages/Help.jsx";
 import CreateIncident from "./pages/CreateIncident.jsx";
 import AddAvatar from "./pages/AddAvatar.jsx";
@@ -27,6 +28,7 @@ import Admin from "./components/Admin.jsx";
 const ProtectedProfile = Protected(Profile);
 const ProtectedEditProfile = Protected(EditProfile);
 const ProtectedHelp = Protected(Help);
+const ProtectedUserSettings = Protected(UserSettings);
 const ProtectedAddAvatar = Protected(AddAvatar);
 const ProtectedCreateIncident = Protected(CreateIncident);
 const AdminCreateRoom = Admin(CreateRoom);
@@ -52,6 +54,7 @@ const App = () => {
           <Route path="/profile" element={<Mobile><ProtectedProfile /></Mobile>} />
           <Route path="/edit-profile" element={<Mobile><ProtectedEditProfile /></Mobile>} />
           <Route path="/add-avatar" element={<Mobile><ProtectedAddAvatar /></Mobile>} />
+          <Route path="/user-settings" element={<Mobile><ProtectedUserSettings /></Mobile>} />
           <Route path="/help" element={<Mobile><ProtectedHelp /></Mobile>} />
           <Route path="/create-incident" element={<Mobile><ProtectedCreateIncident /></Mobile>} />
           <Route path="*" element={<Mobile><NotFound /></Mobile>} />

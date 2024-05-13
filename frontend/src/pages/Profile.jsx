@@ -65,10 +65,11 @@ const Profile = () => {
                         <FaUserCircle className='text-2xl' /> Datos personales
                     </Button>
                 </Link>
-    
+                <Link to="/user-settings">
                 <Button variant="ghost" className="justify-start w-full text-md gap-x-4">
                     <FaCogs className='text-2xl' /> Ajustes
                 </Button>
+                </Link>
                 <Link to="/help">
                     <Button variant="ghost" className="justify-start w-full text-md gap-x-4">
                         <FaQuestionCircle className='text-2xl' /> Ayuda
