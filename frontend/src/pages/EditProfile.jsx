@@ -6,13 +6,16 @@ import { Button } from "@/components/UI/button";
 import { AuthContext } from "../auth/auth-context";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/UI/avatar";
 import { FaPencilAlt, FaEdit } from "react-icons/fa";
-import { set } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
   const [user, setUser] = useState(null);
   const [previousInfo, setPreviousInfo] = useState(null);
-  const { authState, updateUser, logout } = useContext(AuthContext);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState();
+  const { authState, updateUser, updateAvatar } = useContext(AuthContext);
   const [editing, setEditing] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (authState && authState.user) {
@@ -29,7 +32,38 @@ const EditProfile = () => {
     }));
   };
 
+  const handleFileUpload = async () => {
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+
+    const response = await fetch(
+      `http://localhost:3000/user/${authState.user.id}/media/add-avatar`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: authState.token,
+       },
+        body: formData,
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      updateAvatar(data.url);
+      toast.success("Avatar actualizado correctamente");
+      //navigate("/profile");
+    } else {
+      toast.error(data.message);
+    }
+  };
+
   const handleSaveChanges = async () => {
+
+    if (selectedFile) {
+        handleFileUpload();
+    }
+
     try {
       const response = await fetch(
         "http://localhost:3000/user/update/profile/",
@@ -58,24 +92,25 @@ const EditProfile = () => {
     <div>
       {user && (
         <div className="flex flex-col w-full p-4 ">
-          <div className="flex flex-row w-fit">
-            <div className="relative">
-              <Avatar className="w-[96px] h-[96px] aspect-square">
-                <AvatarImage src={authState?.user?.avatar} />
-                <AvatarFallback className="text-4xl bg-secondary/75">
-                  {authState?.user?.firstName?.split("")[0]}
-                </AvatarFallback>
-              </Avatar>
-              <Link to="/add-avatar">
-                <button className="absolute top-1 right-1">
-                  <FaPencilAlt />
-                </button>
-              </Link>
-            </div>
-            Cambiar cosas del endpoint de subir avatar a aquí
+          <div className="flex flex-row items-center justify-between w-fit">
+            <Avatar className="w-[96px] h-[96px] aspect-square">
+            <AvatarImage src={previewUrl ? previewUrl : authState?.user?.avatar} />              <AvatarFallback className="text-4xl bg-secondary/75">
+                {authState?.user?.firstName?.split("")[0]}
+              </AvatarFallback>
+            </Avatar>
+            <Input
+              type="file"
+              className="w-2/3"
+              disabled={!editing}
+              onChange={(e) => {
+                setSelectedFile(e.target.files[0]);
+                setPreviewUrl(URL.createObjectURL(e.target.files[0]));
+              }}
+            />
+            {/* Mostrar preview de la imagen, quitar texto del nombre de archivo */}
           </div>
           <div className="flex flex-col w-full mt-8 gap-y-4">
-          <div className="flex flex-row items-center">
+            <div className="flex flex-row items-center">
               <Label className="w-1/3">Nombre de usuario</Label>
               <Input
                 name="username"
@@ -87,7 +122,7 @@ const EditProfile = () => {
               />
             </div>
             <div className="flex flex-row items-center">
-            <Label className="w-1/3">Email</Label>
+              <Label className="w-1/3">Email</Label>
               <Input
                 name="email"
                 placeholder="Email"
@@ -98,7 +133,7 @@ const EditProfile = () => {
               />
             </div>
             <div className="flex flex-row items-center">
-            <Label className="w-1/3">Nombre</Label>
+              <Label className="w-1/3">Nombre</Label>
               <Input
                 name="firstName"
                 placeholder="Nombre"
@@ -109,7 +144,7 @@ const EditProfile = () => {
               />
             </div>
             <div className="flex flex-row items-center">
-            <Label className="w-1/3">Apellido</Label>
+              <Label className="w-1/3">Apellido</Label>
               <Input
                 name="lastName"
                 placeholder="Apellido"
@@ -123,8 +158,11 @@ const EditProfile = () => {
               <div className="flex flex-row gap-x-2">
                 <Button
                   variant="secondary"
-                  onClick={() => { setEditing(false); setUser(previousInfo); }}
-                                    className="flex justify-center w-1/2 mx-auto mt-4 text-center"
+                  onClick={() => {
+                    setEditing(false);
+                    setUser(previousInfo);
+                  }}
+                  className="flex justify-center w-1/2 mx-auto mt-4 text-center"
                 >
                   Cancelar
                 </Button>{" "}
