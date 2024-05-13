@@ -9,7 +9,7 @@ import { FaPencilAlt, FaEdit } from 'react-icons/fa';
 
 const Profile = () => {
     const [user, setUser] = useState(null);
-    const { authState, updateUser } = useContext(AuthContext);
+    const { authState, updateUser, logout } = useContext(AuthContext);
     const [editing, setEditing] = useState(false);
 
     useEffect(() => {
@@ -28,6 +28,10 @@ const Profile = () => {
 
     const handleSaveChanges = async () => {
         try {
+
+            console.log(authState.token)
+            console.log(user)
+
             const response = await fetch('http://localhost:3000/user/update/profile/', {
                 method: 'PUT',
                 headers: {
@@ -36,12 +40,15 @@ const Profile = () => {
                 },
                 body: JSON.stringify(user),
             });
+
+            console.log('response:', response);
     
             if (!response.ok) {
                 throw new Error('Failed to update profile');
+            } else {
+                updateUser(user);
+                setEditing(false); 
             }
-            updateUser(user);
-            setEditing(false); 
         } catch (error) {
             console.error('Error saving changes:', error);
         }
@@ -133,6 +140,7 @@ const Profile = () => {
                 <p className='absolute z-10 px-2 ml-4 bg-background'>Reseñas</p>
                 <div className='absolute inset-0 border-b border-[#B29700]' />
             </div>
+            <Button variant="destructive" onClick={logout} className='w-full my-4 '>Cerrar sesión</Button>
             </>
            )}
         </div>
