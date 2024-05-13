@@ -107,8 +107,7 @@ const Profile = () => {
                         </div>
                         {editing ? (
                             <div className='flex flex-row gap-x-2'>
-                            <Button variant="secondary" onClick={handleSaveChanges} className='flex justify-center w-1/2 mx-auto mt-4 text-center'>Cancelar</Button>
-                            <Button onClick={handleSaveChanges} className='flex justify-center w-1/2 mx-auto mt-4 text-center'>Guardar cambios</Button>
+                                <Button variant="secondary" onClick={() => setEditing(false)} className='flex justify-center w-1/2 mx-auto mt-4 text-center'>Cancelar</Button>                            <Button onClick={handleSaveChanges} className='flex justify-center w-1/2 mx-auto mt-4 text-center'>Guardar cambios</Button>
                             </div>
                         ) : (
                             <div className='flex flex-col items-center mt-4 gap-y-2 '>
