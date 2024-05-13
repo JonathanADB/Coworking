@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/UI/select";
+import { Textarea } from "@/components/UI/textarea";
 
 function CreateRoomForm() {
   const [formData, setFormData] = useState({
@@ -80,7 +81,7 @@ function CreateRoomForm() {
 
         <div>
           <Label>Descripción</Label>
-          <Input
+          <Textarea
             type="text"
             name="description"
             placeholder="Descripción de la habitación"
