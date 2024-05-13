@@ -188,8 +188,7 @@ categoryIncidentsRouter.get(
 
     try {
       const [incidents] = await dbPool.execute(
-        `SELECT *
-      FROM incidents
+        `SELECT incidents.id, incidents.description, incidents.createdAt, users.userName, rooms.name as roomName, equipment.name as equipmentName
       JOIN users
         ON users.id = incidents.userId
       JOIN rooms
@@ -215,8 +214,7 @@ categoryIncidentsRouter.get(
 
     try {
       const [incidents] = await dbPool.execute(
-        `SELECT *
-      FROM incidents
+        `SELECT incidents.id, incidents.description, incidents.createdAt, users.userName, rooms.name as roomName, equipment.name as equipmentName
       JOIN users
         ON users.id = incidents.userId
       JOIN rooms
