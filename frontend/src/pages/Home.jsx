@@ -5,9 +5,9 @@ function Home() {
   return (
     <div className="flex flex-col items-center justify-center">
       <section className="flex flex-col items-center justify-center mt-8 gap-y-4">
-        <Button asChild>
+        {/* <Button asChild>
           <Link to="/register">Registro</Link>
-        </Button>
+        </Button> */}
 
         {/* <Button asChild>
           <Link to="/validate">Validar usuario</Link>

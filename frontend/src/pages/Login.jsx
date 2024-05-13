@@ -101,14 +101,19 @@ function LoginForm() {
             Debe contener una letra mayúscula y un símbolo: (?=.*)
           </p> */}
         </div>
-        <div className="flex flex-col gap-y-2">
-          <Button className="flex w-full mx-auto" type="submit">
+        <div className="flex flex-col">
+          <Button className="flex w-full mx-auto mb-1" type="submit">
             Iniciar sesión
+          </Button>
+
+          <Button asChild variant="link">
+            <Link to="/register">¿Aún no tienes cuenta?</Link>
           </Button>
 
           <Button asChild variant="link">
             <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
           </Button>
+
         </div>
       </form>
     </div>
