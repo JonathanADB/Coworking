@@ -93,7 +93,7 @@ const EditProfile = () => {
     <div>
       {user && (
         <div className="flex flex-col w-full p-4 ">
-          <div className="flex flex-row items-center justify-between w-fit">
+          <div className="flex flex-row items-center justify-between w-full ">
             <Avatar className="w-[96px] h-[96px] aspect-square">
             <AvatarImage src={previewUrl ? previewUrl : authState?.user?.avatar} />              <AvatarFallback className="text-4xl bg-secondary/75">
                 {authState?.user?.firstName?.split("")[0]}
