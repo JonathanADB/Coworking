@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom'; // Corregido el import
+import ReactDOM from 'react-dom/client';
 import './styles/global.css';
 import { AuthProvider } from './auth/auth-context.jsx';
 import ErrorBoundary from './components/ErrorBoundary';

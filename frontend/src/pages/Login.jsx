@@ -42,11 +42,11 @@ function LoginForm() {
         return;
       } else {
         login(data.token, data.user);
-        toast.success("Inicio de sesión exitoso");
       }
       // Redirigir a la página de home
-      await new Promise((resolve) => setTimeout(resolve, 5000));
+      //await new Promise((resolve) => setTimeout(resolve, 250));
       navigate("/");
+      toast.success("Inicio de sesión exitoso");
     } catch (error) {
       console.error("Error en el inicio de sesión:", error);
       toast.error(`Error al iniciar sesión: ${error}`);
@@ -101,14 +101,19 @@ function LoginForm() {
             Debe contener una letra mayúscula y un símbolo: (?=.*)
           </p> */}
         </div>
-        <div className="flex flex-col gap-y-2">
-          <Button className="flex w-full mx-auto" type="submit">
+        <div className="flex flex-col">
+          <Button className="flex w-full mx-auto mb-1" type="submit">
             Iniciar sesión
+          </Button>
+
+          <Button asChild variant="link">
+            <Link to="/register">¿Aún no tienes cuenta?</Link>
           </Button>
 
           <Button asChild variant="link">
             <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
           </Button>
+
         </div>
       </form>
     </div>

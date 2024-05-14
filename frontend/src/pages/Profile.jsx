@@ -5,7 +5,8 @@ import { Label } from '@/components/UI/label';
 import { Button } from '@/components/UI/button';
 import { AuthContext } from '../auth/auth-context';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/UI/avatar"
-import { FaPencilAlt, FaEdit } from 'react-icons/fa';
+import { FaUserCircle, FaCogs, FaQuestionCircle, FaSignOutAlt } from "react-icons/fa";
+
 
 const Profile = () => {
     const [user, setUser] = useState(null);
@@ -40,8 +41,6 @@ const Profile = () => {
                 },
                 body: JSON.stringify(user),
             });
-
-            console.log('response:', response);
     
             if (!response.ok) {
                 throw new Error('Failed to update profile');
@@ -55,93 +54,32 @@ const Profile = () => {
     };
     
     return (
-        <div>
-            {user && (
-                <div className='flex flex-row w-full p-4 '>
-                    <div className='flex flex-col px-2 w-fit '>
-                        <div className='relative'>
-                    <Avatar className="w-[96px] h-[96px] aspect-square">
-                        <AvatarImage src={authState?.user?.avatar}  />
-                        <AvatarFallback className="text-4xl">{authState?.user?.firstName?.split('')[0]}</AvatarFallback> 
-                    </Avatar>
-                    <Link to="/add-avatar">
-                        <button className='absolute top-1 right-1'>
-                            <FaPencilAlt />
-                        </button>
-                    </Link>
-                        </div>
-                    </div>
-                    <div className='flex flex-col w-full'>
-                        <div>
-                            <Label>Nombre de usuario</Label>
-                            <Input
-                                name="username"
-                                placeholder="Nombre de usuario"
-                                value={user.username}
-                                onChange={handleInputChange}
-                                disabled={!editing} // Si no estamos editando, deshabilitamos el input
-                            />
-                        </div>
-                        <div>
-                            <Label>Email</Label>
-                            <Input
-                                name="email"
-                                placeholder="Email"
-                                value={user.email}
-                                onChange={handleInputChange}
-                                disabled={!editing} 
-                            />
-                        </div>
-                        <div>
-                            <Label>Nombre</Label>
-                            <Input
-                                name="firstName"
-                                placeholder="Nombre"
-                                value={user.firstName}
-                                onChange={handleInputChange}
-                                disabled={!editing} 
-                            />
-                        </div>
-                        <div>
-                            <Label>Apellido</Label>
-                            <Input
-                                name="lastName"
-                                placeholder="Apellido"
-                                value={user.lastName}
-                                onChange={handleInputChange}
-                                disabled={!editing}
-                            />
-                        </div>
-                        {editing ? (
-                            <div className='flex flex-row gap-x-2'>
-                                <Button variant="secondary" onClick={() => setEditing(false)} className='flex justify-center w-1/2 mx-auto mt-4 text-center'>Cancelar</Button>                            <Button onClick={handleSaveChanges} className='flex justify-center w-1/2 mx-auto mt-4 text-center'>Guardar cambios</Button>
-                            </div>
-                        ) : (
-                            <div className='flex flex-col items-center mt-4 gap-y-2 '>
-                                <Button onClick={() => setEditing(true)} className='w-full '>Editar perfil</Button>
-                                <Button asChild className="w-full">
-                                    <Link to="/change-password">
-                                        Cambiar contraseña
-                                        </Link>
-                                </Button>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )}
-            {!editing && (
-              <>
-            {/* <div className='relative flex items-center justify-left'>
-                <p className='absolute z-10 px-2 ml-4 bg-background'>Coworking visitados</p>
-                <div className='absolute inset-0 border-b border-[#B29700]' />
-            </div> */}
-            <div className='relative flex items-center justify-left'>
-                <p className='absolute z-10 px-2 ml-4 bg-background'>Reseñas</p>
-                <div className='absolute inset-0 border-b border-[#B29700]' />
-            </div>
-            <Button variant="destructive" onClick={logout} className='w-full my-4 '>Cerrar sesión</Button>
-            </>
-           )}
+        <div className='flex flex-col bg-secondary/75'>
+            <section className='m-4'>
+                <h3 className='text-xl font-bold '>Perfil</h3>
+                <h2 className='text-2xl font-bold'>Hola {authState?.user?.firstName}</h2>
+            </section>
+            <section className='flex flex-col p-4 rounded-t-lg h-max gap-y-4 bg-background'>
+                <Link to="/edit-profile">
+                    <Button variant="ghost" className="justify-start w-full text-md gap-x-4">
+                        <FaUserCircle className='text-2xl' /> Datos personales
+                    </Button>
+                </Link>
+                <Link to="/user-settings">
+                <Button variant="ghost" className="justify-start w-full text-md gap-x-4">
+                    <FaCogs className='text-2xl' /> Ajustes
+                </Button>
+                </Link>
+                <Link to="/help">
+                    <Button variant="ghost" className="justify-start w-full text-md gap-x-4">
+                        <FaQuestionCircle className='text-2xl' /> Ayuda
+                    </Button>
+                </Link>
+                <Button variant="ghost" className="justify-start w-full text-md gap-x-4" onClick={logout}>
+                    <FaSignOutAlt className='text-2xl' /> Cerrar sesión
+                </Button>
+            </section>
+          
         </div>
     );
 }
