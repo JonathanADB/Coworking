@@ -57,6 +57,7 @@ export async function dbSchema(db) {
 	  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
     name VARCHAR(16) UNIQUE NOT NULL,
     description TEXT NOT NULL,
+    image VARCHAR(200),
     capacity TINYINT UNSIGNED NOT NULL,
     typeOf CHAR(7) NOT NULL,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -141,6 +142,7 @@ export async function dbSchema(db) {
   await db.query(`CREATE TABLE incidents(
 	  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
     description TEXT NOT NULL,
+    status ENUM("pending","resolved") DEFAULT "pending",
     userId CHAR(36) NOT NULL,
     roomId CHAR(36) NOT NULL,
     equipmentId CHAR(36) NOT NULL,
