@@ -97,7 +97,7 @@ listIncidentsRouter.get(
       }
       const offset = req.query.offset || 0;
       const [totalIncidents] = await dbPool.execute(
-        `SELECT incidents.id AS incidentId, incidents.description, users.id AS userId, rooms.id AS roomId, rooms.name AS roomName, equipment.id AS equipmentId, equipment.name AS equipmentName, incidents.createdAt, incidents.updatedAt
+        `SELECT incidents.id AS incidentId, incidents.description, incidents.status, users.id AS userId, rooms.id AS roomId, rooms.name AS roomName, equipment.id AS equipmentId, equipment.name AS equipmentName, incidents.createdAt, incidents.updatedAt
         FROM incidents
         JOIN users
           ON users.id = incidents.userId
@@ -126,7 +126,7 @@ categoryIncidentsRouter.get(
       }
       const incidentId = req.params.incidentId;
       const [incident] = await dbPool.execute(
-        `SELECT incidents.id, incidents.description, users.userName, rooms.name, equipment.name
+        `SELECT incidents.id, incidents.description, users.userName, rooms.name, equipment.name, inciden
       FROM incidents
       JOIN users
         ON users.id = incidents.userId

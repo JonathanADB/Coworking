@@ -53,10 +53,11 @@ const AdminIncidentList = () => {
           <TableBody>
 
           {incidents.map((incident) => (
-                <TableRow key={incident.id}>
+                <TableRow key={incident.incidentId}>
                     <TableCell className="hidden md:table-cell">{incident.incidentId}</TableCell>
-                    <TableCell className="hidden md:table-cell">{incident.incidentStatus ? <Badge>Completada</Badge> : <Badge>Sin completar</Badge>}</TableCell>
-                    <TableCell>{incident.description}</TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      <Badge>{incident.status === 'pending' ? 'Pendiente' : 'Resuelta'}</Badge>
+                    </TableCell>                    <TableCell>{incident.description}</TableCell>
                     <TableCell className="hidden md:table-cell">{incident.roomName}</TableCell>
                     <TableCell className="hidden md:table-cell">{incident.equipmentName}</TableCell>
                     {/* <TableCell>acciones</TableCell> */}
