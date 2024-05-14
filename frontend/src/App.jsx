@@ -24,7 +24,9 @@ import UserSettings from "./pages/UserSettings.jsx";
 import Help from "./pages/Help.jsx";
 import CreateIncident from "./pages/CreateIncident.jsx";
 import ViewIncident from "./pages/ViewIncident.jsx";
+
 import AdminPanel from "./pages/AdminPanel.jsx";
+import AdminIncidentList from "./pages/admin/Incidents.jsx";
 
 import Protected from "./components/Protected.jsx";
 import Admin from "./components/Admin.jsx";
@@ -35,10 +37,13 @@ const ProtectedHelp = Protected(Help);
 const ProtectedUserSettings = Protected(UserSettings);
 const ProtectedCreateIncident = Protected(CreateIncident);
 const ProtectedViewIncident = Protected(ViewIncident);
+
 const AdminAdminPanel = Admin(AdminPanel);
 const AdminCreateRoom = Admin(CreateRoom);
 const AdminRoomList = Admin(RoomList);
 const AdminEditRoom = Admin(EditRoom);
+const AdminIncidents = Admin(AdminIncidentList);
+
 
 const App = () => {
   return (
@@ -63,6 +68,7 @@ const App = () => {
           <Route path="/create-incident" element={<Mobile><ProtectedCreateIncident /></Mobile>} />
           <Route path="/incident/:id" element={<Mobile><ProtectedViewIncident /></Mobile>} />
           <Route path="/admin" element={<Layout><AdminAdminPanel /></Layout>} />
+          <Route path="/admin/incidents" element={<Layout><AdminIncidents /></Layout>} />
           <Route path="*" element={<Mobile><NotFound /></Mobile>} />
         </Routes>
       </Router>
