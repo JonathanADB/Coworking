@@ -16,7 +16,27 @@ const Layout = ({ children }) => {
 
   if (isDesktop) {
     return (
-      <div className="relative w-full bg-transparent h-dvh">{children}</div>
+      <div className="relative w-full bg-transparent h-dvh">
+        <nav className="flex h-12 px-4 bg-secondary/75 ">
+          
+          <section className="flex items-center justify-between w-full">
+            <Link to="/">
+              <img src={Logo} alt="Logo" className="h-8" />
+            </Link>
+            <section className="flex items-center gap-4">
+              <Link to="/profile">
+              <Avatar>
+                <AvatarFallback>
+                  <FaUserCircle />
+                </AvatarFallback>
+                <AvatarImage src={authState.user.avatar} alt="Avatar" />
+              </Avatar>
+              </Link>
+              </section>
+            </section>
+        </nav>
+        {children}
+        </div>
     );
   } else {
     return <Mobile>{children}</Mobile>;

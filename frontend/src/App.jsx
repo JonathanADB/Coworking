@@ -4,7 +4,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Layout from "./components/Layout.jsx";
-import Mobile from "./components/Mobile.jsx";
 
 import CreateRoom from "./pages/Room.jsx";
 import ValidateUser from "./pages/ValidateUser.jsx";
@@ -54,30 +53,30 @@ const App = () => {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Mobile><Home /></Mobile>} />
-          <Route path="/register" element={<Mobile><Register /></Mobile>} />
-          <Route path="/login" element={<Mobile><Login /></Mobile>} />
-          <Route path="/validate" element={<Mobile><ValidateUser /></Mobile>} />
-          <Route path="/reset-password" element={<Mobile><ResetPassword /></Mobile>} />
-          <Route path="/change-password" element={<Mobile><ChangePassword /></Mobile>} />
-          <Route path="/forgot-password" element={<Mobile><ForgotPassword /></Mobile>} />
-          <Route path="/create-room" element={<Mobile><AdminCreateRoom /></Mobile>} />
-          <Route path="/room-list" element={<Mobile><AdminRoomList /></Mobile>} />
-          <Route path="/room/:id" element={<Mobile><ViewRoom /></Mobile>} />
-          <Route path="/edit-room/:id" element={<Mobile><AdminEditRoom /></Mobile>} />
-          <Route path="/profile" element={<Mobile><ProtectedProfile /></Mobile>} />
-          <Route path="/edit-profile" element={<Mobile><ProtectedEditProfile /></Mobile>} />
-          <Route path="/user-settings" element={<Mobile><ProtectedUserSettings /></Mobile>} />
-          <Route path="/help" element={<Mobile><ProtectedHelp /></Mobile>} />
-          <Route path="/create-incident" element={<Mobile><ProtectedCreateIncident /></Mobile>} />
-          <Route path="/incident/:id" element={<Mobile><ProtectedViewIncident /></Mobile>} />
+          <Route path="/" element={<Layout><Home /></Layout>} />
+          <Route path="/register" element={<Layout><Register /></Layout>} />
+          <Route path="/login" element={<Layout><Login /></Layout>} />
+          <Route path="/validate" element={<Layout><ValidateUser /></Layout>} />
+          <Route path="/reset-password" element={<Layout><ResetPassword /></Layout>} />
+          <Route path="/change-password" element={<Layout><ChangePassword /></Layout>} />
+          <Route path="/forgot-password" element={<Layout><ForgotPassword /></Layout>} />
+          <Route path="/create-room" element={<Layout><AdminCreateRoom /></Layout>} />
+          <Route path="/room-list" element={<Layout><AdminRoomList /></Layout>} />
+          <Route path="/room/:id" element={<Layout><ViewRoom /></Layout>} />
+          <Route path="/edit-room/:id" element={<Layout><AdminEditRoom /></Layout>} />
+          <Route path="/profile" element={<Layout><ProtectedProfile /></Layout>} />
+          <Route path="/edit-profile" element={<Layout><ProtectedEditProfile /></Layout>} />
+          <Route path="/user-settings" element={<Layout><ProtectedUserSettings /></Layout>} />
+          <Route path="/help" element={<Layout><ProtectedHelp /></Layout>} />
+          <Route path="/create-incident" element={<Layout><ProtectedCreateIncident /></Layout>} />
+          <Route path="/incident/:id" element={<Layout><ProtectedViewIncident /></Layout>} />
 
           <Route path="/admin" element={<Layout><AdminAdminPanel /></Layout>} />
           <Route path="/admin/incidents" element={<Layout><AdminIncidents /></Layout>} />
           <Route path="/admin/rooms" element={<Layout><AdminRooms /></Layout>} />
           <Route path="/admin/room/:id" element={<Layout><AdminRoom /></Layout>} />
           
-          <Route path="*" element={<Mobile><NotFound /></Mobile>} />
+          <Route path="*" element={<Layout><NotFound /></Layout>} />
         </Routes>
       </Router>
       <ToastContainer position="top-center" theme="colored" autoClose={4500} />

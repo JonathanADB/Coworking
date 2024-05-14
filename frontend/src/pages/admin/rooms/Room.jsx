@@ -36,7 +36,7 @@ const Room = () => {
             {room && room && (
                 <div>
                     <h2 className="mb-8 text-xl font-bold">
-                        Sala {room.id}
+                        Sala {room.name}
                     </h2>
                     <ul className="flex flex-col gap-y-4">
                         <li>
