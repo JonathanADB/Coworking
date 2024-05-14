@@ -24,6 +24,10 @@ function Home() {
         <Button asChild>
           <Link to="/room-list">Lista de habitaciones</Link>
         </Button>
+
+        <Button asChild>
+          <Link to="/admin">Panel de administración</Link>
+        </Button>
         
       </section>
     </div>

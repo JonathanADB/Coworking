@@ -1,14 +1,16 @@
-import "react-toastify/dist/ReactToastify.css";
-
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import Layout from "./components/Layout.jsx";
+import Mobile from "./components/Mobile.jsx";
+
 import CreateRoom from "./pages/Room.jsx";
 import ValidateUser from "./pages/ValidateUser.jsx";
 import Home from "./pages/Home.jsx";
-import ResetPassword from "./pages/ResetPassword.jsx";
-import Mobile from "./components/Mobile.jsx";
 import Register from "./pages/Register.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 import Login from "./pages/Login.jsx";
 import ChangePassword from "./pages/ChangePassword.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
@@ -22,6 +24,8 @@ import UserSettings from "./pages/UserSettings.jsx";
 import Help from "./pages/Help.jsx";
 import CreateIncident from "./pages/CreateIncident.jsx";
 import ViewIncident from "./pages/ViewIncident.jsx";
+import AdminPanel from "./pages/AdminPanel.jsx";
+
 import Protected from "./components/Protected.jsx";
 import Admin from "./components/Admin.jsx";
 
@@ -31,6 +35,7 @@ const ProtectedHelp = Protected(Help);
 const ProtectedUserSettings = Protected(UserSettings);
 const ProtectedCreateIncident = Protected(CreateIncident);
 const ProtectedViewIncident = Protected(ViewIncident);
+const AdminAdminPanel = Admin(AdminPanel);
 const AdminCreateRoom = Admin(CreateRoom);
 const AdminRoomList = Admin(RoomList);
 const AdminEditRoom = Admin(EditRoom);
@@ -57,6 +62,7 @@ const App = () => {
           <Route path="/help" element={<Mobile><ProtectedHelp /></Mobile>} />
           <Route path="/create-incident" element={<Mobile><ProtectedCreateIncident /></Mobile>} />
           <Route path="/incident/:id" element={<Mobile><ProtectedViewIncident /></Mobile>} />
+          <Route path="/admin" element={<Layout><AdminAdminPanel /></Layout>} />
           <Route path="*" element={<Mobile><NotFound /></Mobile>} />
         </Routes>
       </Router>
