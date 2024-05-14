@@ -42,11 +42,11 @@ const AdminIncidentList = () => {
           <TableCaption>Lita de incidencias recientes</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px]">ID</TableHead>
-              <TableHead className="w-[150px]">Estado</TableHead>
+              <TableHead className="w-[100px] hidden md:block">ID</TableHead>
+              <TableHead className="w-[150px] hidden md:block">Estado</TableHead>
               <TableHead>Descripción</TableHead>
-              <TableHead>Habitación</TableHead>
-              <TableHead>Equipo</TableHead>
+              <TableHead className="hidden md:block">Habitación</TableHead>
+              <TableHead className="hidden md:block">Equipo</TableHead>
               <TableHead>Acciones</TableHead>
             </TableRow>
           </TableHeader>
@@ -54,11 +54,11 @@ const AdminIncidentList = () => {
 
           {incidents.map((incident) => (
                 <TableRow key={incident.id}>
-                    <TableCell>{incident.incidentId}</TableCell>
-                    <TableCell>{incident.incidentStatus ? <Badge>Completada</Badge> : <Badge>Sin completar</Badge>}</TableCell>
+                    <TableCell className="hidden md:block">{incident.incidentId}</TableCell>
+                    <TableCell className="hidden md:block">{incident.incidentStatus ? <Badge>Completada</Badge> : <Badge>Sin completar</Badge>}</TableCell>
                     <TableCell>{incident.description}</TableCell>
-                    <TableCell>{incident.roomName}</TableCell>
-                    <TableCell>{incident.equipmentName}</TableCell>
+                    <TableCell className="hidden md:block">{incident.roomName}</TableCell>
+                    <TableCell className="hidden md:block">{incident.equipmentName}</TableCell>
                     <TableCell>acciones</TableCell>
               </TableRow>
             ))}
