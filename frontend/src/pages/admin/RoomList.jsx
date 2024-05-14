@@ -48,7 +48,7 @@ const AdminRoomList = () => {
               <TableHead className="w-[200px]">Nombre</TableHead>
               <TableHead className="w-[450px]">Descripción</TableHead>
               <TableHead className="w-[100px]">Capacidad</TableHead>
-              <TableHead className="w-[100px]">Tipo</TableHead>
+              <TableHead className="w-[100px] text-center">Tipo</TableHead>
               {/* <TableHead>Acciones</TableHead> */}
             </TableRow>
           </TableHeader>
@@ -64,7 +64,7 @@ const AdminRoomList = () => {
                       </TableCell>
                     <TableCell>{room.description}</TableCell>
                     <TableCell className="text-center">{room.capacity}</TableCell>
-                    <TableCell><Badge variant="outline" className="bg-secondary">{room.typeOf}</Badge></TableCell>
+                    <TableCell><Badge variant="outline" className="text-center bg-secondary">{room.typeOf}</Badge></TableCell>
                     {/* <TableCell>acciones</TableCell> */}
               </TableRow>
             ))}

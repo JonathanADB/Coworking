@@ -94,6 +94,11 @@ mediaRouter.post(
         [mediaId, url, roomId, url, mediaId]
       );
 
+      await dbPool.execute(
+        `UPDATE rooms SET image = ? WHERE id = ?`,
+        [url, roomId]
+      );
+
       res.status(201).json({
         message: `Se ha añadido el archivo correctamente`,
         url: url,
