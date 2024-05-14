@@ -132,22 +132,22 @@ userRouter.post("/login", async (req, res, next) => {
 });
 
 // Ver el perfil de usuario propio
-userRouter.get("/user/profile", authenticate, async (req, res, next) => {
-  try {
-    const user = await getUser(req.headers.authorization);
-    res.status(200).json({
-      profile: {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        username: user.username,
-        email: user.email,
-        avatar: user.avatar,
-      },
-    });
-  } catch (err) {
-    next(err);
-  }
-});
+// userRouter.get("/user/profile", authenticate, async (req, res, next) => {
+//   try {
+//     const user = await getUser(req.headers.authorization);
+//     res.status(200).json({
+//       profile: {
+//         firstName: user.firstName,
+//         lastName: user.lastName,
+//         username: user.username,
+//         email: user.email,
+//         avatar: user.avatar,
+//       },
+//     });
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 // Modificar el propio perfil de usuario
 userRouter.put("/user/update/profile/", authenticate, async (req, res, next) => {
