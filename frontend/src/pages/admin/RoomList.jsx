@@ -44,24 +44,28 @@ const AdminRoomList = () => {
           <TableCaption>Lita de incidencias recientes</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[350px]">ID</TableHead>
+              {/* <TableHead className="w-[350px]">ID</TableHead> */}
               <TableHead className="w-[200px]">Nombre</TableHead>
-              {/* <TableHead>Descripción</TableHead> */}
+              <TableHead className="w-[450px]">Descripción</TableHead>
               <TableHead className="w-[100px]">Capacidad</TableHead>
               <TableHead className="w-[100px]">Tipo</TableHead>
-              <TableHead>Acciones</TableHead>
+              {/* <TableHead>Acciones</TableHead> */}
             </TableRow>
           </TableHeader>
           <TableBody>
 
           {rooms.map((room) => (
                 <TableRow key={room.id}>
-                    <TableCell className="hidden md:table-cell">{room.id}</TableCell>
-                    <TableCell>{room.name}</TableCell>
-                    {/* <TableCell>{room.description}</TableCell> */}
+                    {/* <TableCell className="hidden md:table-cell">{room.id}</TableCell> */}
+                    <TableCell>
+                      <Link to={`/admin/room/${room.id}`}>
+                      {room.name}
+                      </Link>
+                      </TableCell>
+                    <TableCell>{room.description}</TableCell>
                     <TableCell className="text-center">{room.capacity}</TableCell>
-                    <TableCell>{room.typeOf}</TableCell>
-                    <TableCell>acciones</TableCell>
+                    <TableCell><Badge variant="outline" className="bg-secondary">{room.typeOf}</Badge></TableCell>
+                    {/* <TableCell>acciones</TableCell> */}
               </TableRow>
             ))}
 

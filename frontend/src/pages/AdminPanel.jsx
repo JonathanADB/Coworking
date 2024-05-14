@@ -13,12 +13,22 @@ const AdminPanel = () => {
             <section className="m-4">
                 <h3 className="text-xl font-bold">Panel de administración</h3>
                 <p className="mb-4">Bienvenido a la sección de administración</p>
+
+                <section className="flex flex-col gap-y-4">
                 <Button asChild className="w-full">
                     <Link to="/admin/users">Gestionar usuarios</Link>
                 </Button>
+
                 <Button asChild className="w-full">
                     <Link to="/admin/incidents">Gestionar incidencias</Link>
                 </Button>
+
+                <Button asChild className="w-full">
+                    <Link to="/admin/rooms">Gestionar salas</Link>
+                </Button>
+                </section>
+
+
             </section>
         </div>
     );

@@ -47,7 +47,7 @@ const AdminIncidentList = () => {
               <TableHead>Descripción</TableHead>
               <TableHead className="hidden md:table-cell">Habitación</TableHead>
               <TableHead className="hidden md:table-cell">Equipo</TableHead>
-              <TableHead>Acciones</TableHead>
+              {/* <TableHead>Acciones</TableHead> */}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -59,7 +59,7 @@ const AdminIncidentList = () => {
                     <TableCell>{incident.description}</TableCell>
                     <TableCell className="hidden md:table-cell">{incident.roomName}</TableCell>
                     <TableCell className="hidden md:table-cell">{incident.equipmentName}</TableCell>
-                    <TableCell>acciones</TableCell>
+                    {/* <TableCell>acciones</TableCell> */}
               </TableRow>
             ))}
 
