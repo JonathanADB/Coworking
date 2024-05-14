@@ -57,7 +57,7 @@ const AdminRoomList = () => {
           {rooms.map((room) => (
                 <TableRow key={room.id}>
                     {/* <TableCell className="hidden md:table-cell">{room.id}</TableCell> */}
-                    <TableCell>
+                    <TableCell className="font-bold">
                       <Link to={`/admin/room/${room.id}`}>
                       {room.name}
                       </Link>
