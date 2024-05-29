@@ -5,6 +5,8 @@ export const querySchema = Joi.object({
 });
 
 export const incidentSchema = Joi.object({
+  userId: Joi.string().required(),
+  roomId: Joi.string().required(),
   description: Joi.string().required(),
   equipmentId: Joi.string().required(),
 });

@@ -20,7 +20,7 @@ function RegisterUserForm() {
       newData[key] = formData[key].trim();
     }
     setFormData(newData);
-  }
+  };
 
   const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ function RegisterUserForm() {
 
     try {
       removeSpaces();
-      const response = await fetch("http://localhost:3000/register", {
+      const response = await fetch(`${import.meta.env.VITE_APP_HOST}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,17 +50,17 @@ function RegisterUserForm() {
       if (!response.ok) {
         toast.error("Error en los datos de solicitud");
       } else {
-        toast.success("Usuario registrado exitosamente");
         // Redirigir a la página de validate
-        await new Promise((resolve) => setTimeout(resolve, 5000));
+        await new Promise((resolve) => setTimeout(resolve, 250));
         navigate("/validate");
+        toast.success("Usuario registrado exitosamente");
       }
     } catch (error) {
       console.error("El usuario no se pudo registrar");
     }
   };
   return (
-    <div className="flex flex-col justify-center p-4 ">
+    <div className="flex flex-col w-full p-4">
       <h1 className="text-center">Registro</h1>
       <form className="flex flex-col px-1 my-4 gap-y-4" onSubmit={handleSubmit}>
         <div>
@@ -70,7 +70,6 @@ function RegisterUserForm() {
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
-            required
           />
         </div>
 
@@ -81,7 +80,6 @@ function RegisterUserForm() {
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
-            required
           />
         </div>
 

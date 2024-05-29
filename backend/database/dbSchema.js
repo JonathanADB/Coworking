@@ -54,9 +54,10 @@ export async function dbSchema(db) {
 
   // CREO LA TABLA ROOMS
   await db.query(`CREATE TABLE rooms(
-	  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
+	  id CHAR(36) NOT NULL PRIMARY KEY,
     name VARCHAR(16) UNIQUE NOT NULL,
     description TEXT NOT NULL,
+    image VARCHAR(200),
     capacity TINYINT UNSIGNED NOT NULL,
     typeOf CHAR(7) NOT NULL,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -99,10 +100,9 @@ export async function dbSchema(db) {
 
   // CREO LA TABLA EQUIPMENT
   await db.query(`CREATE TABLE equipment(
-	  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
+	  id CHAR(36) NOT NULL PRIMARY KEY,
     name VARCHAR(16) UNIQUE NOT NULL,
 	  description TEXT NOT NULL,
-    inventory TINYINT UNSIGNED NOT NULL,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME,
     deletedAt DATETIME
@@ -111,16 +111,16 @@ export async function dbSchema(db) {
 
   // CREO LA TABLA EQUIPMENTROOMS
   await db.query(`CREATE TABLE equipmentRooms(
-	  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
-    equipmentId CHAR(36) UNIQUE NOT NULL,
-    roomId CHAR(36) UNIQUE NOT NULL,
+    id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
+    equipmentId CHAR(36) NOT NULL,
+    roomId CHAR(36) NOT NULL,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME,
     deletedAt DATETIME,
     
     FOREIGN KEY (equipmentId) REFERENCES equipment(id),
     FOREIGN KEY (roomId) REFERENCES rooms(id)
-  )`);
+  );`);
   console.log(chalk.green(`Tabla ${chalk.bgGreen(`equipmentRooms`)} creada!`));
 
   // CREO LA TABLA REVIEWS
@@ -141,9 +141,11 @@ export async function dbSchema(db) {
   await db.query(`CREATE TABLE incidents(
 	  id CHAR(36) UNIQUE NOT NULL PRIMARY KEY,
     description TEXT NOT NULL,
+    status ENUM("pending","resolved") DEFAULT "pending",
     userId CHAR(36) NOT NULL,
     roomId CHAR(36) NOT NULL,
     equipmentId CHAR(36) NOT NULL,
+    image VARCHAR(200),
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME,
     deletedAt DATETIME,

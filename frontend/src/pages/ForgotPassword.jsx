@@ -23,7 +23,7 @@ function CreateForgotPasswordForm({ onSubmit }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/forgot-password", {
+      const response = await fetch(`${import.meta.env.VITE_APP_HOST}/forgot-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

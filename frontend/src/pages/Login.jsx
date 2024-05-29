@@ -27,7 +27,7 @@ function LoginForm() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch(`${import.meta.env.VITE_APP_HOST}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,11 +42,10 @@ function LoginForm() {
         return;
       } else {
         login(data.token, data.user);
-        toast.success("Inicio de sesión exitoso");
       }
-      // Redirigir a la página de home
-      await new Promise((resolve) => setTimeout(resolve, 5000));
+
       navigate("/");
+      toast.success("Inicio de sesión exitoso");
     } catch (error) {
       console.error("Error en el inicio de sesión:", error);
       toast.error(`Error al iniciar sesión: ${error}`);
@@ -54,7 +53,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="flex flex-col justify-center p-4">
+    <div className="flex flex-col w-full p-4">
       <h1 className="mb-4 text-center">Iniciar sesión</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -101,14 +100,19 @@ function LoginForm() {
             Debe contener una letra mayúscula y un símbolo: (?=.*)
           </p> */}
         </div>
-        <div className="flex flex-col gap-y-2">
-          <Button className="flex w-full mx-auto" type="submit">
+        <div className="flex flex-col">
+          <Button className="flex w-full mx-auto mb-1" type="submit">
             Iniciar sesión
           </Button>
 
-          <Button asChild variant="link">
+          <Button asChild variant="link" className="justify-center">
+            <Link to="/register">Crear cuenta</Link>
+          </Button>
+
+          <Button asChild variant="link" className="justify-center">
             <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
           </Button>
+
         </div>
       </form>
     </div>

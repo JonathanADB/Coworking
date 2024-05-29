@@ -11,7 +11,7 @@ export async function loadBaseData(db) {
       id: crypto.randomUUID(),
       username: "Admin",
       email: "admin@coworking.com",
-      password: await bcrypt.hash("Admin@1234", 12),
+      password: await bcrypt.hash("Admin*1234", 12),
       verified: true,
       role: "admin",
     },

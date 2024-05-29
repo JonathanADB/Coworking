@@ -15,41 +15,44 @@ const dbPool = getPool();
 
 export const equipmentAdminRouter = Router();
 
-equipmentAdminRouter.use(authenticate);
-equipmentAdminRouter.use(isAdmin);
-
 // agregar equipos solo admin
-equipmentAdminRouter.post("/equipment/add", async (req, res, next) => {
-  try {
-    const { name, description, inventory } = req.body;
-    const { error } = addEquipmentSchema.validate({
-      name,
-      description,
-      inventory,
-    });
+equipmentAdminRouter.post(
+  "/equipment/add",
+  authenticate,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      const { name, description } = req.body;
+      const { error } = addEquipmentSchema.validate({
+        name,
+        description,
+      });
 
-    if (error) {
-      throw createError(400, "Datos de entrada no válidos");
+      if (error) {
+        throw createError(400, "Datos de entrada no válidos");
+      }
+
+      const add = await dbPool.execute(
+        `INSERT INTO equipment(id, name, description) VALUES (?, ?, ?)`,
+        [crypto.randomUUID(), name, description]
+      );
+
+      res.status(201).json({
+        message: `Producto ${name} se añadió correctamente`,
+      });
+
+      if (!add) throw createError(401, "No se ha podido añadir el producto");
+    } catch (err) {
+      next(err);
     }
-
-    const add = await dbPool.execute(
-      `INSERT INTO equipment(id, name, description, inventory) VALUES (?, ?, ?, ?)`,
-      [crypto.randomUUID(), name, description, inventory]
-    );
-
-    res.status(201).json({
-      message: `Producto ${name} se añadió correctamente`,
-    });
-
-    if (!add) throw createError(401, "No se ha podido añadir el producto");
-  } catch (err) {
-    next(err);
   }
-});
+);
 
 //Update de equipos
 equipmentAdminRouter.patch(
   "/equipment/:equipmentId",
+  authenticate,
+  isAdmin,
   async (req, res, next) => {
     try {
       const equipmentId = req.params.equipmentId;
@@ -62,17 +65,14 @@ equipmentAdminRouter.patch(
       }
 
       const equipment = await validateEquipmentId(equipmentId);
-      const { name, description, inventory } = validateEquipmentEditRequest(
-        req.body
-      );
+      const { name, description } = validateEquipmentEditRequest(req.body);
 
       const updateEquipment = await dbPool.execute(
-        `UPDATE equipment SET name=?, description=?, inventory=?, updatedAt=CURRENT_TIME()
+        `UPDATE equipment SET name=?, description=?, updatedAt=CURRENT_TIME()
             WHERE id=?`,
         [
           name ? name : equipment.name,
           description ? description : equipment.description,
-          inventory ? inventory : equipment.inventory,
           equipmentId,
         ]
       );
@@ -80,8 +80,9 @@ equipmentAdminRouter.patch(
         message: `Producto ${name} se actualizo correctamente`,
       });
 
-      if (!updateEquipment)
+      if (!updateEquipment) {
         throw createError(401, "No se ha podido modificar el producto");
+      }
     } catch (err) {
       next(err);
     }
@@ -89,7 +90,9 @@ equipmentAdminRouter.patch(
 );
 // Borrar equipos
 equipmentAdminRouter.delete(
-  "/equipment/:equipmentId",
+  "/admin/equipment/delete/:equipmentId",
+  authenticate,
+  isAdmin,
   async (req, res, next) => {
     try {
       const equipmentId = req.params.equipmentId;
@@ -111,6 +114,50 @@ equipmentAdminRouter.delete(
 
       if (!deleteEquipment)
         throw createError(401, "No se ha podido borrar el producto");
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// Listar equipo por su id
+equipmentAdminRouter.get(
+  "/admin/equipment/:equipmentId",
+  authenticate,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      const equipmentId = req.params.equipmentId;
+      const { error } = validateEquipmentId(equipmentId);
+      console.log(error);
+      if (error) {
+        throw createError(400, "Datos de entrada no válidos");
+      }
+
+      const [[equipment]] = await dbPool.execute(
+        `SELECT * FROM equipment WHERE id = ?`,
+        [equipmentId]
+      );
+      console.log(equipment);
+
+      res.status(200).json({ data: equipment });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+// Listar todos los equipos disponibles
+equipmentAdminRouter.get(
+  "/equipment",
+  authenticate,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      const [equipment] = await dbPool.execute(
+        `SELECT * FROM equipment`
+      );
+
+      res.status(200).json({ data: equipment });
     } catch (err) {
       next(err);
     }

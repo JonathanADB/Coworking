@@ -27,7 +27,7 @@ function CreateValidateUserForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/validate", {
+      const response = await fetch(`${import.meta.env.VITE_APP_HOST}/validate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -95,10 +95,10 @@ function CreateValidateUserForm() {
 
 export function ValidateUser() {
   return (
-    <>
+    <div className="flex flex-col w-full p-4">
       <h2 className="mt-2 text-center">Validación de usuario</h2>
       <CreateValidateUserForm />
-    </>
+    </div>
   );
 }
 

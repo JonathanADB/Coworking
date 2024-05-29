@@ -25,7 +25,7 @@ function CreateResetPasswordForm({ onSubmit }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/reset-password", {
+      const response = await fetch(`${import.meta.env.VITE_APP_HOST}/reset-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

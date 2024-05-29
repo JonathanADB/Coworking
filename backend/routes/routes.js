@@ -6,23 +6,24 @@ import {
   categoryIncidentsRouter,
   listIncidentsRouter,
 } from "./api/incident/incident.js";
-import { reservationRouter } from "./api/reservation/reservation.js";
 import { reviewRouter } from "./api/review/review.js";
 import { searchsRouter } from "./api/searchs/searchs.js";
+import { reservationRouter } from "./api/reservation/reservation.js";
 import { mediaRouter } from "./api/media/media.js";
+import { adminUsers } from "./api/user/userAdmin.js";
 // import { equipmentRouter } from "./api/admin/equipment.js";
 
 const router = express.Router();
 
 router.use(userRouter);
 router.use(mediaRouter);
-router.use(equipmentAdminRouter);
-// router.use(equipmentRouter);
 router.use(roomRouter);
 router.use(categoryIncidentsRouter);
 router.use(listIncidentsRouter);
 router.use(reservationRouter);
 router.use(reviewRouter);
 router.use(searchsRouter);
+router.use(adminUsers);
+router.use(equipmentAdminRouter);
 
 export default router;

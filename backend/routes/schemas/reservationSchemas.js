@@ -11,6 +11,5 @@ export const addReservationSchema = Joi.object({
 });
 
 export const deleteReservationSchema = Joi.object({
-  roomId: Joi.string().required(),
   reservationId: Joi.string().required(),
 });

@@ -6,13 +6,13 @@ import { Button } from "@/components/UI/button";
 const RoomList = () => {
   const [rooms, setRooms] = useState([]);
   const { authState } = useContext(AuthContext);
-  const token = authState.token;
+  const host = import.meta.env.VITE_APP_HOST;
 
   useEffect(() => {
-    fetch("http://localhost:3000/rooms", {
+    fetch(`${host}/rooms`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        Authorization: authState.token,
       },
     })
       .then((res) => res.json())

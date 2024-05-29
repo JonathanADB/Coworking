@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Layout from './Layout';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class ErrorBoundary extends Component {
 
   render() {
     if (this.state.hasError) {
-      return <h1>Algo salió mal. Por favor, recarga la página.</h1>;
+      return <div>Algo salió mal. Por favor, recarga la página.</div>;
     }
 
     return this.props.children; 

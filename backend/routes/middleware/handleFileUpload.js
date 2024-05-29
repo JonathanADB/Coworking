@@ -2,48 +2,69 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import crypto from 'crypto';
 import { createError } from '../../utils/error.js';
 
 const handleFileUpload = (req, res, next) => {
   try {
+
     if (!req.files || Object.keys(req.files).length === 0) {
-      throw createError(400, "No se encontro ningun archivo para subir");
+      throw createError(400, "No se encontró ningún archivo para subir");
     }
-  
-    const file = req.files.file;
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif']; // Tipos de archivo permitidos
+
+    // Convertir el objeto de archivos en un array
+    const files = Object.values(req.files);
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']; // Tipos de archivo permitidos
     const maxSize = 10 * 1024 * 1024; // Tamaño máximo del archivo en bytes (10MB)
-  
-    if (!allowedTypes.includes(file.mimetype)) {
-      throw createError(400, "Tipo de archivo no permitido");
+    const maxFiles = 10; // Número máximo de archivos permitidos
+
+    if (files.length > maxFiles) {
+      throw createError(400, `Solo se permiten hasta ${maxFiles} archivos`);
     }
-  
-    if (file.size > maxSize) {
-      throw createError(400, "Tamaño de archivo excede el límite permitido");
-    }
-  
-    // Modificamos el nombre del archivo para evitar conflictos añadiendo la fecha actual antes del nombre original
-    const fileName = Date.now() + '-' + file.name;
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = dirname(__filename);
-    const dirPath = path.join(__dirname, '..', '..', '..', 'frontend', 'public', 'uploads', 'avatar');
-    if (!fs.existsSync(dirPath)) {
-      fs.mkdirSync(dirPath, { recursive: true });
-    }
-    const filePath = path.join(dirPath, fileName);
-  
-    file.mv(filePath, (err) => {
-      if (err) {
-        console.error(err);
-        throw createError(500, "Error al mover el archivo");
+
+    const processedFiles = [];
+
+    files.forEach(file => {
+      if (!allowedTypes.includes(file.mimetype)) {
+        throw createError(400, `Tipo de archivo no permitido: ${file.name}`);
       }
 
-      req.body.fileName = fileName;
-      req.body.filePath = filePath;
+      if (file.size > maxSize) {
+        throw createError(400, `Tamaño de archivo excede el límite permitido: ${file.name}`);
+      }
 
-      next();
+      const originalFileName = file.name;
+      const extension = path.extname(originalFileName);
+      const fileName = crypto.randomUUID() + extension;
+      const __filename = fileURLToPath(import.meta.url);
+      const __dirname = dirname(__filename);
+      const dirPath = path.join(__dirname, '..', '..', '..', 'frontend', 'public', 'uploads');
+      if (!fs.existsSync(dirPath)) {
+        fs.mkdirSync(dirPath, { recursive: true });
+      }
+      const filePath = path.join(dirPath, fileName);
+
+      file.mv(filePath, (err) => {
+        if (err) {
+          console.error('Error al mover el archivo:', err);
+          throw createError(500, `Error al mover el archivo: ${file.name}`);
+        }
+
+        processedFiles.push({
+          originalFileName: originalFileName,
+          fileName: fileName,
+          filePath: filePath
+        });
+
+        if (processedFiles.length === files.length) {
+          req.body.files = processedFiles;
+          next();
+        }
+      });
     });
+
   } catch (err) {
+    console.error('Error en handleFileUpload:', err);
     next(err);
   }
 };

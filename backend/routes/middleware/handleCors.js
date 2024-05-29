@@ -1,24 +1,31 @@
-import cors from 'cors';
+import cors from "cors";
 import "dotenv/config.js";
-import { createError } from '../../utils/error.js';
+import { createError } from "../../utils/error.js";
 
 const handleCors = (req, res, next) => {
   let corsOptions = {
     origin: function (origin, callback) {
-      if (process.env.MODE === 'PRODUCTION') {
+      if (process.env.MODE === "PRODUCTION") {
         if (origin === process.env.CORS_ORIGIN) {
-          callback(null, true)
+          callback(null, true);
         } else {
-          callback(createError(403, 'No permitido por CORS'), false);
+          callback(createError(403, "No permitido por CORS"), false);
         }
       } else {
-        callback(null, '*')
+        callback(null, "*");
       }
     },
-    methods: process.env.MODE === 'PRODUCTION' ? ['GET', 'POST'] : ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+    methods:
+      process.env.MODE === "PRODUCTION"
+        ? ["GET", "POST"]
+        : ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   };
 
-  cors(corsOptions)(req, res, next);
+  try {
+    cors(corsOptions)(req, res, next);
+  } catch (err) {
+    next(err);
+  }
 };
 
 export default handleCors;
