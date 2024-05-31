@@ -91,8 +91,7 @@ categoryIncidentsRouter.post(
 export const listIncidentsRouter = Router();
 
 //Lista de incidencias (Admin)
-listIncidentsRouter.get(
-  "/incidents",
+listIncidentsRouter.get("/incidents",
   authenticate,
   isAdmin,
   async (req, res, next) => {
@@ -102,8 +101,17 @@ listIncidentsRouter.get(
         throw createError(400, "Datos de entrada no válidos");
       }
       const offset = req.query.offset || 0;
-      const [totalIncidents] = await dbPool.execute(
-        `SELECT incidents.id AS incidentId, incidents.description, incidents.status, users.id AS userId, rooms.id AS roomId, rooms.name AS roomName, equipment.id AS equipmentId, equipment.name AS equipmentName, incidents.createdAt, incidents.updatedAt
+      const [incidents] = await dbPool.execute(
+        `SELECT
+          incidents.id AS incidentId, 
+          incidents.description, 
+          incidents.status, 
+          users.id AS userId, 
+          rooms.id AS roomId, 
+          rooms.name AS roomName, 
+          equipment.id AS equipmentId,
+          equipment.name AS equipmentName,
+          incidents.createdAt, incidents.updatedAt
         FROM incidents
         JOIN users
           ON users.id = incidents.userId
@@ -114,12 +122,14 @@ listIncidentsRouter.get(
         ORDER BY incidents.createdAt DESC, incidents.updatedAt DESC 
         LIMIT 10 OFFSET ${offset}`
       );
-      res.status(200).json(totalIncidents);
-    } catch (err) {
-      next(err);
-    }
+    
+      res.status(200).json({
+      message: incidents,
+    });
+  } catch (err) {
+    next(err);
   }
-);
+});
 
 // Lista de incidencias
 categoryIncidentsRouter.get(
@@ -132,7 +142,17 @@ categoryIncidentsRouter.get(
       }
       const incidentId = req.params.incidentId;
       const [incident] = await dbPool.execute(
-        `SELECT incidents.id, incidents.description, incidents.status, users.userName, rooms.id AS roomId, rooms.name AS roomName, equipment.id AS equipmentId, equipment.name AS equipmentName, incidents.createdAt, incidents.updatedAt
+      `SELECT 
+      incidents.id AS incidentId, 
+      incidents.description,
+      incidents.status,
+      users.userName,
+      rooms.id AS roomId,
+      rooms.name AS roomName,
+      equipment.id AS equipmentId,  
+      equipment.name AS equipmentName,
+      incidents.createdAt,
+      incidents.updatedAt
       FROM incidents
       JOIN users
         ON users.id = incidents.userId
@@ -282,7 +302,7 @@ categoryIncidentsRouter.patch(
 
 // Eliminar incidencia creada por un usuario
 categoryIncidentsRouter.delete(
-  "/incidents/:incidentId",
+  "/incident/:incidentId",
   authenticate,
   async (req, res, next) => {
     const incidentId = req.params.incidentId;
@@ -326,7 +346,7 @@ categoryIncidentsRouter.delete(
 
 // Eliminar incidencia como Admin
 categoryIncidentsRouter.delete(
-  "/incidents/:incidentId",
+  "/incident/:incidentId",
   authenticate,
   isAdmin,
   async (req, res, next) => {

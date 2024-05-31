@@ -22,10 +22,11 @@ equipmentAdminRouter.post(
   isAdmin,
   async (req, res, next) => {
     try {
-      const { name, description } = req.body;
+      const { name, description,inventory } = req.body;
       const { error } = addEquipmentSchema.validate({
         name,
         description,
+        inventory,
       });
 
       if (error) {
@@ -33,8 +34,8 @@ equipmentAdminRouter.post(
       }
 
       const add = await dbPool.execute(
-        `INSERT INTO equipment(id, name, description) VALUES (?, ?, ?)`,
-        [crypto.randomUUID(), name, description]
+        `INSERT INTO equipment(id, name, description,inventory) VALUES (?, ?, ?, ?)`,
+        [crypto.randomUUID(), name, description,inventory]
       );
 
       res.status(201).json({
@@ -65,14 +66,15 @@ equipmentAdminRouter.patch(
       }
 
       const equipment = await validateEquipmentId(equipmentId);
-      const { name, description } = validateEquipmentEditRequest(req.body);
+      const { name, description, inventory } = validateEquipmentEditRequest(req.body);
 
       const updateEquipment = await dbPool.execute(
-        `UPDATE equipment SET name=?, description=?, updatedAt=CURRENT_TIME()
+        `UPDATE equipment SET name=?, description=?, inventory=?, updatedAt=CURRENT_TIME()
             WHERE id=?`,
         [
           name ? name : equipment.name,
           description ? description : equipment.description,
+          inventory ? inventory : equipment.inventory,
           equipmentId,
         ]
       );

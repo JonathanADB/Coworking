@@ -3,6 +3,7 @@ import Joi from "joi";
 export const addEquipmentSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string().required(),
+  inventory: Joi.number().required(),
 });
 
 export const updateEquipmentSchema = Joi.object({
