@@ -23,52 +23,312 @@
 - Jonathan Alberto Domínguez Blanco
 - Pablo Campuzano Fuente
 
-### Sprint 1 (15/04 - 25/04)
 
-Durante este sprint, hemos completado:
+## Requisitos Previos
+- Node.js (v14.x o superior)
+- npm (v6.x o superior)
 
-- **Análisis**
-  - Análisis Funcional.
-  - Diseño del Wireframe.
-  - Diseño del mapa de sitio y flujo de control.
 
-- **Implementación y desarrollo del Backend**
-  - Creación del proyecto
-  - Configuración de la base de datos y del servidor con Express.
-  - Conexión con la base de datos desde Node.
 
-- **Middlewares**
-  - Middleware para manejo de errores y parseo del body de la petición.
-  - Middleware para la gestión de recursos estáticos.
-  - Middleware de autenticación de usuarios.
+### Instalación
 
-- **Endpoints**
-  - Registro, validación y login de usuarios.
-  - Recuperación y cambio de contraseña.
-  - Listado de categorías de incidencias, equipamiento y tipo de espacio.
-  - Creación, reserva y cancelación de espacios.
-  - Confirmación o rechazo de reservas con notificación por email.
-  - Calificación de espacios.
-  - Listado y visualización de espacios con filtros y ordenación.
+1. Clonar el repositorio utilizando `https://github.com/JonathanADB/Coworking.git`
 
-- **Varios**
-  - Validación de peticiones con Joi.
-  - Colección de Postman con los endpoints implementados.
+2. Instala las dependencias del proyecto utilizando `npm install`.
 
-  ### Tecnologías utilizadas
+## Configuración
 
-- Postman
-- Node.js
-- Express
-- MySQL
-- MySQL Workbench
+1. Crear un archivo .env en la raíz del backend con el siguiente contenido:
 
-### Pasos para arrancar el backend
+    ```sh
+    MODE=
+    CORS_ORIGIN=
+    DB_HOST=
+    DB_PORT=
+    DB_USER=
+    DB_PASS=
+    DB_NAME=
+    JWT_SECRET=
+    API_HOST=
+    VITE_APP_HOST=
+    FRONTEND_HOST=
+    BREVO_API_KEY= 
+    SMTP_HOST=
+    SMTP_PORT=
+    SMTP_USER=
+    SMTP_PASS=
+    ```
 
-1. Abrir una terminal en la carpeta "backend".
-2. Instalar las dependencias del proyecto con `npm install`.
-3. Configurar el archivo `.env`.
-4. Inicializar la base de datos con `npm run init-db`.
-5. Arrancar el servidor con `npm run start`.
+2. Después de crear el archivo .env, inicializar la base de datos ejecutando el siguiente comando en la terminal:
+    
+    ```sh
+   npm run init-db
+   ```
 
-¡Con estos pasos, el servidor estará listo para ser probado usando POSTMAN!
+## Inicialización
+    
+Para iniciar el servidor de desarrollo:
+
+    cd backend
+    npm install
+
+Para iniciar el servidor en producción:
+
+    npm start
+
+
+# Endpoints
+
+Después de crear un usuario, validarse e iniciar sesión se generará un token que será necesario incluir en autorización en las cabeceras de las peticiones subsiguientes.
+
+## USER
+
+<ul style="list-style-type: none;">
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /register - Creación de un usuario
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /validate - Valida la cuenta de un usuario
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /login - Inicia sesión en la plataforma
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/PUT-blue?style=for-the-badge" style="margin-right: 10px;">
+        /user/update/profile - Actualiza el perfil del usuario
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/PATCH-yellow?style=for-the-badge" style="margin-right: 10px;">
+        /change-password - Cambia la contraseña existente
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /forgot-password - Envía un código de autenticación para reiniciar la contraseña
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /reset-password - Reinicio de contraseña
+    </li>
+</ul>
+
+## USERS
+
+<ul style="list-style-type: none;">
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /admin/users - Obtener todos los usuarios
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /users/:userId - Obtener los datos de un usuario en específico
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/PATCH-yellow?style=for-the-badge" style="margin-right: 10px;">
+        /admin/users/role/:userId - Cambia el rol de un usuario
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/DELETE-FF0000?style=for-the-badge" style="margin-right: 10px;">
+        /admin/users/delete/:userId - Elimina un usuario
+    </li>
+
+</ul>
+
+## ROOMS
+
+<ul style="list-style-type: none;">
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /rooms/create-room - Creación de un espacio
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/PUT-blue?style=for-the-badge" style="margin-right: 10px;">
+        /rooms/:id - Actualización de los datos de un espacio
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/DELETE-FF0000?style=for-the-badge" style="margin-right: 10px;">
+        /rooms/:id - Elimina un espacio
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /rooms - Obtener todos los espacios
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /rooms/:roomId - Obtener los datos de un espacio en específico
+    </li>
+        <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /rooms/:roomId/equipment - Añadir equipos existentes a un espacio
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /rooms/:roomId/equipment - Obtener el equipo presente en un espacio
+    </li>
+</ul>
+
+<ul style="list-style-type: none; ">
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /equipment/add - Añadir equipos
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/PATCH-yellow?style=for-the-badge" style="margin-right: 10px;">
+        /equipment/:equipmentId - Actualización de los datos de un equipo
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/DELETE-FF0000?style=for-the-badge" style="margin-right: 10px;">
+        /admin/equipment/delete/:equipmentId - Elimina un equipo
+    </li>
+        <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /equipment - Obtener todos los equipos
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /admin/equipment/:equipmentId - Obtener los datos de un equipo en específico
+    </li>
+</ul>
+
+## RESERVATIONS
+
+<ul style="list-style-type: none; ">
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /reservation/:roomId - Creación de una reserva
+    </li>
+        <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/DELETE-FF0000?style=for-the-badge" style="margin-right: 10px;">
+        /reservation/:reservationId - Cancelación de reserva
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /reservations/:userId - Obtener todas las reservas de un usuario
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /reservations/by-reservationId/:reservationId - Obtener los datos de una reserva en específico
+    </li>
+</ul>
+
+## REVIEWS
+
+<ul style="list-style-type: none; ">
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /review/create/:reservationId - Creación de una reseña
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/DELETE-FF0000?style=for-the-badge" style="margin-right: 10px;">
+        /review/delete/:reviewId - Elimina una reseña
+    </li>
+        <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/PATCH-yellow?style=for-the-badge" style="margin-right: 10px;">
+        /review/edit/:reviewId - Actualización de los datos de una reseña
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /review/:reviewId - Obtener los datos de una reseña en específico
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /reviews - Obtener todas las reseñas
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /reviews/by-userId/:userId - Obtener todas las reseñas de un usuario
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /reviews/by-roomId/:roomId - Obtener todas las reseñas de un espacio
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /reviews/by-reservationId/:reservationId - Obtener todas las reseñas de una reserva
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /review/check - Verifica si el usuario actual tiene reservas sin reseña
+    </li>
+</ul>
+
+## INCIDENTS
+
+<ul style="list-style-type: none; ">
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /incidents/:reservationId - Creación de una incidencia
+    </li>
+        <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/PATCH-yellow?style=for-the-badge" style="margin-right: 10px;">
+        /incidents/:incidentId - Actualización de los datos de una incidencia
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/DELETE-FF0000?style=for-the-badge" style="margin-right: 10px;">
+        /incidents/:incidentId - Elimina una incidencia
+    </li>
+        <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/DELETE-FF0000?style=for-the-badge" style="margin-right: 10px;">
+        /incidents/:incidentId - Elimina una incidencia (administrador)
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /incidents - Obtener todas las incidencias
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /incidents/:incidentId - Obtener los datos de una incidencia en específico
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /incidents/by-userid/:userId - Obtener todas las incidencias de un usuario
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /incidents/by-roomid/:roomId - Obtener todas las incidencias de un espacio
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /incidents/by-equipmentid/:equipmentId - Obtener todas las incidencias de un equipo
+    </li>
+</ul>
+
+## MEDIA
+
+<ul style="list-style-type: none; ">
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /user/:id/media/add-avatar - Añade o actualiza el avatar de un usuario
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /room/:id/cover - Añade o actualiza la portada de un espacio
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /room/:id/images - Añade imágenes a un espacio
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/POST-red?style=for-the-badge" style="margin-right: 10px;">
+        /incident/:id/media/add-media - Añade una imágen a una incidencia
+    </li>
+</ul>
+
+## SEARCH
+
+<ul style="list-style-type: none;">
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /rooms/types - Búsqueda de espacios por tipo
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /equipment/searchlist - Búsqueda de equipos
+    </li>
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="https://img.shields.io/badge/GET-339933?style=for-the-badge" style="margin-right: 10px;">
+        /rooms/searchReservations - Búsqueda de reservas por sala y fecha
+    </li>
+</ul>

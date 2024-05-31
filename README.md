@@ -29,7 +29,7 @@
 
 ## Fase de desarrollo
 
-Actualmente nos encontramos en pleno desarrollo de la aplicación. Sprint 2.
+Actualmente nos encontramos en pleno desarrollo de la aplicación. Sprint 3.
 
 <img src="https://github.com/JonathanADB/Coworking/blob/test-2/frontend/src/assets/images/home.png">
 
