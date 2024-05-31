@@ -11,6 +11,8 @@ const ViewReservation = () => {
   const { id } = useParams();
   const host = import.meta.env.VITE_APP_HOST;
   
+  console.log('ID de la reserva:',id)
+  
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -24,6 +24,8 @@ function ViewRoom() {
   const host = import.meta.env.VITE_APP_HOST;
   const navigate = useNavigate();
 
+console.log(roomData);
+
   useEffect(() => {
     fetch(`${host}/room/${id}`, {
       headers: {

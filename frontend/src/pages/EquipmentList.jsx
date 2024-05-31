@@ -65,15 +65,6 @@ export const EquipmentList = () => {
     });
   };
 
-  const location = useLocation();
-  console.log(location.pathname);
-
-  const [newUrl, setNewUrl] = useState();
-
-  useEffect(() => {
-    localStorage.setItem("returnPage", newUrl);
-  }, [newUrl]);
-  console.log({ newUrl });
 
   return (
     <div className="flex flex-col w-full">
@@ -147,6 +138,8 @@ export const EquipmentList = () => {
           <TableRow>
             <TableHead className="w-[200px]">Nombre</TableHead>
             <TableHead className="w-full">Descripción</TableHead>
+            <TableHead className="w-full">Cantidad</TableHead> 
+
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -161,6 +154,8 @@ export const EquipmentList = () => {
                   </Button>
                 </TableCell>
                 <TableCell>{equipment.description}</TableCell>
+                <TableCell>{equipment.inventory}</TableCell>
+
               </TableRow>
             ))
           ) : (

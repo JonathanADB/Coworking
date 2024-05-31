@@ -5,7 +5,6 @@ import { Label } from "@/components/UI/label";
 import { Button } from "@/components/UI/button";
 import { Textarea } from "@/components/UI/textarea";
 import { AuthContext } from "@/auth/auth-context";
-import { DataContext } from "@/components/DataContext";
 import { toast } from "react-toastify";
 import {
     Select,
@@ -17,9 +16,9 @@ import {
 
 const CreateIncident = () => {
   const { authState } = useContext(AuthContext);
-  const { rooms } = useContext(DataContext);
   const { id } = useParams();
   const host = import.meta.env.VITE_APP_HOST;
+  const [rooms, setRooms] = useState([])
   const [reservation, setReservation] = useState(null);
   const [equipment, setEquipment] = useState([]);
   const [incident, setIncident] = useState({
@@ -47,7 +46,6 @@ const CreateIncident = () => {
         }
 
         const data = await response.json();
-        console.log(data);
         setReservation(data.reservation);
 
         setIncident((prevIncident) => ({
@@ -58,24 +56,48 @@ const CreateIncident = () => {
         console.error("Error al cargar la reserva:", error);
       }
     };
+
+    const fetchRooms = async () => {
+      try {
+        const response = await fetch(`${host}/rooms`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: authState.token,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("No se ha podido cargar las salas");
+        }
+
+        const data = await response.json();
+        setRooms(data.message);
+      } catch (error) {
+        console.error("Error al cargar las salas:", error);
+      }
+    }
     fetchReservation();
+    fetchRooms();
   }, [id, authState.token]);
 
   useEffect(() => {
-    fetch(`${host}/rooms/${incident?.roomId}/equipment`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: authState.token,
-      },
-    })
-      .then((res) => res.json())
-      .then((body) => {
-        setEquipment(body.equipment);
+    if (incident?.roomId) {
+      fetch(`${host}/rooms/${incident.roomId}/equipment`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: authState.token,
+        },
       })
-      .catch((error) =>
-        console.error("Error al obtener los datos de las reseñas:", error)
-      );
-  }, [incident.roomId]);
+        .then((res) => res.json())
+        .then((body) => {
+          console.log(body)
+          setEquipment(body.equipment);
+        })
+        .catch((error) =>
+          console.error("Error al obtener los datos del equipo", error)
+        );
+    }
+  }, [incident?.roomId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -109,7 +131,7 @@ const CreateIncident = () => {
       });
 
             if (!response.ok) {
-                toast.Error('No se ha podido crear la incidencia');
+                toast.error('No se ha podido crear la incidencia');
             }
 
       toast.success("Incidencia creada correctamente");
@@ -137,8 +159,7 @@ const CreateIncident = () => {
               required
             />
           </div>
-          {console.log(incident)}
-          {authState.user.role === "admin" && (
+          {authState.user.role === "admin" && incident.roomId === 0 && (
             <div>
               <Label>Espacio</Label>
               <Select
@@ -167,7 +188,7 @@ const CreateIncident = () => {
             <Label>Equipo</Label>
             <Select
               disabled={
-                authState.user.role === "admin" && !incident.roomId
+                authState.user.role === "admin" && incident.roomId === 0
                   ? true
                   : false
               }

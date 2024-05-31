@@ -23,14 +23,15 @@ const MyReservations = () => {
             .then((body) => {
                 const nextReservations = body.reservations.filter(reservation => reservation.reservationCheckin === 0);
                 const pastReservations = body.reservations.filter(reservation => reservation.reservationCheckin === 1);
+                setReservations(body.reservations);
                 setNextReservations(nextReservations);
                 setPastReservations(pastReservations);
             })
     }, []);
         
-        //console.log(reservations)
-        console.log(pastReservations)
-        console.log(nextReservations)
+        console.log('Todas las reservas:',reservations)
+        console.log('Reservas anteriores:',pastReservations)
+        console.log('Próximas reservas:',nextReservations)
 
     return (
       <div className="p-4">

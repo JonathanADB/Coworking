@@ -14,6 +14,7 @@ export function AddEquipment() {
   const [equipmentData, setEquipmentData] = useState({
     name: "",
     description: "",
+    inventory: 1,
   });
 
   const handleChange = (e) => {
@@ -36,6 +37,7 @@ export function AddEquipment() {
       body: JSON.stringify({
         name: equipmentData.name,
         description: equipmentData.description,
+        inventory: equipmentData.inventory,
       }),
     });
     const { ok, error } = response;
@@ -73,6 +75,17 @@ export function AddEquipment() {
           name="description"
           placeholder='Descripción del artículo"'
           value={equipmentData.description}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <Label>Cantidad</Label>
+        <Input
+          type="number"
+          name="inventory"
+          placeholder='Cantidad'
+          value={equipmentData.inventory}
           onChange={handleChange}
           required
         />

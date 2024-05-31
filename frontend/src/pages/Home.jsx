@@ -46,18 +46,19 @@ const HomePage = () => {
     fetchRoomsIfNeeded(host, authState, rooms, updateRooms);
   }, [authState, rooms, updateRooms, host]);
 
-  console.log(rooms)
 
   return (
     <div className="w-full ">
       {/* <section>filtros</section> */}
       <section className="w-full ">
         <section className="flex flex-wrap justify-center gap-4 my-4">
+        <div class="border-b border-amber-600 w-full lg:border-transparent"></div>
+
           {rooms?.data?.length > 0 &&
             rooms?.data?.map((room) => (
               <figure
                 key={room.id}
-                className="relative w-[180px] max-w-[180px] aspect-[3-2] max-h-[120px] lg:w-[300px] lg:max-w-[300px] lg:h-[200px] lg:max-h-[200px] overflow-hidden rounded-lg hover:opacity-80"
+                className="relative w-[180px] max-w-[180px] aspect-[3-2] max-h-[120px] lg:w-[300px] lg:max-w-[300px] lg:h-[200px] lg:max-h-[200px] overflow-hidden rounded-lg hover:opacity-80 shadow-lg "
               >
                 <Link to={`/room/${room.id}`}>
                   <img

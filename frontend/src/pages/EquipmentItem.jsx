@@ -17,6 +17,7 @@ export function EquipmentItem() {
     id: "",
     name: "",
     description: "",
+    inventory: 1,
     createdAt: "",
     updatedAt: "",
     deletedAt: "",
@@ -61,6 +62,7 @@ export function EquipmentItem() {
         body: JSON.stringify({
           name: equipmentData.name,
           description: equipmentData.description,
+          inventory: equipmentData.inventory,
         }),
       });
       if (!response.ok) {
@@ -97,8 +99,6 @@ export function EquipmentItem() {
       );
   };
 
-  const returnUrl = localStorage.getItem("returnPage");
-  console.log({ returnUrl });
 
   return (
     <div className="w-full">
@@ -141,6 +141,18 @@ export function EquipmentItem() {
                 placeholder="Descripción del artículo"
                 className="w-2/3"
                 value={equipmentData.description}
+                onChange={handleChange}
+                disabled={!editing}
+              />
+            </div>        
+            <div className="flex flex-row items-center">
+              <Label className="w-1/3">Cantidad</Label>
+              <Input
+                type="number"
+                name="inventory"
+                placeholder="Cantidad"
+                className="w-2/3"
+                value={equipmentData.inventory}
                 onChange={handleChange}
                 disabled={!editing}
               />
